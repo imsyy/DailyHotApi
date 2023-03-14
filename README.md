@@ -1,0 +1,154 @@
+<div align="center">
+<img alt="logo" height="120" src="./public/favicon.png" width="120"/>
+<h2>今日热榜</h2>
+<p>一个聚合热门数据的 API 接口</p>
+</div>
+
+## 示例
+
+> 这里是使用该 API 的示例站点
+
+- [今日热榜 - https://hot.imsyy.top/](https://hot.imsyy.top/)
+
+## 总览
+
+> 🟢 状态正常
+> 🟠 可能失效
+> 🔴 无法使用
+
+| **站点** | **类别** | **调用名称** | **状态** |
+|--------|---------|-----------|--------|
+| 哔哩哔哩   | 热门榜     | bilibili  | 🟢     |
+| 知乎     | 热榜      | zhihu     | 🟢     |
+| 百度     | 热搜榜     | baidu     | 🟢     |
+| 百度贴吧   | 热议榜     | tieba     | 🟢     |
+|  少数派   | 热榜      | sspai     | 🟢     |
+| IT之家   | 热榜      | ithome    | 🟠     |
+| 澎湃新闻   | 热榜      | thepaper  | 🟢     |
+| 今日头条   | 热榜      | toutiao   | 🟢     |
+| 微博热搜   | 热搜榜     | weibo     | 🟢     |
+| 36氪    | 热榜      | 36kr      | 🟢     |
+|  腾讯新闻  |  热点榜    | newsqq    | 🔴     |
+
+## 调用
+
+### 获取榜单数据
+  
+> 获取数据只需在域名后面加上上方列表中的调用名称即可
+
+```http
+GET https://api-hot.imsyy.top/bilibili/
+```
+
+<details>
+<summary>调用示例</summary>
+
+```json
+{
+    "code": 200,
+    "message": "获取成功",
+    "title": "哔哩哔哩", // 榜单名称
+    "subtitle": "热门榜", // 榜单类别
+    "from": "server", // 此处返回是最新数据还是缓存
+    "total": 100, // 数据总数
+    "updateTime": "2023-03-14T07:40:51.846Z", // 数据获取时间
+    "data": [
+        {
+            "id": "BV1E84y1A7z2",
+            "title": "假如我的校园是一款RPG游戏！",
+            "desc": "所有取景都是在学校里面拍的，都是真实存在的场景哦！",
+            "pic": "http://i2.hdslb.com/bfs/archive/a24e442d0aae6d488db023c4ddcb450e9f2bf5f3.jpg",
+            "owner": {
+                "mid": 424658638,
+                "name": "四夕小田木_已黑化_",
+                "face": "https://i1.hdslb.com/bfs/face/afd9ba47933edc4842ccbeba2891a25465d1cf77.jpg"
+            },
+            "data": {
+                "aid": 610872610,
+                "view": 4178745,
+                "danmaku": 4229,
+                "reply": 5317,
+                "favorite": 91020,
+                "coin": 133596,
+                "share": 46227,
+                "now_rank": 0,
+                "his_rank": 1,
+                "like": 616519,
+                "dislike": 0,
+                "vt": 0,
+                "vv": 0
+            },
+            "url": "https://b23.tv/BV1E84y1A7z2",
+            "mobileUrl": "https://m.bilibili.com/video/BV1E84y1A7z2"
+        },
+        ...
+    ]
+}
+```
+</details>
+
+### 获取榜单最新数据
+
+> 获取最新数据只需在原链接后面加上 `/new`，这样就会直接从服务端拉取最新数据，不会从本地缓存中读取
+
+```http
+GET https://api-hot.imsyy.top/bilibili/new
+```
+
+<details>
+<summary>调用示例</summary>
+
+```json
+{
+    "code": 200,
+    "message": "获取成功",
+    "title": "哔哩哔哩", // 榜单名称
+    "subtitle": "热门榜", // 榜单类别
+    "total": 100, // 数据总数
+    "updateTime": "2023-03-14T07:40:51.846Z", // 数据获取时间
+    "data": [
+        {
+            "id": "BV1E84y1A7z2",
+            "title": "假如我的校园是一款RPG游戏！",
+            "desc": "所有取景都是在学校里面拍的，都是真实存在的场景哦！",
+            "pic": "http://i2.hdslb.com/bfs/archive/a24e442d0aae6d488db023c4ddcb450e9f2bf5f3.jpg",
+            "owner": {
+                "mid": 424658638,
+                "name": "四夕小田木_已黑化_",
+                "face": "https://i1.hdslb.com/bfs/face/afd9ba47933edc4842ccbeba2891a25465d1cf77.jpg"
+            },
+            "data": {
+                "aid": 610872610,
+                "view": 4178745,
+                "danmaku": 4229,
+                "reply": 5317,
+                "favorite": 91020,
+                "coin": 133596,
+                "share": 46227,
+                "now_rank": 0,
+                "his_rank": 1,
+                "like": 616519,
+                "dislike": 0,
+                "vt": 0,
+                "vv": 0
+            },
+            "url": "https://b23.tv/BV1E84y1A7z2",
+            "mobileUrl": "https://m.bilibili.com/video/BV1E84y1A7z2"
+        },
+        ...
+    ]
+}
+```
+</details>
+
+## 其他
+
+- 本项目为了避免频繁请求官方数据，默认对数据做了缓存处理，默认为 `30` 分钟，如需更改，请自行前往 `utils\cacheData.js` 文件修改
+- 本项目部分接口使用了 **页面爬虫**，若违反对应页面的相关规则，请 **及时通知我去除该接口**
+
+## 免责声明
+
+- 本项目提供的 `API` 仅供开发者进行技术研究和开发测试使用。使用该 `API` 获取的信息仅供参考，不代表本项目对信息的准确性、可靠性、合法性、完整性作出任何承诺或保证。本项目不对任何因使用该 `API` 获取信息而导致的任何直接或间接损失负责。本项目保留随时更改 `API` 接口地址、接口协议、接口参数及其他相关内容的权利。本项目对使用者使用 `API` 的行为不承担任何直接或间接的法律责任
+- 本项目并未与相关信息提供方建立任何关联或合作关系，获取的信息均来自公开渠道，如因使用该 `API` 获取信息而产生的任何法律责任，由使用者自行承担
+- 本项目对使用 `API` 获取的信息进行了最大限度的筛选和整理，但不保证信息的准确性和完整性。使用 `API` 获取信息时，请务必自行核实信息的真实性和可靠性，谨慎处理相关事项
+- 本项目保留对 `API` 的随时更改、停用、限制使用等措施的权利。任何因使用本 `API` 产生的损失，本项目不负担任何赔偿和责任

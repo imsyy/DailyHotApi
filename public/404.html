@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>404 | Linkbook API</title>
+    <link
+      rel="shortcut icon"
+      href="https://img.imsyy.top/logo/imsyy.png"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --text-color: #000;
+        --text-color-gray: #888;
+        --text-color-hover: #fff;
+        --icon-color: #444;
+      }
+      html.dark-mode {
+        --text-color: #fff;
+        --text-color-gray: #888;
+        --text-color-hover: #3c3c3c;
+        --icon-color: #cbcbcb;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+      html {
+        height: 100%;
+      }
+      body {
+        background-color: var(--text-color-hover);
+        color: var(--text-color);
+        font-family: "PingFang SC", "Open Sans", "Microsoft YaHei", sans-serif;
+        transition: background-color 0.5s, color 0.5s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+      }
+      .dark-mode body {
+        background-color: #2a2a2a;
+      }
+      main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+      }
+      a {
+        text-decoration: none;
+        color: var(--text-color-gray);
+        transition: all 0.5s ease;
+      }
+      a:hover {
+        color: var(--text-color);
+      }
+      .ico {
+        margin: 4rem 2rem;
+        font-size: 6rem;
+        color: var(--text-color-gray);
+      }
+      .title {
+        font-size: 2rem;
+        font-weight: bold;
+      }
+      .text {
+        margin: 1rem;
+      }
+      .control button {
+        background-color: var(--text-color-hover);
+        border: var(--text-color) solid;
+        border-radius: 4px;
+        padding: 0.5rem 1rem;
+        transition: all 0.5s ease;
+        margin: 1rem 0.2rem;
+        color: var(--text-color);
+        cursor: pointer;
+      }
+      .control button:hover {
+        border: var(--text-color) solid;
+        background: var(--text-color);
+        color: var(--text-color-hover);
+      }
+      .control button i {
+        margin-right: 6px;
+      }
+      footer {
+        line-height: 1.75rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 140px;
+      }
+      footer .social {
+        color: var(--icon-color);
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      }
+      footer .social i {
+        margin: 0 12px;
+      }
+      footer .point::before {
+        content: "·";
+        color: var(--text-color-gray);
+      }
+      .power,
+      .icp {
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="ico"><i class="fa-solid fa-circle-exclamation"></i></div>
+      <div class="title">404 Not Found</div>
+      <div class="text">请检查您的路径</div>
+      <div class="control">
+        <button onclick="window.location.href = '/'">
+          <i class="fa-solid fa-house"></i>
+          <span>回到首页</span>
+        </button>
+      </div>
+    </main>
+    <footer>
+      <div class="social">
+        <i class="fa-brands fa-github" onclick="socialJump('github')"></i>
+        <div class="point"></div>
+        <i class="fa-solid fa-house" onclick="socialJump('home')"></i>
+        <div class="point"></div>
+        <i class="fa-solid fa-envelope" onclick="socialJump('email')"></i>
+      </div>
+      <div class="power">
+        Copyright © 2020
+        <script>
+          document.write(" - " + new Date().getFullYear());
+        </script>
+        <a href="https://imsyy.top/" target="_blank">無名</a>
+      </div>
+      <div class="icp">
+        <a href="https://beian.miit.gov.cn/" target="_blank"
+          >豫ICP备2022018134号-1</a
+        >
+      </div>
+    </footer>
+    <script>
+      // 跟随系统主题
+      const darkModeMediaQuery = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      );
+      const toggleDarkMode = (darkModeMediaQuery) => {
+        if (darkModeMediaQuery.matches) {
+          document.documentElement.classList.add("dark-mode");
+        } else {
+          document.documentElement.classList.remove("dark-mode");
+        }
+      };
+      darkModeMediaQuery.addListener(toggleDarkMode);
+      toggleDarkMode(darkModeMediaQuery);
+
+      // 按钮事件
+      const clickFunction = () => {
+        window.location.href = "/api/links";
+      };
+
+      // 社交链接跳转
+      const socialJump = (type) => {
+        switch (type) {
+          case "github":
+            window.location.href = "https://github.com/imsyy/";
+            break;
+          case "home":
+            window.location.href = "https://www.imsyy.top/";
+            break;
+          case "email":
+            window.location.href = "mailto:one@imsyy.top";
+            break;
+          default:
+            break;
+        }
+      };
+    </script>
+  </body>
+</html>
