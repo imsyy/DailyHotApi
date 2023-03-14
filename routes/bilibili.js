@@ -20,7 +20,7 @@ const getData = (data) => {
       id: v.bvid,
       title: v.title,
       desc: v.desc,
-      pic: v.pic,
+      pic: v.pic.replace(/http:/, "https:"),
       owner: v.owner,
       data: v.stat,
       url: v.short_link,
