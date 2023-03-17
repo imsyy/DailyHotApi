@@ -10,6 +10,8 @@ const sspaiRouter = require("./sspai");
 const tiebaRouter = require("./tieba");
 const toutiaoRouter = require("./toutiao");
 const thepaperRouter = require("./thepaper");
+const juejinRouter = require("./juejin");
+const newsqqRouter = require("./newsqq");
 
 const router = new Router();
 
@@ -28,6 +30,8 @@ router.use(sspaiRouter.routes());
 router.use(tiebaRouter.routes());
 router.use(toutiaoRouter.routes());
 router.use(thepaperRouter.routes());
+router.use(juejinRouter.routes());
+router.use(newsqqRouter.routes());
 
 // 404 路由
 router.use(async (ctx) => {

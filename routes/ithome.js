@@ -90,6 +90,7 @@ itHomeRouter.get("/ithome", async (ctx) => {
       title: "IT之家",
       subtitle: "热榜",
       from,
+      total: data.length,
       updateTime,
       data,
     };
@@ -119,6 +120,7 @@ itHomeRouter.get("/ithome/new", async (ctx) => {
       title: "IT之家",
       subtitle: "热榜",
       updateTime,
+      total: data.length,
       data: newData,
     };
 
@@ -136,6 +138,7 @@ itHomeRouter.get("/ithome/new", async (ctx) => {
         message: "获取成功",
         title: "IT之家",
         subtitle: "热榜",
+        total: data.length,
         updateTime,
         data: cachedData,
       };
