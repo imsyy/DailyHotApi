@@ -26,30 +26,32 @@ const replaceLink = (url) => {
 // 数据处理
 const getData = (data) => {
   if (!data) return false;
-  const dataList = {};
+  const dataList = [];
   const $ = cheerio.load(data);
   try {
     $(".rank-name").each(function () {
       const type = $(this).data("rank-type");
       const newListHtml = $(this).next(".rank-box").html();
-      const newsList = cheerio
+      cheerio
         .load(newListHtml)(".placeholder")
         .get()
         .map((v) => {
-          return {
+          dataList.push({
             title: $(v).find(".plc-title").text(),
             img: $(v).find("img").attr("data-original"),
             time: $(v).find(".post-time").text(),
-            hot: $(v).find(".review-num").text(),
+            type: $(this).text(),
+            typeName: type,
+            hot: Number($(v).find(".review-num").text().replace(/\D/g, "")),
             url: replaceLink($(v).find("a").attr("href")),
             mobileUrl: $(v).find("a").attr("href"),
-          };
+          });
         });
-      dataList[type] = {
-        name: $(this).text(),
-        total: newsList.length,
-        list: newsList,
-      };
+      // dataList[type] = {
+      //   name: $(this).text(),
+      //   total: newsList.length,
+      //   list: newsList,
+      // };
     });
     return dataList;
   } catch (error) {
