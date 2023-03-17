@@ -23,6 +23,7 @@ const getData = (data) => {
       pic: v.pic.replace(/http:/, "https:"),
       owner: v.owner,
       data: v.stat,
+      hot: v.stat.view,
       url: v.short_link,
       mobileUrl: `https://m.bilibili.com/video/${v.bvid}`,
     };

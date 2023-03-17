@@ -25,7 +25,7 @@ const getData = (data) => {
         title: v.query,
         desc: v.desc,
         pic: v.img,
-        hot: v.hotScore,
+        hot: Number(v.hotScore),
         url: `https://www.baidu.com/s?wd=${encodeURIComponent(v.query)}`,
         mobileUrl: v.url,
       });

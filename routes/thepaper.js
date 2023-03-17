@@ -20,6 +20,7 @@ const getData = (data) => {
       id: v.contId,
       title: v.name,
       pic: v.pic,
+      hot: v.praiseTimes,
       time: v.pubTime,
       url: `https://www.thepaper.cn/newsDetail_forward_${v.contId}`,
       mobileUrl: `https://m.thepaper.cn/newsDetail_forward_${v.contId}`,
