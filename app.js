@@ -31,14 +31,14 @@ app.use(async (ctx, next) => {
   if (domain === "*") {
     await next();
   } else {
-    if (ctx.headers.referer !== domain) {
-      ctx.status = 400;
+    if (ctx.headers.origin === domain || ctx.headers.referer === domain) {
+      await next();
+    } else {
+      ctx.status = 403;
       ctx.body = {
-        code: 400,
+        code: 403,
         message: "请通过正确的域名访问",
       };
-    } else {
-      await next();
     }
   }
 });
