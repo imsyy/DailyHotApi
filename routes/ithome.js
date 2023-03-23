@@ -78,6 +78,8 @@ itHomeRouter.get("/ithome", async (ctx) => {
       if (!data) {
         ctx.body = {
           code: 500,
+          title: "IT之家",
+          subtitle: "热榜",
           message: "获取失败",
         };
         return false;
