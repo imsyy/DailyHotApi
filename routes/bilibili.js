@@ -61,6 +61,8 @@ bilibiliRouter.get("/bilibili", async (ctx) => {
     console.error(error);
     ctx.body = {
       code: 500,
+      title: "哔哩哔哩",
+      subtitle: "热门榜",
       message: "哔哩哔哩热门榜获取失败",
     };
   }
@@ -109,7 +111,9 @@ bilibiliRouter.get("/bilibili/new", async (ctx) => {
       // 如果缓存中也没有数据，则返回错误信息
       ctx.body = {
         code: 500,
-        message: "哔哩哔哩热门榜获取失败",
+        title: "哔哩哔哩",
+        subtitle: "热门榜",
+        message: "获取失败",
       };
     }
   }

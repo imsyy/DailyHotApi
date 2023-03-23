@@ -60,6 +60,8 @@ sspaiRouter.get("/sspai", async (ctx) => {
     console.error(error);
     ctx.body = {
       code: 500,
+      title: "少数派",
+      subtitle: "最热",
       message: "获取失败",
     };
   }
@@ -108,6 +110,8 @@ sspaiRouter.get("/sspai/new", async (ctx) => {
       // 如果缓存中也没有数据，则返回错误信息
       ctx.body = {
         code: 500,
+        title: "少数派",
+        subtitle: "最热",
         message: "获取失败",
       };
     }

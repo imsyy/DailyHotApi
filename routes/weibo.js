@@ -71,6 +71,8 @@ weiboRouter.get("/weibo", async (ctx) => {
     console.error(error);
     ctx.body = {
       code: 500,
+      title: "微博",
+      subtitle: "热搜榜",
       message: "获取失败",
     };
   }
@@ -119,6 +121,8 @@ weiboRouter.get("/weibo/new", async (ctx) => {
       // 如果缓存中也没有数据，则返回错误信息
       ctx.body = {
         code: 500,
+        title: "微博",
+        subtitle: "热搜榜",
         message: "获取失败",
       };
     }

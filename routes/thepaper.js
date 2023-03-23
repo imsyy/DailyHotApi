@@ -59,6 +59,8 @@ thepaperRouter.get("/thepaper", async (ctx) => {
     console.error(error);
     ctx.body = {
       code: 500,
+      title: "澎湃新闻",
+      subtitle: "热榜",
       message: "获取失败",
     };
   }
@@ -107,6 +109,8 @@ thepaperRouter.get("/thepaper/new", async (ctx) => {
       // 如果缓存中也没有数据，则返回错误信息
       ctx.body = {
         code: 500,
+        title: "澎湃新闻",
+        subtitle: "热榜",
         message: "获取失败",
       };
     }

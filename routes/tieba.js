@@ -59,6 +59,8 @@ tiebaRouter.get("/tieba", async (ctx) => {
     console.error(error);
     ctx.body = {
       code: 500,
+      title: "百度贴吧",
+      subtitle: "热议榜",
       message: "获取失败",
     };
   }
@@ -107,6 +109,8 @@ tiebaRouter.get("/tieba/new", async (ctx) => {
       // 如果缓存中也没有数据，则返回错误信息
       ctx.body = {
         code: 500,
+        title: "百度贴吧",
+        subtitle: "热议榜",
         message: "获取失败",
       };
     }
