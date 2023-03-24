@@ -2,10 +2,12 @@
   "name": "dailyhot_api",
   "version": "0.0.1",
   "description": "一个今日热榜 .",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node app.js",
-    "build": "node app.js"
+    "start": "node index.js",
+    "dev": "./node_modules/.bin/nodemon index.js",
+    "prd": "pm2 start index.js",
+    "build": "node index.js"
   },
   "author": "imsyy",
   "license": "MIT",
@@ -19,6 +21,7 @@
     "koa-static": "^5.0.0",
     "koa-views": "^8.0.0",
     "koa2-cors": "^2.0.6",
-    "node-cache": "^5.1.2"
+    "node-cache": "^5.1.2",
+    "nodemon": "^2.0.22"
   }
 }
