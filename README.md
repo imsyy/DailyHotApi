@@ -17,19 +17,19 @@
 > 🔴 无法使用
 
 | **站点** | **类别** | **调用名称** | **状态** |
-|--------|---------|-----------|--------|
-| 哔哩哔哩   | 热门榜     | bilibili  | 🟢     |
-| 知乎     | 热榜      | zhihu     | 🟢     |
-| 百度     | 热搜榜     | baidu     | 🟢     |
-| 百度贴吧   | 热议榜     | tieba     | 🟢     |
-|  少数派   | 热榜      | sspai     | 🟢     |
-| IT之家   | 热榜      | ithome    | 🟠     |
-| 澎湃新闻   | 热榜      | thepaper  | 🟢     |
-| 今日头条   | 热榜      | toutiao   | 🟢     |
-| 微博热搜   | 热搜榜     | weibo     | 🟢     |
-| 36氪    | 热榜      | 36kr      | 🟢     |
-|  稀土掘金  |  热榜    | juejin    | 🟢     |
-|  腾讯新闻  |  热点榜    | newsqq    | 🟢     |
+| -------- | -------- | ------------ | -------- |
+| 哔哩哔哩 | 热门榜   | bilibili     | 🟢        |
+| 知乎     | 热榜     | zhihu        | 🟢        |
+| 百度     | 热搜榜   | baidu        | 🟢        |
+| 百度贴吧 | 热议榜   | tieba        | 🟢        |
+| 少数派   | 热榜     | sspai        | 🟢        |
+| IT之家   | 热榜     | ithome       | 🟠        |
+| 澎湃新闻 | 热榜     | thepaper     | 🟢        |
+| 今日头条 | 热榜     | toutiao      | 🟢        |
+| 微博热搜 | 热搜榜   | weibo        | 🟢        |
+| 36氪     | 热榜     | 36kr         | 🟢        |
+| 稀土掘金 | 热榜     | juejin       | 🟢        |
+| 腾讯新闻 | 热点榜   | newsqq       | 🟢        |
 
 ## 部署
 
@@ -40,6 +40,17 @@ pnpm install
 // 运行
 pnpm start
 ```
+
+## Vercel 部署
+
+现已支持 Vercel 部署，无需服务器
+
+### 操作方法
+
+1. fork 本项目
+2. 在 `Vercel` 官网点击 `New Project`
+3. 点击 `Import Git Repository` 并选择你 fork 的此项目并点击 `import`
+4. `PROJECT NAME`自己填，`FRAMEWORK PRESET` 选 `Other` 然后直接点 `Deploy` 接着等部署完成即可  
 
 ## 调用
 
