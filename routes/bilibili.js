@@ -24,7 +24,7 @@ const getData = (data) => {
       owner: v.owner,
       data: v.stat,
       hot: v.stat.view,
-      url: v.short_link,
+      url: v.short_link_v2 || `https://b23.tv/${v.bvid}`,
       mobileUrl: `https://m.bilibili.com/video/${v.bvid}`,
     };
   });
