@@ -1,7 +1,7 @@
 {
   "name": "dailyhot_api",
-  "version": "0.0.1",
-  "description": "一个今日热榜 .",
+  "version": "0.0.2",
+  "description": "一个今日热榜",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",

@@ -1,0 +1,23 @@
+name: 添加接口
+description: 请填写希望添加的接口信息
+title: "[添加接口]"
+labels: [add]
+body:
+  - type: input
+    id: name
+    validations:
+      required: true
+    attributes:
+      label: "希望添加哪个接口？"
+      placeholder: "请填写接口名称"
+  - type: input
+    id: site-url
+    attributes:
+      label: "官方接口地址"
+      description: "如果有的话，请提供官方接口地址"
+      placeholder: "请填写接口地址"
+  - type: textarea
+    id: other
+    attributes:
+      label: "其他信息"
+      description: "还需要说些什么吗"
