@@ -1,6 +1,6 @@
 name: 添加接口
 description: 请填写希望添加的接口信息
-title: "[添加接口]"
+title: "添加接口"
 labels: [add]
 body:
   - type: input
