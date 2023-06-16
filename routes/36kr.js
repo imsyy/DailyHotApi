@@ -46,6 +46,7 @@ krRouter.get("/36kr", async (ctx) => {
           siteId: 1,
           platformId: 2,
         },
+        timestamp: new Date().getTime(),
       });
       data = getData(response.data.data.hotRankList);
       updateTime = new Date().toISOString();
@@ -84,6 +85,7 @@ krRouter.get("/36kr/new", async (ctx) => {
         siteId: 1,
         platformId: 2,
       },
+      timestamp: new Date().getTime(),
     });
     const newData = getData(response.data.data.hotRankList);
     updateTime = new Date().toISOString();

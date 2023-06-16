@@ -21,7 +21,6 @@ const url = `https://baike.baidu.com/cms/home/eventsOnHistory/${month}.json`;
 // 数据处理
 const getData = (data) => {
   if (!data) return [];
-  console.log(data);
   return data.map((v) => {
     return {
       year: v.year,
