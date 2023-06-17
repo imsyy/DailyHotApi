@@ -4,7 +4,7 @@ const axios = require("axios");
 const { get, set, del } = require("../utils/cacheData");
 
 // 缓存键名
-const cacheKey = "krData";
+const cacheKey = "sspaiData";
 
 // 调用时间
 let updateTime = new Date().toISOString();
