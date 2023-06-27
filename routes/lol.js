@@ -83,7 +83,7 @@ lolRouter.get("/lol", async (ctx) => {
 });
 
 // 英雄联盟更新公告 - 获取最新数据
-lolRouter.get("/baidu/new", async (ctx) => {
+lolRouter.get("/lol/new", async (ctx) => {
   console.log("获取英雄联盟更新公告 - 最新数据");
   try {
     // 从服务器拉取最新数据
