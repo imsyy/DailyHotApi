@@ -11,16 +11,18 @@ const cacheCookieKey = "douyinCookieData";
 let updateTime = new Date().toISOString();
 
 // 调用路径
-const url = "https://www.douyin.com/aweme/v1/web/hot/search/list/?device_platform=webapp&aid=6383&channel=channel_pc_web&detail_list=1&round_trip_time=50";
+const url =
+  "https://www.douyin.com/aweme/v1/web/hot/search/list/?device_platform=webapp&aid=6383&channel=channel_pc_web&detail_list=1&round_trip_time=50";
 
-// Token获取路径
-const cookisUrl = "https://www.douyin.com/passport/general/login_guiding_strategy/?aid=6383";
+// Token 获取路径
+const cookisUrl =
+  "https://www.douyin.com/passport/general/login_guiding_strategy/?aid=6383";
 
 // 数据处理
 const getData = (data) => {
   if (!data) return [];
   const dataList = [];
-try {
+  try {
     const jsonObject = data.data.word_list;
     jsonObject.forEach((v) => {
       dataList.push({
@@ -28,30 +30,48 @@ try {
         pic: `${v.word_cover.url_list[0]}`,
         hot: Number(v.hot_value),
         url: `https://www.douyin.com/hot/${encodeURIComponent(v.sentence_id)}`,
-        mobileUrl: `https://www.douyin.com/hot/${encodeURIComponent(v.sentence_id)}`,
+        mobileUrl: `https://www.douyin.com/hot/${encodeURIComponent(
+          v.sentence_id
+        )}`,
       });
     });
     return dataList;
   } catch (error) {
     console.error("数据处理出错" + error);
-    return false;
+    return [];
   }
 };
 
-// 处理Cookis
-const getCookies = (data) => {
-    if(!data) return null;
-try {
+// 处理抖音 Cookis
+const setDouyinCookies = (data) => {
+  if (!data) return null;
+  try {
     const pattern = /passport_csrf_token=(.*); Path/s;
     const matchResult = data.headers["set-cookie"][0].match(pattern);
     const cookieData = matchResult[1];
     return cookieData;
+  } catch (error) {
+    console.error("获取抖音 Cookie 出错" + error);
+    return null;
+  }
+};
 
-} catch (error) {
-    console.error("获取Cookis出错" + error);
-    return false;
-}
-}
+// 获取抖音 Cookie数据
+const getDouyinCookie = async () => {
+  try {
+    let cookie = await get(cacheCookieKey);
+    if (!cookie) {
+      const cookisResponse = await axios.get(cookisUrl);
+      cookie = setDouyinCookies(cookisResponse);
+      console.log("抖音 Cookie 写入缓存", cookie);
+      await set(cacheCookieKey, cookie);
+    }
+    return cookie;
+  } catch (error) {
+    console.error("获取抖音 Cookie 出错", error);
+    return null;
+  }
+};
 
 // 抖音热点榜
 douyinRouter.get("/douyin", async (ctx) => {
@@ -59,28 +79,17 @@ douyinRouter.get("/douyin", async (ctx) => {
   try {
     // 从缓存中获取数据
     let data = await get(cacheKey);
-    const cookie = await get(cacheCookieKey);
+    const cookie = await getDouyinCookie();
     const from = data ? "cache" : "server";
     if (!data) {
-      if(!cookie) {
-        // 获取Cookies
-        let cookisResponse = await axios.get(cookisUrl);
-        let cookie = getCookies(cookisResponse);
-        
-        // 将Cookie写入缓存
-        console.log('--- Cookie写入缓存 ---', cookie);
-        await set(cacheCookieKey, cookie);
-      }
-
       // 如果缓存中不存在数据
       console.log("从服务端重新获取抖音热点榜");
       // 从服务器拉取数据
       const response = await axios.get(url, {
         headers: {
-          'Cookie': `passport_csrf_token=${cookie}`
-        }
+          Cookie: `passport_csrf_token=${cookie}`,
+        },
       });
-
       data = getData(response.data);
       updateTime = new Date().toISOString();
       if (!data) {
@@ -117,23 +126,13 @@ douyinRouter.get("/douyin", async (ctx) => {
 // 抖音热点榜 - 获取最新数据
 douyinRouter.get("/douyin/new", async (ctx) => {
   console.log("获取抖音热点榜 - 最新数据");
-  const cookie = await get(cacheCookieKey);
   try {
-    if(!cookie) {
-      // 获取Cookies
-      let cookisResponse = await axios.get(cookisUrl);
-      let cookie = getCookies(cookisResponse);
-      
-      // 将Cookie写入缓存
-      console.log('--- Cookie写入缓存 ---', cookie);
-      await set(cacheCookieKey, cookie);
-    }
-
     // 从服务器拉取最新数据
+    const cookie = await getDouyinCookie();
     const response = await axios.get(url, {
       headers: {
-        'Cookie': `passport_csrf_token=${cookie}`
-      }
+        Cookie: `passport_csrf_token=${cookie}`,
+      },
     });
     const newData = getData(response.data);
     updateTime = new Date().toISOString();
