@@ -3,6 +3,12 @@ const newsqqRouter = new Router();
 const axios = require("axios");
 const { get, set, del } = require("../utils/cacheData");
 
+// 接口信息
+const routerInfo = {
+  title: "腾讯新闻",
+  subtitle: "热点榜",
+};
+
 // 缓存键名
 const cacheKey = "newsqqData";
 
@@ -49,8 +55,7 @@ newsqqRouter.get("/newsqq", async (ctx) => {
     ctx.body = {
       code: 200,
       message: "获取成功",
-      title: "腾讯新闻",
-      subtitle: "热点榜",
+      ...routerInfo,
       from,
       total: data.length,
       updateTime,
@@ -60,8 +65,7 @@ newsqqRouter.get("/newsqq", async (ctx) => {
     console.error(error);
     ctx.body = {
       code: 500,
-      title: "腾讯新闻",
-      subtitle: "热点榜",
+      ...routerInfo,
       message: "获取失败",
     };
   }
@@ -81,8 +85,7 @@ newsqqRouter.get("/newsqq/new", async (ctx) => {
     ctx.body = {
       code: 200,
       message: "获取成功",
-      title: "腾讯新闻",
-      subtitle: "热点榜",
+      ...routerInfo,
       total: newData.length,
       updateTime,
       data: newData,
@@ -100,8 +103,7 @@ newsqqRouter.get("/newsqq/new", async (ctx) => {
       ctx.body = {
         code: 200,
         message: "获取成功",
-        title: "腾讯新闻",
-        subtitle: "热点榜",
+        ...routerInfo,
         total: cachedData.length,
         updateTime,
         data: cachedData,
@@ -110,12 +112,12 @@ newsqqRouter.get("/newsqq/new", async (ctx) => {
       // 如果缓存中也没有数据，则返回错误信息
       ctx.body = {
         code: 500,
-        title: "腾讯新闻",
-        subtitle: "热点榜",
+        ...routerInfo,
         message: "获取失败",
       };
     }
   }
 });
 
+newsqqRouter.info = routerInfo;
 module.exports = newsqqRouter;

@@ -1,0 +1,39 @@
+{
+  "opts": {},
+  "methods": ["HEAD", "OPTIONS", "GET", "PUT", "PATCH", "POST", "DELETE"],
+  "exclusive": false,
+  "params": {},
+  "stack": [
+    {
+      "opts": {
+        "end": true,
+        "name": null,
+        "sensitive": false,
+        "strict": false,
+        "prefix": ""
+      },
+      "name": null,
+      "methods": ["HEAD", "GET"],
+      "paramNames": [],
+      "stack": [null],
+      "path": "/zhihu",
+      "regexp": {}
+    },
+    {
+      "opts": {
+        "end": true,
+        "name": null,
+        "sensitive": false,
+        "strict": false,
+        "prefix": ""
+      },
+      "name": null,
+      "methods": ["HEAD", "GET"],
+      "paramNames": [],
+      "stack": [null],
+      "path": "/zhihu/new",
+      "regexp": {}
+    }
+  ],
+  "info": { "title": "知乎", "subtitle": "热榜" }
+}

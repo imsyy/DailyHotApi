@@ -32,16 +32,25 @@
 | 腾讯新闻     | 热点榜   | newsqq       | 🟢       |
 | 抖音热榜     | 热点榜   | douyin       | 🟢       |
 | 英雄联盟     | 更新公告 | lol          | 🟢       |
+| 微信读书     | 飙升榜   | weread       | 🟢       |
 | 历史上的今天 | 指定日期 | calendar     | 🟢       |
 
 ### 特殊接口说明
+
+#### 获取全部接口信息
+
+获取除了下方特殊接口外的全部接口列表
+
+```http
+GET https://{example.com}/all
+```
 
 #### 历史上的今天（指定日期）
 
 将指定的月份和日期传入即可得到当天数据，请注意格式
 
 ```http
-GET https://api-hot.imsyy.top/calendar/date?month=06&day=01
+GET https://{example.com}/calendar/date?month=06&day=01
 ```
 
 ## 部署

@@ -3,6 +3,12 @@ const bilibiliRouter = new Router();
 const axios = require("axios");
 const { get, set, del } = require("../utils/cacheData");
 
+// 接口信息
+const routerInfo = {
+  title: "哔哩哔哩",
+  subtitle: "热门榜",
+};
+
 // 缓存键名
 const cacheKey = "bilibiliData";
 
@@ -50,8 +56,7 @@ bilibiliRouter.get("/bilibili", async (ctx) => {
     ctx.body = {
       code: 200,
       message: "获取成功",
-      title: "哔哩哔哩",
-      subtitle: "热门榜",
+      ...routerInfo,
       from,
       total: data.length,
       updateTime,
@@ -61,9 +66,8 @@ bilibiliRouter.get("/bilibili", async (ctx) => {
     console.error(error);
     ctx.body = {
       code: 500,
-      title: "哔哩哔哩",
-      subtitle: "热门榜",
-      message: "哔哩哔哩热门榜获取失败",
+      ...routerInfo,
+      message: "获取失败",
     };
   }
 });
@@ -82,8 +86,7 @@ bilibiliRouter.get("/bilibili/new", async (ctx) => {
     ctx.body = {
       code: 200,
       message: "获取成功",
-      title: "哔哩哔哩",
-      subtitle: "热门榜",
+      ...routerInfo,
       total: newData.length,
       updateTime,
       data: newData,
@@ -101,8 +104,7 @@ bilibiliRouter.get("/bilibili/new", async (ctx) => {
       ctx.body = {
         code: 200,
         message: "获取成功",
-        title: "哔哩哔哩",
-        subtitle: "热门榜",
+        ...routerInfo,
         total: cachedData.length,
         updateTime,
         data: cachedData,
@@ -111,12 +113,12 @@ bilibiliRouter.get("/bilibili/new", async (ctx) => {
       // 如果缓存中也没有数据，则返回错误信息
       ctx.body = {
         code: 500,
-        title: "哔哩哔哩",
-        subtitle: "热门榜",
+        ...routerInfo,
         message: "获取失败",
       };
     }
   }
 });
 
+bilibiliRouter.info = routerInfo;
 module.exports = bilibiliRouter;

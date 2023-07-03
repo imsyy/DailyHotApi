@@ -3,6 +3,9 @@ const baiduRouter = new Router();
 const axios = require("axios");
 const { get, set, del } = require("../utils/cacheData");
 
+// 接口信息
+const routerInfo = { title: "百度", subtitle: "热搜榜" };
+
 // 缓存键名
 const cacheKey = "baiduData";
 
@@ -54,8 +57,7 @@ baiduRouter.get("/baidu", async (ctx) => {
       if (!data) {
         ctx.body = {
           code: 500,
-          title: "百度",
-          subtitle: "热搜榜",
+          ...routerInfo,
           message: "获取失败",
         };
         return false;
@@ -66,8 +68,7 @@ baiduRouter.get("/baidu", async (ctx) => {
     ctx.body = {
       code: 200,
       message: "获取成功",
-      title: "百度",
-      subtitle: "热搜榜",
+      ...routerInfo,
       from,
       total: data.length,
       updateTime,
@@ -96,8 +97,7 @@ baiduRouter.get("/baidu/new", async (ctx) => {
     ctx.body = {
       code: 200,
       message: "获取成功",
-      title: "百度",
-      subtitle: "热搜榜",
+      ...routerInfo,
       total: newData.length,
       updateTime,
       data: newData,
@@ -115,8 +115,7 @@ baiduRouter.get("/baidu/new", async (ctx) => {
       ctx.body = {
         code: 200,
         message: "获取成功",
-        title: "百度",
-        subtitle: "热搜榜",
+        ...routerInfo,
         total: cachedData.length,
         updateTime,
         data: cachedData,
@@ -125,12 +124,12 @@ baiduRouter.get("/baidu/new", async (ctx) => {
       // 如果缓存中也没有数据，则返回错误信息
       ctx.body = {
         code: 500,
-        title: "百度",
-        subtitle: "热搜榜",
+        ...routerInfo,
         message: "获取失败",
       };
     }
   }
 });
 
+baiduRouter.info = routerInfo;
 module.exports = baiduRouter;

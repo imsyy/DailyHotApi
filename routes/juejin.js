@@ -3,6 +3,12 @@ const juejinRouter = new Router();
 const axios = require("axios");
 const { get, set, del } = require("../utils/cacheData");
 
+// 接口信息
+const routerInfo = {
+  title: "稀土掘金",
+  subtitle: "热榜",
+};
+
 // 缓存键名
 const cacheKey = "juejinData";
 
@@ -47,8 +53,7 @@ juejinRouter.get("/juejin", async (ctx) => {
     ctx.body = {
       code: 200,
       message: "获取成功",
-      title: "稀土掘金",
-      subtitle: "热榜",
+      ...routerInfo,
       from,
       total: data.length,
       updateTime,
@@ -58,8 +63,7 @@ juejinRouter.get("/juejin", async (ctx) => {
     console.error(error);
     ctx.body = {
       code: 500,
-      title: "稀土掘金",
-      subtitle: "热榜",
+      ...routerInfo,
       message: "获取失败",
     };
   }
@@ -79,8 +83,7 @@ juejinRouter.get("/juejin/new", async (ctx) => {
     ctx.body = {
       code: 200,
       message: "获取成功",
-      title: "稀土掘金",
-      subtitle: "热榜",
+      ...routerInfo,
       total: newData.length,
       updateTime,
       data: newData,
@@ -98,8 +101,7 @@ juejinRouter.get("/juejin/new", async (ctx) => {
       ctx.body = {
         code: 200,
         message: "获取成功",
-        title: "稀土掘金",
-        subtitle: "热榜",
+        ...routerInfo,
         total: cachedData.length,
         updateTime,
         data: cachedData,
@@ -108,12 +110,12 @@ juejinRouter.get("/juejin/new", async (ctx) => {
       // 如果缓存中也没有数据，则返回错误信息
       ctx.body = {
         code: 500,
-        title: "稀土掘金",
-        subtitle: "热榜",
+        ...routerInfo,
         message: "获取失败",
       };
     }
   }
 });
 
+juejinRouter.info = routerInfo;
 module.exports = juejinRouter;

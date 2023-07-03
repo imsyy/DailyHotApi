@@ -3,6 +3,12 @@ const lolRouter = new Router();
 const axios = require("axios");
 const { get, set, del } = require("../utils/cacheData");
 
+// 接口信息
+const routerInfo = {
+  title: "英雄联盟",
+  subtitle: "更新公告",
+};
+
 // 缓存键名
 const cacheKey = "lolData";
 
@@ -10,24 +16,29 @@ const cacheKey = "lolData";
 let updateTime = new Date().toISOString();
 
 // 调用路径
-const url = "https://apps.game.qq.com/cmc/zmMcnTargetContentList?r0=jsonp&page=1&num=16&target=24&source=web_pc&r1=jQuery191002324053053181463_1687855508930&_=1687855508933";
+const url =
+  "https://apps.game.qq.com/cmc/zmMcnTargetContentList?r0=jsonp&page=1&num=16&target=24&source=web_pc&r1=jQuery191002324053053181463_1687855508930&_=1687855508933";
 
 // 数据处理
 const getData = (data) => {
   if (!data) return [];
   const dataList = [];
-try {
+  try {
     const pattern = /jQuery191002324053053181463_1687855508930\((.*?)\)/s;
     const matchResult = data.match(pattern);
-    const jsonObject = JSON.parse(matchResult[1])['data'].result;
+    const jsonObject = JSON.parse(matchResult[1])["data"].result;
     jsonObject.forEach((v) => {
       dataList.push({
         title: v.sTitle,
         desc: v.sAuthor,
         pic: `https:${v.sIMG}`,
         hot: Number(v.iTotalPlay),
-        url: `https://lol.qq.com/news/detail.shtml?docid=${encodeURIComponent(v.iDocID)}`,
-        mobileUrl: `https://lol.qq.com/news/detail.shtml?docid=${encodeURIComponent(v.iDocID)}`,
+        url: `https://lol.qq.com/news/detail.shtml?docid=${encodeURIComponent(
+          v.iDocID
+        )}`,
+        mobileUrl: `https://lol.qq.com/news/detail.shtml?docid=${encodeURIComponent(
+          v.iDocID
+        )}`,
       });
     });
     return dataList;
@@ -54,8 +65,7 @@ lolRouter.get("/lol", async (ctx) => {
       if (!data) {
         ctx.body = {
           code: 500,
-          title: "英雄联盟",
-          subtitle: "更新公告",
+          ...routerInfo,
           message: "获取失败",
         };
         return false;
@@ -66,8 +76,7 @@ lolRouter.get("/lol", async (ctx) => {
     ctx.body = {
       code: 200,
       message: "获取成功",
-      title: "英雄联盟",
-      subtitle: "更新公告",
+      ...routerInfo,
       from,
       total: data.length,
       updateTime,
@@ -96,8 +105,7 @@ lolRouter.get("/lol/new", async (ctx) => {
     ctx.body = {
       code: 200,
       message: "获取成功",
-      title: "英雄联盟",
-      subtitle: "更新公告",
+      ...routerInfo,
       total: newData.length,
       updateTime,
       data: newData,
@@ -115,8 +123,7 @@ lolRouter.get("/lol/new", async (ctx) => {
       ctx.body = {
         code: 200,
         message: "获取成功",
-        title: "英雄联盟",
-        subtitle: "更新公告",
+        ...routerInfo,
         total: cachedData.length,
         updateTime,
         data: cachedData,
@@ -125,12 +132,12 @@ lolRouter.get("/lol/new", async (ctx) => {
       // 如果缓存中也没有数据，则返回错误信息
       ctx.body = {
         code: 500,
-        title: "英雄联盟",
-        subtitle: "更新公告",
+        ...routerInfo,
         message: "获取失败",
       };
     }
   }
 });
 
+lolRouter.info = routerInfo;
 module.exports = lolRouter;

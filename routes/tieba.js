@@ -3,6 +3,12 @@ const tiebaRouter = new Router();
 const axios = require("axios");
 const { get, set, del } = require("../utils/cacheData");
 
+// 接口信息
+const routerInfo = {
+  title: "百度贴吧",
+  subtitle: "热议榜",
+};
+
 // 缓存键名
 const cacheKey = "tiebaData";
 
@@ -48,8 +54,7 @@ tiebaRouter.get("/tieba", async (ctx) => {
     ctx.body = {
       code: 200,
       message: "获取成功",
-      title: "百度贴吧",
-      subtitle: "热议榜",
+      ...routerInfo,
       from,
       total: data.length,
       updateTime,
@@ -59,8 +64,7 @@ tiebaRouter.get("/tieba", async (ctx) => {
     console.error(error);
     ctx.body = {
       code: 500,
-      title: "百度贴吧",
-      subtitle: "热议榜",
+      ...routerInfo,
       message: "获取失败",
     };
   }
@@ -80,8 +84,7 @@ tiebaRouter.get("/tieba/new", async (ctx) => {
     ctx.body = {
       code: 200,
       message: "获取成功",
-      title: "百度贴吧",
-      subtitle: "热议榜",
+      ...routerInfo,
       total: newData.length,
       updateTime,
       data: newData,
@@ -99,8 +102,7 @@ tiebaRouter.get("/tieba/new", async (ctx) => {
       ctx.body = {
         code: 200,
         message: "获取成功",
-        title: "百度贴吧",
-        subtitle: "热议榜",
+        ...routerInfo,
         total: cachedData.length,
         updateTime,
         data: cachedData,
@@ -109,12 +111,12 @@ tiebaRouter.get("/tieba/new", async (ctx) => {
       // 如果缓存中也没有数据，则返回错误信息
       ctx.body = {
         code: 500,
-        title: "百度贴吧",
-        subtitle: "热议榜",
+        ...routerInfo,
         message: "获取失败",
       };
     }
   }
 });
 
+tiebaRouter.info = routerInfo;
 module.exports = tiebaRouter;

@@ -3,6 +3,12 @@ const douyinRouter = new Router();
 const axios = require("axios");
 const { get, set, del } = require("../utils/cacheData");
 
+// 接口信息
+const routerInfo = {
+  title: "抖音",
+  subtitle: "热点榜",
+};
+
 // 缓存键名
 const cacheKey = "douyinHotData";
 const cacheCookieKey = "douyinCookieData";
@@ -95,8 +101,7 @@ douyinRouter.get("/douyin", async (ctx) => {
       if (!data) {
         ctx.body = {
           code: 500,
-          title: "抖音热点榜",
-          subtitle: "热点榜",
+          ...routerInfo,
           message: "获取失败",
         };
         return false;
@@ -107,8 +112,7 @@ douyinRouter.get("/douyin", async (ctx) => {
     ctx.body = {
       code: 200,
       message: "获取成功",
-      title: "抖音热点榜",
-      subtitle: "热点榜",
+      ...routerInfo,
       from,
       total: data.length,
       updateTime,
@@ -118,6 +122,7 @@ douyinRouter.get("/douyin", async (ctx) => {
     console.error(error);
     ctx.body = {
       code: 500,
+      ...routerInfo,
       message: "获取失败",
     };
   }
@@ -142,8 +147,7 @@ douyinRouter.get("/douyin/new", async (ctx) => {
     ctx.body = {
       code: 200,
       message: "获取成功",
-      title: "抖音热点榜",
-      subtitle: "热点榜",
+      ...routerInfo,
       total: newData.length,
       updateTime,
       data: newData,
@@ -161,8 +165,7 @@ douyinRouter.get("/douyin/new", async (ctx) => {
       ctx.body = {
         code: 200,
         message: "获取成功",
-        title: "抖音热点榜",
-        subtitle: "热点榜",
+        ...routerInfo,
         total: cachedData.length,
         updateTime,
         data: cachedData,
@@ -171,12 +174,12 @@ douyinRouter.get("/douyin/new", async (ctx) => {
       // 如果缓存中也没有数据，则返回错误信息
       ctx.body = {
         code: 500,
-        title: "抖音热点榜",
-        subtitle: "热点榜",
+        ...routerInfo,
         message: "获取失败",
       };
     }
   }
 });
 
+douyinRouter.info = routerInfo;
 module.exports = douyinRouter;

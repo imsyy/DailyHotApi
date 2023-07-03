@@ -3,6 +3,12 @@ const wereadRouter = new Router();
 const axios = require("axios");
 const { get, set, del } = require("../utils/cacheData");
 
+// 接口信息
+const routerInfo = {
+  title: "微信读书",
+  subtitle: "飙升榜",
+};
+
 // 缓存键名
 const cacheKey = "wereadData";
 
@@ -10,22 +16,23 @@ const cacheKey = "wereadData";
 let updateTime = new Date().toISOString();
 
 // 调用路径
-const url =
-  "https://weread.qq.com/web/bookListInCategory/rising?maxIndex=0&rank=1";
+const url = "https://weread.qq.com/web/bookListInCategory/rising?rank=1";
 
 // 数据处理
 const getData = (data) => {
   if (!data) return [];
   return data.map((v) => {
     const book = v.bookInfo;
+    console.log(book);
     return {
-      id: book.topic_id,
-      title: v.topic_name,
-      desc: v.topic_desc,
-      pic: v.topic_pic,
-      hot: v.discuss_num,
-      url: v.topic_url,
-      mobileUrl: v.topic_url,
+      id: book.bookId,
+      title: book.title,
+      desc: book.intro,
+      pic: book.cover.replace("s_", "t9_"),
+      hot: v.readingCount,
+      author: book.author,
+      url: "https://weread.qq.com/web/category/rising",
+      mobileUrl: "https://weread.qq.com/web/category/rising",
     };
   });
 };
@@ -41,14 +48,18 @@ wereadRouter.get("/weread", async (ctx) => {
       // 如果缓存中不存在数据
       console.log("从服务端重新获取微信读书");
       // 从服务器拉取数据
-      const response = await axios.get(url);
+      const response = await axios.get(url, {
+        Headers: {
+          "User-Agent":
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.67",
+        },
+      });
       data = getData(response.data.books);
       updateTime = new Date().toISOString();
       if (!data) {
         ctx.body = {
           code: 500,
-          title: "微信读书",
-          subtitle: "飙升榜",
+          ...routerInfo,
           message: "获取失败",
         };
         return false;
@@ -59,8 +70,7 @@ wereadRouter.get("/weread", async (ctx) => {
     ctx.body = {
       code: 200,
       message: "获取成功",
-      title: "微信读书",
-      subtitle: "飙升榜",
+      ...routerInfo,
       from,
       total: data.length,
       updateTime,
@@ -81,7 +91,7 @@ wereadRouter.get("/weread/new", async (ctx) => {
   try {
     // 从服务器拉取最新数据
     const response = await axios.get(url);
-    const newData = getData(response.data);
+    const newData = getData(response.data.books);
     updateTime = new Date().toISOString();
     console.log("从服务端重新获取微信读书");
 
@@ -89,8 +99,7 @@ wereadRouter.get("/weread/new", async (ctx) => {
     ctx.body = {
       code: 200,
       message: "获取成功",
-      title: "微信读书",
-      subtitle: "飙升榜",
+      ...routerInfo,
       total: newData.length,
       updateTime,
       data: newData,
@@ -108,8 +117,7 @@ wereadRouter.get("/weread/new", async (ctx) => {
       ctx.body = {
         code: 200,
         message: "获取成功",
-        title: "微信读书",
-        subtitle: "飙升榜",
+        ...routerInfo,
         total: cachedData.length,
         updateTime,
         data: cachedData,
@@ -118,12 +126,12 @@ wereadRouter.get("/weread/new", async (ctx) => {
       // 如果缓存中也没有数据，则返回错误信息
       ctx.body = {
         code: 500,
-        title: "微信读书",
-        subtitle: "飙升榜",
+        ...routerInfo,
         message: "获取失败",
       };
     }
   }
 });
 
+wereadRouter.info = routerInfo;
 module.exports = wereadRouter;
