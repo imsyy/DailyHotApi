@@ -4,7 +4,7 @@
  * @Author: WangPeng
  * @Date: 2023-07-10 16:56:01
  * @LastEditors: WangPeng
- * @LastEditTime: 2023-07-11 16:33:56
+ * @LastEditTime: 2023-07-11 17:26:05
  */
 const Router = require("koa-router");
 const douyinRouter = new Router();
@@ -45,7 +45,7 @@ const getData = (data) => {
 };
 
 // 抖音热榜
-douyinRouter.get("/douyin", async (ctx) => {
+douyinRouter.get("/douyin2", async (ctx) => {
   console.log("获取抖音热榜");
   try {
     // 从缓存中获取数据
@@ -83,7 +83,7 @@ douyinRouter.get("/douyin", async (ctx) => {
 });
 
 // 抖音热榜 - 获取最新数据
-douyinRouter.get("/douyin/new", async (ctx) => {
+douyinRouter.get("/douyin2/new", async (ctx) => {
   console.log("获取抖音热榜 - 最新数据");
   try {
     // 从服务器拉取最新数据
