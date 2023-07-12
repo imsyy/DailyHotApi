@@ -4,7 +4,7 @@
  * @Author: WangPeng
  * @Date: 2023-07-10 16:56:01
  * @LastEditors: WangPeng
- * @LastEditTime: 2023-07-11 17:26:05
+ * @LastEditTime: 2023-07-12 11:34:50
  */
 const Router = require("koa-router");
 const douyinRouter = new Router();
@@ -39,7 +39,7 @@ const getData = (data) => {
       pic: v.word_cover?.url_list[0] || null,
       hot: v.hot_value,
       url: `https://www.douyin.com/hot?modal_id=${v.group_id}`,
-      mobileUrl: `https://m.douyin.com/share/video/${v.group_id}`,
+      mobileUrl: `snssdk1128://share/video/${v.group_id}`,
     };
   });
 };
