@@ -1,26 +1,24 @@
 /*
- * @Descripttion: 
- * @version: 
- * @Author: WangPeng
- * @Date: 2023-07-11 16:41:48
- * @LastEditors: WangPeng
- * @LastEditTime: 2023-07-11 16:56:12
+ * @version: 1.0.0
+ * @author: WangPeng
+ * @date: 2023-07-11 16:41:48
+ * @customEditors: imsyy
+ * @lastEditTime: 2023-07-11 16:03:12
  */
-/*
- * @Descripttion:
- * @version:
- * @Author: WangPeng
- * @Date: 2023-07-10 16:56:01
- * @LastEditors: WangPeng
- * @LastEditTime: 2023-07-11 16:33:56
- */
+
 const Router = require("koa-router");
-const douyinRouter = new Router();
+const douyinMusicRouter = new Router();
 const axios = require("axios");
 const { get, set, del } = require("../utils/cacheData");
 
+// 接口信息
+const routerInfo = {
+  title: "抖音",
+  subtitle: "热歌榜",
+};
+
 // 缓存键名
-const cacheKey = "douyinData";
+const cacheKey = "douyinMusicData";
 
 // 调用时间
 let updateTime = new Date().toISOString();
@@ -28,35 +26,56 @@ let updateTime = new Date().toISOString();
 // 调用路径
 const url = "https://aweme.snssdk.com/aweme/v1/chart/music/list/";
 const HEADERS = {
-  'user-agent': 'okhttp3'
-}
+  "user-agent": "okhttp3",
+};
 const QUERIES = {
-  'device_platform': 'android',
-  'version_name': '13.2.0',
-  'version_code': '130200',
-  'aid': '1128',
-  'chart_id': '6853972723954146568', 
-  'count': '100'
-}
+  device_platform: "android",
+  version_name: "13.2.0",
+  version_code: "130200",
+  aid: "1128",
+  chart_id: "6853972723954146568",
+  count: "100",
+};
 
 // 数据处理
 const getData = (data) => {
   if (!data) return [];
-  return data;
+  try {
+    return data.map((v) => {
+      const item = v.music_info;
+      return {
+        id: item.id,
+        title: item.title,
+        album: item.album,
+        artist: item.author,
+        pic: item?.cover_large.url_list[0],
+        lyric: item.lyric_url,
+        url: item.play_url.uri,
+        mobileUrl: item.play_url.uri,
+        // h5Url: item.matched_song?.h5_url,
+      };
+    });
+  } catch (error) {
+    console.error("数据处理出错" + error);
+    return [];
+  }
 };
 
-// 抖音music热榜
-douyinRouter.get("/douyinmusic", async (ctx) => {
-  console.log("获取抖音music热榜");
+// 抖音热歌榜
+douyinMusicRouter.get("/douyinmusic", async (ctx) => {
+  console.log("获取抖音热歌榜");
   try {
     // 从缓存中获取数据
     let data = await get(cacheKey);
     const from = data ? "cache" : "server";
     if (!data) {
       // 如果缓存中不存在数据
-      console.log("从服务端重新获取抖音music热榜");
+      console.log("从服务端重新获取抖音热歌榜");
       // 从服务器拉取数据
-      const response = await axios.get(url, { headers: HEADERS, params: QUERIES });
+      const response = await axios.get(url, {
+        headers: HEADERS,
+        params: QUERIES,
+      });
       console.log(response.data);
       data = getData(response.data.music_list);
       updateTime = new Date().toISOString();
@@ -66,8 +85,7 @@ douyinRouter.get("/douyinmusic", async (ctx) => {
     ctx.body = {
       code: 200,
       message: "获取成功",
-      title: "抖音music",
-      subtitle: "热榜",
+      ...routerInfo,
       from,
       total: data.length,
       updateTime,
@@ -77,29 +95,30 @@ douyinRouter.get("/douyinmusic", async (ctx) => {
     console.error(error);
     ctx.body = {
       code: 500,
-      title: "抖音music",
-      subtitle: "热榜",
+      ...routerInfo,
       message: "获取失败",
     };
   }
 });
 
-// 抖音music热榜 - 获取最新数据
-douyinRouter.get("/douyinmusic/new", async (ctx) => {
-  console.log("获取抖音music热榜 - 最新数据");
+// 抖音热歌榜 - 获取最新数据
+douyinMusicRouter.get("/douyinmusic/new", async (ctx) => {
+  console.log("获取抖音热歌榜 - 最新数据");
   try {
     // 从服务器拉取最新数据
-    const response = await axios.get(url, { headers: HEADERS, params: QUERIES });
+    const response = await axios.get(url, {
+      headers: HEADERS,
+      params: QUERIES,
+    });
     const newData = getData(response.data.word_list);
     updateTime = new Date().toISOString();
-    console.log("从服务端重新获取抖音music热榜");
+    console.log("从服务端重新获取抖音热歌榜");
 
     // 返回最新数据
     ctx.body = {
       code: 200,
       message: "获取成功",
-      title: "抖音music",
-      subtitle: "热榜",
+      ...routerInfo,
       total: newData.length,
       updateTime,
       data: newData,
@@ -117,8 +136,7 @@ douyinRouter.get("/douyinmusic/new", async (ctx) => {
       ctx.body = {
         code: 200,
         message: "获取成功",
-        title: "抖音music",
-        subtitle: "热榜",
+        ...routerInfo,
         total: cachedData.length,
         updateTime,
         data: cachedData,
@@ -127,12 +145,12 @@ douyinRouter.get("/douyinmusic/new", async (ctx) => {
       // 如果缓存中也没有数据，则返回错误信息
       ctx.body = {
         code: 500,
-        title: "抖音music",
-        subtitle: "热榜",
+        ...routerInfo,
         message: "获取失败",
       };
     }
   }
 });
 
-module.exports = douyinRouter;
+douyinMusicRouter.info = routerInfo;
+module.exports = douyinMusicRouter;
