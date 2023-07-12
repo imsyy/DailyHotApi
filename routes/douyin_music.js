@@ -62,7 +62,7 @@ const getData = (data) => {
 };
 
 // 抖音热歌榜
-douyinMusicRouter.get("/douyinmusic", async (ctx) => {
+douyinMusicRouter.get("/douyin_music", async (ctx) => {
   console.log("获取抖音热歌榜");
   try {
     // 从缓存中获取数据
@@ -76,7 +76,6 @@ douyinMusicRouter.get("/douyinmusic", async (ctx) => {
         headers: HEADERS,
         params: QUERIES,
       });
-      console.log(response.data);
       data = getData(response.data.music_list);
       updateTime = new Date().toISOString();
       // 将数据写入缓存
@@ -102,7 +101,7 @@ douyinMusicRouter.get("/douyinmusic", async (ctx) => {
 });
 
 // 抖音热歌榜 - 获取最新数据
-douyinMusicRouter.get("/douyinmusic/new", async (ctx) => {
+douyinMusicRouter.get("/douyin_music/new", async (ctx) => {
   console.log("获取抖音热歌榜 - 最新数据");
   try {
     // 从服务器拉取最新数据
