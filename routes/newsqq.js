@@ -5,6 +5,7 @@ const { get, set, del } = require("../utils/cacheData");
 
 // 接口信息
 const routerInfo = {
+  name: "newsqq",
   title: "腾讯新闻",
   subtitle: "热点榜",
 };

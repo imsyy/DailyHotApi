@@ -1,50 +1,57 @@
+/*
+ * @author: MCBBC
+ * @date: 2023-07-17
+ * @customEditors: imsyy
+ * @lastEditTime: 2023-07-17
+ */
+
 const Router = require("koa-router");
-const genshinRouter = new Router();
+const neteaseRouter = new Router();
 const axios = require("axios");
 const { get, set, del } = require("../utils/cacheData");
 
 // 接口信息
 const routerInfo = {
-  name: "genshin",
-  title: "原神",
-  subtitle: "最新信息",
+  name: "netease",
+  title: "网易新闻",
+  subtitle: "热点榜",
 };
 
 // 缓存键名
-const cacheKey = "genshinData";
+const cacheKey = "neteaseData";
 
 // 调用时间
 let updateTime = new Date().toISOString();
 
 // 调用路径
-const url =
-  "https://content-static.mihoyo.com/content/ysCn/getContentList?pageSize=50&pageNum=1&channelId=10";
+const url = "https://m.163.com/fe/api/hot/news/flow";
 
 // 数据处理
 const getData = (data) => {
   if (!data) return [];
   return data.map((v) => {
     return {
-      id: v.id,
+      id: v.skipID,
       title: v.title,
-      pic: v.ext[1]?.value[0]?.url,
-      start_time: v?.start_time,
-      url: `https://ys.mihoyo.com/main/news/detail/${v.id}`,
-      mobileUrl: `https://ys.mihoyo.com/main/m/news/detail/${v.id}`,
+      desc: v._keyword,
+      pic: v.imgsrc,
+      owner: v.source,
+      url: `https://www.163.com/dy/article/${v.skipID}.html`,
+      mobileUrl: v.url,
     };
   });
 };
 
-// 原神最新信息
-genshinRouter.get("/genshin", async (ctx) => {
-  console.log("获取原神最新信息");
+// 网易新闻热榜
+neteaseRouter.get("/netease", async (ctx) => {
+  console.log("获取网易新闻热榜");
   try {
     // 从缓存中获取数据
     let data = await get(cacheKey);
     const from = data ? "cache" : "server";
     if (!data) {
       // 如果缓存中不存在数据
-      console.log("从服务端重新获取原神最新信息");
+      console.log("从服务端重新获取网易新闻热榜");
       // 从服务器拉取数据
       const response = await axios.get(url);
       data = getData(response.data.data.list);
@@ -71,15 +78,15 @@ genshinRouter.get("/genshin", async (ctx) => {
   }
 });
 
-// 原神最新信息 - 获取最新数据
-genshinRouter.get("/genshin/new", async (ctx) => {
-  console.log("获取原神最新信息 - 最新数据");
+// 网易新闻热榜 - 获取最新数据
+neteaseRouter.get("/netease/new", async (ctx) => {
+  console.log("获取网易新闻热榜 - 最新数据");
   try {
     // 从服务器拉取最新数据
     const response = await axios.get(url);
     const newData = getData(response.data.data.list);
     updateTime = new Date().toISOString();
-    console.log("从服务端重新获取原神最新信息");
+    console.log("从服务端重新获取网易新闻热榜");
 
     // 返回最新数据
     ctx.body = {
@@ -119,5 +126,5 @@ genshinRouter.get("/genshin/new", async (ctx) => {
   }
 });
 
-genshinRouter.info = routerInfo;
-module.exports = genshinRouter;
+neteaseRouter.info = routerInfo;
+module.exports = neteaseRouter;

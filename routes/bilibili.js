@@ -5,6 +5,7 @@ const { get, set, del } = require("../utils/cacheData");
 
 // 接口信息
 const routerInfo = {
+  name: "bilibili",
   title: "哔哩哔哩",
   subtitle: "热门榜",
 };

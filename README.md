@@ -14,7 +14,7 @@
 
 > 🟢 状态正常
 > 🟠 可能失效
-> 🔴 无法使用
+> ❌ 无法使用
 
 | **站点**     | **类别** | **调用名称**        | **状态** |
 | ------------ | -------- | ------------------- | -------- |
@@ -26,15 +26,17 @@
 | 抖音         | 热歌榜   | douyin_music        | 🟢       |
 | 百度贴吧     | 热议榜   | tieba               | 🟢       |
 | 少数派       | 热榜     | sspai               | 🟢       |
-| IT 之家      | 热榜     | ithome              | 🟠       |
+| IT 之家      | 热榜     | ithome              | 🟢       |
 | 澎湃新闻     | 热榜     | thepaper            | 🟢       |
 | 今日头条     | 热榜     | toutiao             | 🟢       |
 | 36 氪        | 热榜     | 36kr                | 🟢       |
 | 稀土掘金     | 热榜     | juejin              | 🟢       |
 | 腾讯新闻     | 热点榜   | newsqq              | 🟢       |
+| 网易新闻     | 热点榜   | netease             | 🟢       |
 | 英雄联盟     | 更新公告 | lol                 | 🟢       |
 | 原神         | 最新消息 | genshin             | 🟢       |
 | 微信读书     | 飙升榜   | weread              | 🟢       |
+| 快手         | 热榜     | kuaishou            | 🟢       |
 | 历史上的今天 | 指定日期 | calendar            | 🟢       |
 
 ### 特殊接口说明
@@ -44,7 +46,7 @@
 获取除了下方特殊接口外的全部接口列表
 
 ```http
-GET https://{example.com}/all
+GET https://example.com/all
 ```
 
 #### 历史上的今天（指定日期）
@@ -52,7 +54,7 @@ GET https://{example.com}/all
 将指定的月份和日期传入即可得到当天数据，请注意格式
 
 ```http
-GET https://{example.com}/calendar/date?month=06&day=01
+GET https://example.com/calendar/date?month=06&day=01
 ```
 
 ## 部署

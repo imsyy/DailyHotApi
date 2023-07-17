@@ -1,5 +1,4 @@
 /*
- * @version: 1.0.0
  * @author: WangPeng
  * @date: 2023-07-10 16:56:01
  * @customEditors: imsyy
@@ -13,6 +12,7 @@ const { get, set, del } = require("../utils/cacheData");
 
 // 接口信息
 const routerInfo = {
+  name: "douyin",
   title: "抖音",
   subtitle: "热点榜",
 };

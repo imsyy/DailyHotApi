@@ -1,10 +1,12 @@
 const Router = require("koa-router");
 const wereadRouter = new Router();
 const axios = require("axios");
+const getWereadID = require("../utils/getWereadID");
 const { get, set, del } = require("../utils/cacheData");
 
 // 接口信息
 const routerInfo = {
+  name: "weread",
   title: "微信读书",
   subtitle: "飙升榜",
 };
@@ -23,7 +25,6 @@ const getData = (data) => {
   if (!data) return [];
   return data.map((v) => {
     const book = v.bookInfo;
-    console.log(book);
     return {
       id: book.bookId,
       title: book.title,
@@ -31,8 +32,10 @@ const getData = (data) => {
       pic: book.cover.replace("s_", "t9_"),
       hot: v.readingCount,
       author: book.author,
-      url: "https://weread.qq.com/web/category/rising",
-      mobileUrl: "https://weread.qq.com/web/category/rising",
+      url: `https://weread.qq.com/web/bookDetail/${getWereadID(book.bookId)}`,
+      mobileUrl: `https://weread.qq.com/web/bookDetail/${getWereadID(
+        book.bookId
+      )}`,
     };
   });
 };
