@@ -46,9 +46,7 @@ const getData = (data) => {
         pic: `${v.word_cover.url_list[0]}`,
         hot: Number(v.hot_value),
         url: `https://www.douyin.com/hot/${encodeURIComponent(v.sentence_id)}`,
-        mobileUrl: `https://www.douyin.com/hot/${encodeURIComponent(
-          v.sentence_id
-        )}`,
+        mobileUrl: `https://www.douyin.com/hot/${encodeURIComponent(v.sentence_id)}`,
       };
     });
   } catch (error) {

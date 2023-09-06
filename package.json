@@ -4,6 +4,8 @@
   "description": "一个今日热榜",
   "main": "index.js",
   "scripts": {
+    "format": "prettier --write .",
+    "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
     "start": "node index.js",
     "dev": "npx nodemon index.js",
     "prd": "pm2 start index.js",
@@ -22,6 +24,9 @@
     "koa-views": "^8.0.0",
     "koa2-cors": "^2.0.6",
     "node-cache": "^5.1.2",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "eslint": "^8.48.0",
+    "eslint-plugin-vue": "^9.17.0",
+    "prettier": "^3.0.2"
   }
 }

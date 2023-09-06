@@ -1,13 +1,9 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
     <title>404 | Linkbook API</title>
-    <link
-      rel="shortcut icon"
-      href="https://img.imsyy.top/logo/imsyy.png"
-      type="image/x-icon"
-    />
+    <link rel="shortcut icon" href="https://img.imsyy.top/logo/imsyy.png" type="image/x-icon" />
     <link
       rel="stylesheet"
       href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css"
@@ -38,7 +34,9 @@
         background-color: var(--text-color-hover);
         color: var(--text-color);
         font-family: "PingFang SC", "Open Sans", "Microsoft YaHei", sans-serif;
-        transition: background-color 0.5s, color 0.5s;
+        transition:
+          background-color 0.5s,
+          color 0.5s;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -149,16 +147,12 @@
         <a href="https://imsyy.top/" target="_blank">無名</a>
       </div>
       <div class="icp">
-        <a href="https://beian.miit.gov.cn/" target="_blank"
-          >豫ICP备2022018134号-1</a
-        >
+        <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2022018134号-1</a>
       </div>
     </footer>
     <script>
       // 跟随系统主题
-      const darkModeMediaQuery = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      );
+      const darkModeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
       const toggleDarkMode = (darkModeMediaQuery) => {
         if (darkModeMediaQuery.matches) {
           document.documentElement.classList.add("dark-mode");

@@ -24,7 +24,7 @@ app.use(views(__dirname + "/public"));
 app.use(
   cors({
     origin: domain,
-  })
+  }),
 );
 
 app.use(async (ctx, next) => {

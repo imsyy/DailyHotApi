@@ -129,7 +129,7 @@ itHomeRouter.get("/ithome/new", async (ctx) => {
       ...routerInfo,
       updateTime,
       total: newData.length,
-      data: newData
+      data: newData,
     };
 
     // 删除旧数据
@@ -147,7 +147,7 @@ itHomeRouter.get("/ithome/new", async (ctx) => {
         ...routerInfo,
         total: cachedData.length,
         updateTime,
-        data: cachedData
+        data: cachedData,
       };
     } else {
       // 如果缓存中也没有数据，则返回错误信息

@@ -2,7 +2,6 @@ const Router = require("koa-router");
 const zhihuRouter = new Router();
 const axios = require("axios");
 const { get, set, del } = require("../utils/cacheData");
-const router = require(".");
 
 // 接口信息
 const routerInfo = {
@@ -28,8 +27,7 @@ const getData = (data) => {
   if (!data) return [];
   const dataList = [];
   try {
-    const pattern =
-      /<script id="js-initialData" type="text\/json">(.*?)<\/script>/;
+    const pattern = /<script id="js-initialData" type="text\/json">(.*?)<\/script>/;
     const matchResult = data.match(pattern);
     const jsonObject = JSON.parse(matchResult[1]).initialState.topstory.hotList;
     jsonObject.forEach((v) => {

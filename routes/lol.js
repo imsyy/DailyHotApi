@@ -34,12 +34,8 @@ const getData = (data) => {
         desc: v.sAuthor,
         pic: `https:${v.sIMG}`,
         hot: Number(v.iTotalPlay),
-        url: `https://lol.qq.com/news/detail.shtml?docid=${encodeURIComponent(
-          v.iDocID
-        )}`,
-        mobileUrl: `https://lol.qq.com/news/detail.shtml?docid=${encodeURIComponent(
-          v.iDocID
-        )}`,
+        url: `https://lol.qq.com/news/detail.shtml?docid=${encodeURIComponent(v.iDocID)}`,
+        mobileUrl: `https://lol.qq.com/news/detail.shtml?docid=${encodeURIComponent(v.iDocID)}`,
       });
     });
     return dataList;

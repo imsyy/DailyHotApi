@@ -17,8 +17,7 @@ const cacheKey = "juejinData";
 let updateTime = new Date().toISOString();
 
 // 调用路径
-const url =
-  "https://api.juejin.cn/content_api/v1/content/article_rank?category_id=1&type=hot";
+const url = "https://api.juejin.cn/content_api/v1/content/article_rank?category_id=1&type=hot";
 
 // 数据处理
 const getData = (data) => {

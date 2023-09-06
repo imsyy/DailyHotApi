@@ -33,9 +33,7 @@ const getData = (data) => {
       hot: v.readingCount,
       author: book.author,
       url: `https://weread.qq.com/web/bookDetail/${getWereadID(book.bookId)}`,
-      mobileUrl: `https://weread.qq.com/web/bookDetail/${getWereadID(
-        book.bookId
-      )}`,
+      mobileUrl: `https://weread.qq.com/web/bookDetail/${getWereadID(book.bookId)}`,
     };
   });
 };

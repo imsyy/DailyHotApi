@@ -1,7 +1,7 @@
 const Router = require("koa-router");
 const calendarRouter = new Router();
 const axios = require("axios");
-const { get, set, del } = require("../utils/cacheData");
+const { get, set } = require("../utils/cacheData");
 
 // 缓存键名
 const cacheKey = "calendarData";
@@ -96,7 +96,7 @@ calendarRouter.get("/calendar/date", async (ctx) => {
     }
     // 从服务器拉取最新数据
     const response = await axios.get(
-      `https://baike.baidu.com/cms/home/eventsOnHistory/${month}.json`
+      `https://baike.baidu.com/cms/home/eventsOnHistory/${month}.json`,
     );
     const newData = getData(response.data[month][month + day]);
     updateTime = new Date().toISOString();

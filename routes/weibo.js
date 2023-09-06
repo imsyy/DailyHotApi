@@ -30,11 +30,9 @@ const getData = (data) => {
       title: v.word,
       desc: key,
       hot: v.raw_hot,
-      url: `https://s.weibo.com/weibo?q=${encodeURIComponent(
-        key
-      )}&t=31&band_rank=1&Refer=top`,
+      url: `https://s.weibo.com/weibo?q=${encodeURIComponent(key)}&t=31&band_rank=1&Refer=top`,
       mobileUrl: `https://s.weibo.com/weibo?q=${encodeURIComponent(
-        key
+        key,
       )}&t=31&band_rank=1&Refer=top`,
     };
   });

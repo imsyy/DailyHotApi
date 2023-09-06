@@ -1,3 +1,10 @@
+/*
+ * @author: MyFaith
+ * @date: 2023-09-06
+ * @customEditors: imsyy
+ * @lastEditTime: 2023-09-06
+ */
+
 const Router = require("koa-router");
 const doubanNewRouter = new Router();
 const axios = require("axios");
@@ -8,7 +15,7 @@ const { get, set, del } = require("../utils/cacheData");
 const routerInfo = {
   name: "douban",
   title: "豆瓣",
-  subtitle: "新片榜"
+  subtitle: "新片榜",
 };
 
 // 缓存键名
@@ -20,7 +27,8 @@ let updateTime = new Date().toISOString();
 // 调用路径
 const url = "https://movie.douban.com/chart/";
 const headers = {
-  "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1"
+  "User-Agent":
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1",
 };
 
 // 豆瓣新片榜单特殊处理 - 标题
@@ -45,7 +53,7 @@ const getData = (data) => {
         comments: $(item).find("span.pl").text().match(/\d+/)[0] ?? "",
         pic: $(item).find("img").attr("src") ?? "",
         url: $(item).find("a").attr("href") ?? "",
-        mobileUrl: `https://m.douban.com/movie/subject/${id}`
+        mobileUrl: `https://m.douban.com/movie/subject/${id}`,
       });
     });
     return dataList;
@@ -73,7 +81,7 @@ doubanNewRouter.get("/douban_new", async (ctx) => {
         ctx.body = {
           code: 500,
           ...routerInfo,
-          message: "获取失败"
+          message: "获取失败",
         };
         return false;
       }
@@ -87,14 +95,14 @@ doubanNewRouter.get("/douban_new", async (ctx) => {
       from,
       total: data.length,
       updateTime,
-      data
+      data,
     };
   } catch (error) {
     console.error(error);
     ctx.body = {
       code: 500,
       ...routerInfo,
-      message: "获取失败"
+      message: "获取失败",
     };
   }
 });
@@ -116,7 +124,7 @@ doubanNewRouter.get("/douban_new/new", async (ctx) => {
       ...routerInfo,
       updateTime,
       total: newData.length,
-      data: newData
+      data: newData,
     };
 
     // 删除旧数据
@@ -134,14 +142,14 @@ doubanNewRouter.get("/douban_new/new", async (ctx) => {
         ...routerInfo,
         total: cachedData.length,
         updateTime,
-        data: cachedData
+        data: cachedData,
       };
     } else {
       // 如果缓存中也没有数据，则返回错误信息
       ctx.body = {
         code: 500,
         ...routerInfo,
-        message: "获取失败"
+        message: "获取失败",
       };
     }
   }

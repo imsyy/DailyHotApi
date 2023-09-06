@@ -29,7 +29,7 @@ const url = "https://www.kuaishou.com/?isHome=1";
 // Unicode 解码
 const decodedString = (encodedString) => {
   return encodedString.replace(/\\u([\d\w]{4})/gi, (match, grp) =>
-    String.fromCharCode(parseInt(grp, 16))
+    String.fromCharCode(parseInt(grp, 16)),
   );
 };
 
@@ -44,8 +44,7 @@ const getData = (data) => {
     const jsonObject = JSON.parse(matchResult[1])["defaultClient"];
 
     // 获取所有分类
-    const allItems =
-      jsonObject['$ROOT_QUERY.visionHotRank({"page":"home"})']["items"];
+    const allItems = jsonObject['$ROOT_QUERY.visionHotRank({"page":"home"})']["items"];
     // 遍历所有分类
     allItems.forEach((v) => {
       // 基础数据

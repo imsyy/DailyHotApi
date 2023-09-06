@@ -20,7 +20,7 @@ const getData = (data) => {
   if (!data) return [];
   const dataList = [];
   try {
-    const pattern = /<\!--s-data:(.*?)-->/s;
+    const pattern = /<!--s-data:(.*?)-->/s;
     const matchResult = data.match(pattern);
     const jsonObject = JSON.parse(matchResult[1]).cards[0].content;
     jsonObject.forEach((v) => {
