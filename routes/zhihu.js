@@ -22,6 +22,14 @@ const headers = {
     "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1",
 };
 
+// 数据量大于10000时显示万为单位
+function formatHotness(hotness) {
+  if (hotness >= 10000) {
+    return (hotness / 10000).toFixed(1).toString() + '万';
+  }
+  return hotness.toString();
+}
+
 // 数据处理
 const getData = (data) => {
   if (!data) return [];
@@ -35,7 +43,7 @@ const getData = (data) => {
         title: v.target.titleArea.text,
         desc: v.target.excerptArea.text,
         pic: v.target.imageArea.url,
-        hot: parseInt(v.target.metricsArea.text.replace(/[^\d]/g, "")) * 10000,
+        hot: formatHotness(parseInt(v.target.metricsArea.text.replace(/[^\d]/g, "")) * 10000),
         url: v.target.link.url,
         mobileUrl: v.target.link.url,
       });
