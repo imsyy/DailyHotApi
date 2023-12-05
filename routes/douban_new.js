@@ -50,7 +50,7 @@ const getData = (data) => {
         title: replaceTitle($(item).find("a").text(), score),
         desc: $(item).find("p").text(),
         score,
-        comments: $(item).find("span.pl").text().match(/\d+/)[0] ?? "",
+        comments: $(item).find("span.pl").text().match(/\d+/)?.[0] ?? "",
         pic: $(item).find("img").attr("src") ?? "",
         url: $(item).find("a").attr("href") ?? "",
         mobileUrl: `https://m.douban.com/movie/subject/${id}`,
