@@ -43,7 +43,6 @@ const getData = (data) => {
         .load(newListHtml)(".placeholder")
         .get()
         .map((v) => {
-          console.log($(v));
           dataList.push({
             title: $(v).find(".plc-title").text(),
             img: $(v).find("img").attr("data-original"),
