@@ -8,7 +8,8 @@
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
     "start": "node index.js",
     "dev": "npx nodemon index.js",
-    "prd": "pm2 start index.js"
+    "prd": "pm2 start index.js",
+    "build": "node index.js"
   },
   "author": "imsyy",
   "license": "MIT",
@@ -26,7 +27,6 @@
     "koa2-cors": "^2.0.6",
     "node-cache": "^5.1.2",
     "nodemon": "^2.0.22",
-    "prettier": "^3.0.2",
-    "winston": "^3.11.0"
+    "prettier": "^3.0.2"
   }
 }
