@@ -8,8 +8,7 @@
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
     "start": "node index.js",
     "dev": "npx nodemon index.js",
-    "prd": "pm2 start index.js",
-    "build": "node index.js"
+    "prd": "pm2 start index.js"
   },
   "author": "imsyy",
   "license": "MIT",
