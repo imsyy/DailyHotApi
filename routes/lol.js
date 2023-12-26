@@ -18,16 +18,15 @@ let updateTime = new Date().toISOString();
 
 // 调用路径
 const url =
-  "https://apps.game.qq.com/cmc/zmMcnTargetContentList?r0=jsonp&page=1&num=16&target=24&source=web_pc&r1=jQuery191002324053053181463_1687855508930&_=1687855508933";
+  "https://apps.game.qq.com/cmc/zmMcnTargetContentList?r0=jsonp&page=1&num=16&target=24&source=web_pc";
 
 // 数据处理
 const getData = (data) => {
   if (!data) return [];
   const dataList = [];
   try {
-    const pattern = /jQuery191002324053053181463_1687855508930\((.*?)\)/s;
-    const matchResult = data.match(pattern);
-    const jsonObject = JSON.parse(matchResult[1])["data"].result;
+    const match = data.match(/callback\((.*)\)/);
+    const jsonObject = JSON.parse(match[1]).data.result;
     jsonObject.forEach((v) => {
       dataList.push({
         title: v.sTitle,
