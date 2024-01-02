@@ -123,9 +123,9 @@ docker run -p 6688:6688 -d dailyhot-api
 
 ```bash
 # 拉取
-docker pull imsyy/dailyhot-api:1.0.5
+docker pull imsyy/dailyhot-api:latest
 # 运行
-docker run -p 6688:6688 -d imsyy/dailyhot-api:1.0.5
+docker run -p 6688:6688 -d imsyy/dailyhot-api:latest
 ```
 
 ## Vercel 部署
