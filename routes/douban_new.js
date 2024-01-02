@@ -13,7 +13,7 @@ const { get, set, del } = require("../utils/cacheData");
 
 // 接口信息
 const routerInfo = {
-  name: "douban",
+  name: "douban_new",
   title: "豆瓣",
   subtitle: "新片榜",
 };

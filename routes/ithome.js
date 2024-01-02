@@ -36,7 +36,7 @@ const getData = (data) => {
   const dataList = [];
   const $ = cheerio.load(data);
   try {
-    $(".rank-name").each(function () {
+    $(".rank-name").each(() => {
       const type = $(this).data("rank-type");
       const newListHtml = $(this).next(".rank-box").html();
       cheerio

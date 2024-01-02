@@ -1,7 +1,7 @@
 {
   "name": "dailyhot_api",
-  "version": "1.0.5",
-  "description": "一个今日热榜",
+  "version": "1.0.7",
+  "description": "An api on Today's Hot list",
   "main": "index.js",
   "scripts": {
     "format": "prettier --write .",

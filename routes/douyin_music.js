@@ -12,7 +12,7 @@ const { get, set, del } = require("../utils/cacheData");
 
 // 接口信息
 const routerInfo = {
-  name: "douyin",
+  name: "douyin_music",
   title: "抖音",
   subtitle: "热歌榜",
 };
