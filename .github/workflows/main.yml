@@ -1,0 +1,18 @@
+name: Sync Fork
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # 每天0点
+  workflow_dispatch: # on button click
+
+jobs:
+  sync:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: tgymnich/fork-sync@v1.9
+        with:
+          owner: imsyy # 分叉存储库的所有者
+          base: master
+          head: master
