@@ -117,6 +117,8 @@ pnpm start
 docker build -t dailyhot-api .
 # 运行
 docker run -p 6688:6688 -d dailyhot-api
+# 或使用 Docker Compose
+docker-compose up -d
 ```
 
 ### 在线部署

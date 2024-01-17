@@ -1,0 +1,12 @@
+services:
+  DailyhotApi:
+    build:
+      context: .
+    image: dailyhot-api
+    container_name: dailyhot-api
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    ports:
+      - 6688:6688
+    restart: always
