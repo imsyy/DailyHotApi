@@ -27,18 +27,28 @@ app.use(
   }),
 );
 
+// CORS
 app.use(async (ctx, next) => {
-  if (domain === "*") {
-    await next();
+  ctx.set("Access-Control-Allow-Origin", domain);
+  ctx.set("Access-Control-Allow-Methods", "GET, OPTIONS");
+  ctx.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  ctx.set("Access-Control-Allow-Credentials", "true");
+  // 处理预检请求
+  if (ctx.method === "OPTIONS") {
+    ctx.status = 200;
   } else {
-    if (ctx.headers.origin === domain || ctx.headers.referer === domain) {
+    if (domain === "*") {
       await next();
     } else {
-      ctx.status = 403;
-      ctx.body = {
-        code: 403,
-        message: "请通过正确的域名访问",
-      };
+      if (ctx.headers.origin === domain || ctx.headers.referer === domain) {
+        await next();
+      } else {
+        ctx.status = 403;
+        ctx.body = {
+          code: 403,
+          message: "请通过正确的域名访问",
+        };
+      }
     }
   }
 });
