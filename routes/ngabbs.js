@@ -46,7 +46,7 @@ const getData = (data) => {
       dataList.push({
         author: result.author,
         desc: result.subject,
-        parent: result.parent["2"],
+        title: result.parent["2"],
         tid: result.tid,
         comments: Number(result.replies),
         url: `https://bbs.nga.cn/read.php?tid=${result.tid}`,
