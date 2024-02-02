@@ -36,9 +36,9 @@ const getData = (data) => {
   const dataList = [];
   const $ = cheerio.load(data);
   try {
-    $(".rank-name").each(() => {
-      const type = $(this).data("rank-type");
-      const newListHtml = $(this).next(".rank-box").html();
+    $(".rank-name").each((i,e) => {
+      const type = $(e).data("rank-type");
+      const newListHtml = $(e).next(".rank-box").html();
       cheerio
         .load(newListHtml)(".placeholder")
         .get()
@@ -47,7 +47,7 @@ const getData = (data) => {
             title: $(v).find(".plc-title").text(),
             img: $(v).find("img").attr("data-original"),
             time: $(v).find(".post-time").text(),
-            type: $(this).text(),
+            type: $(e).text(),
             typeName: type,
             hot: Number($(v).find(".review-num").text().replace(/\D/g, "")),
             url: replaceLink($(v).find("a").attr("href")),
@@ -55,7 +55,7 @@ const getData = (data) => {
           });
         });
       // dataList[type] = {
-      //   name: $(this).text(),
+      //   name: $(e).text(),
       //   total: newsList.length,
       //   list: newsList,
       // };
