@@ -9,15 +9,6 @@ const cacheKey = "calendarData";
 // 调用时间
 let updateTime = new Date().toISOString();
 
-// 获取月份
-const month = (new Date().getMonth() + 1).toString().padStart(2, "0");
-
-// 获取天数
-const day = new Date().getDate().toString().padStart(2, "0");
-
-// 调用路径
-const url = `https://baike.baidu.com/cms/home/eventsOnHistory/${month}.json`;
-
 // 数据处理
 const getData = (data) => {
   if (!data) return [];
@@ -42,10 +33,15 @@ calendarRouter.get("/calendar", async (ctx) => {
     // 从缓存中获取数据
     let data = await get(cacheKey);
     const from = data ? "cache" : "server";
+    // 获取月份
+    const month = (new Date().getMonth() + 1).toString().padStart(2, "0");
+    // 获取天数
+    const day = new Date().getDate().toString().padStart(2, "0");
     if (!data) {
       // 如果缓存中不存在数据
       console.log("从服务端重新获取历史上的今天");
       // 从服务器拉取数据
+      const url = `https://baike.baidu.com/cms/home/eventsOnHistory/${month}.json`;
       const response = await axios.get(url);
       data = getData(response.data[month][month + day]);
       updateTime = new Date().toISOString();
