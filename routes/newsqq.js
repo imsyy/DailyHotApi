@@ -7,7 +7,7 @@ const { get, set, del } = require("../utils/cacheData");
 const routerInfo = {
   name: "newsqq",
   title: "腾讯新闻",
-  subtitle: "热点榜",
+  subtitle: "热点",
 };
 
 // 缓存键名

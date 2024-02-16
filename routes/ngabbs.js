@@ -11,7 +11,11 @@ const axios = require("axios");
 const { get, set, del } = require("../utils/cacheData");
 
 // 接口信息
-const routerInfo = { name: "ngabbs", title: "NGA", subtitle: "论坛热帖" };
+const routerInfo = {
+  name: "ngabbs",
+  title: "NGA",
+  subtitle: "热帖"
+};
 
 // 缓存键名
 const cacheKey = "ngabbsData";
@@ -19,9 +23,8 @@ const cacheKey = "ngabbsData";
 // 调用时间
 let updateTime = new Date().toISOString();
 
-const url =
-  "https://ngabbs.com/nuke.php?__lib=load_topic&__act=load_topic_reply_ladder2&opt=1&all=1";
-
+// 调用路径
+const url = "https://ngabbs.com/nuke.php?__lib=load_topic&__act=load_topic_reply_ladder2&opt=1&all=1";
 const headers = {
   Host: "ngabbs.com",
   "Content-Type": "application/x-www-form-urlencoded",

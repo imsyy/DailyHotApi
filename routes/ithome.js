@@ -20,8 +20,7 @@ let updateTime = new Date().toISOString();
 // 调用路径
 const url = "https://m.ithome.com/rankm/";
 const headers = {
-  "User-Agent":
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1",
+  "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1",
 };
 
 // it之家特殊处理 - url

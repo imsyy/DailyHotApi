@@ -15,7 +15,7 @@ const { get, set, del } = require("../utils/cacheData");
 const routerInfo = {
   name: "github",
   title: "Github",
-  subtitle: "trending",
+  subtitle: "Trending",
 };
 
 // 缓存键名
@@ -25,10 +25,8 @@ const cacheKey = "githubData";
 let updateTime = new Date().toISOString();
 
 const url = "https://github.com/trending";
-
 const headers = {
-  "User-Agent":
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1",
+  "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1",
 };
 
 // 数据处理

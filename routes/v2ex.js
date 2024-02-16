@@ -15,7 +15,7 @@ const { get, set, del } = require("../utils/cacheData");
 const routerInfo = {
   name: "v2ex",
   title: "V2EX",
-  subtitle: "hot",
+  subtitle: "热帖",
 };
 
 // 缓存键名
@@ -24,12 +24,11 @@ const cacheKey = "v2exData";
 // 调用时间
 let updateTime = new Date().toISOString();
 
+// 调用路径
 const url = "https://www.v2ex.com/?tab=hot";
-
 const headers = {
   "Content-Type": "application/json",
-  "User-Agent":
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
+  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
   authority: "www.v2ex.com",
   referer: "https://www.v2ex.com/",
 };

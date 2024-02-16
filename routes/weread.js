@@ -19,6 +19,9 @@ let updateTime = new Date().toISOString();
 
 // 调用路径
 const url = "https://weread.qq.com/web/bookListInCategory/rising?rank=1";
+const headers = {
+  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.67",
+}
 
 // 数据处理
 const getData = (data) => {
@@ -50,10 +53,7 @@ wereadRouter.get("/weread", async (ctx) => {
       console.log("从服务端重新获取微信读书");
       // 从服务器拉取数据
       const response = await axios.get(url, {
-        Headers: {
-          "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.67",
-        },
+        Headers: headers,
       });
       data = getData(response.data.books);
       updateTime = new Date().toISOString();

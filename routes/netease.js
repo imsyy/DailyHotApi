@@ -14,7 +14,7 @@ const { get, set, del } = require("../utils/cacheData");
 const routerInfo = {
   name: "netease",
   title: "网易新闻",
-  subtitle: "热点榜",
+  subtitle: "热点",
 };
 
 // 缓存键名

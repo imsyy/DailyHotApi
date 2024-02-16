@@ -17,8 +17,7 @@ const cacheKey = "lolData";
 let updateTime = new Date().toISOString();
 
 // 调用路径
-const url =
-  "https://apps.game.qq.com/cmc/zmMcnTargetContentList?r0=jsonp&page=1&num=16&target=24&source=web_pc";
+const url = "https://apps.game.qq.com/cmc/zmMcnTargetContentList?r0=jsonp&page=1&num=16&target=24&source=web_pc";
 
 // 数据处理
 const getData = (data) => {

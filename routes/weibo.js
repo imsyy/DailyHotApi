@@ -8,7 +8,7 @@ const { get, set, del } = require("../utils/cacheData");
 const routerInfo = {
   name: "weibo",
   title: "微博",
-  subtitle: "热搜榜",
+  subtitle: "热搜",
 };
 
 // 缓存键名

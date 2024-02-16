@@ -25,13 +25,12 @@ const cacheKey = "qqmusicData";
 // 调用时间
 let updateTime = new Date().toISOString();
 
+// 调用路径
 const url = "https://y.qq.com/n/ryqq/toplist/";
-
 const headers = {
   authority: "y.qq.com",
   referer: "https://www.google.com/",
-  "user-agent":
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+  "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
 };
 
 // 榜单类别

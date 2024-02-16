@@ -17,8 +17,7 @@ const cacheKey = "genshinData";
 let updateTime = new Date().toISOString();
 
 // 调用路径
-const url =
-  "https://content-static.mihoyo.com/content/ysCn/getContentList?pageSize=50&pageNum=1&channelId=10";
+const url = "https://content-static.mihoyo.com/content/ysCn/getContentList?pageSize=50&pageNum=1&channelId=10";
 
 // 数据处理
 const getData = (data) => {

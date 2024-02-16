@@ -4,7 +4,11 @@ const axios = require("axios");
 const { get, set, del } = require("../utils/cacheData");
 
 // 接口信息
-const routerInfo = { name: "baidu", title: "百度", subtitle: "热搜榜" };
+const routerInfo = {
+  name: "baidu",
+  title: "百度",
+  subtitle: "热搜榜"
+};
 
 // 缓存键名
 const cacheKey = "baiduData";

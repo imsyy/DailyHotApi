@@ -18,8 +18,7 @@ const cacheCookieKey = "douyinCookieData";
 let updateTime = new Date().toISOString();
 
 // 调用路径
-const url =
-  "https://www.douyin.com/aweme/v1/web/hot/search/list/?device_platform=webapp&aid=6383&channel=channel_pc_web&detail_list=1&round_trip_time=50";
+const url = "https://www.douyin.com/aweme/v1/web/hot/search/list/?device_platform=webapp&aid=6383&channel=channel_pc_web&detail_list=1&round_trip_time=50";
 
 // Token 获取路径
 const cookisUrl = "https://www.douyin.com/passport/general/login_guiding_strategy/?aid=6383";
