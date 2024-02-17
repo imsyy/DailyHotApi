@@ -29,8 +29,7 @@ fs.readdirSync(__dirname)
       if (routerModule?.info) {
         allRouterInfo.total++;
         allRouterInfo.data.push({
-          ...routerModule.info,
-          stack: routerModule.stack,
+          ...routerModule.info, stack: routerModule.stack,
         });
       }
       // 引用路由

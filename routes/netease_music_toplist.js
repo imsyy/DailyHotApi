@@ -89,7 +89,7 @@ neteaseMusicRouter.get("/netease_music_toplist", async (ctx) => {
   try {
     // 获取参数
     const { type } = ctx.query;
-    const typeNum = Number(type);
+    const typeNum = Number(type) || 1;
     if (!typeNum || typeNum > 4 || typeNum < 1) {
       ctx.body = { code: 400, ...routerInfo, message: "参数不完整或不正确" };
       return false;
@@ -143,7 +143,7 @@ neteaseMusicRouter.get("/netease_music_toplist/new", async (ctx) => {
   try {
     // 获取参数
     const { type } = ctx.query;
-    const typeNum = Number(type);
+    const typeNum = Number(type) || 1;
     if (!typeNum || typeNum > 4 || typeNum < 1) {
       ctx.body = { code: 400, ...routerInfo, message: "参数不完整或不正确" };
       return false;
