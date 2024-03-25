@@ -45,7 +45,7 @@ const getData = (data) => {
     result.forEach((result) => {
       dataList.push({
         author: result.author,
-        desc: result.subject,
+        title: result.subject,
         parent: result.parent["2"],
         tid: result.tid,
         comments: Number(result.replies),
