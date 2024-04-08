@@ -1,0 +1,5 @@
+.vscode
+docker-compose.yml
+dist
+logs
+!/.github

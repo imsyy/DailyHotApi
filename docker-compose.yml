@@ -1,12 +1,15 @@
+version: "3.8"
+
 services:
   DailyhotApi:
     build:
       context: .
-    image: dailyhot-api
-    container_name: dailyhot-api
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
+      target: runner
     ports:
-      - 6688:6688
+      - "6688:6688"
+    volumes:
+      - "./logs:/app/logs"
+    environment:
+      - PORT=6688
+    user: "114514"
     restart: always
