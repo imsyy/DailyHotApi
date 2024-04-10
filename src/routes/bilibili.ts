@@ -41,7 +41,7 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
 
 const getList = async (options: Options, noCache: boolean) => {
   const { type } = options;
-  const url = `https://api.bilibili.com/x/web-interface/ranking/v2?rid=${type}`;
+  const url = `https://api.bilibili.com/x/web-interface/ranking/v2?tid=${type}`;
   const result = await get({
     url,
     headers: {

@@ -1,10 +1,10 @@
 <div align="center">
 <img alt="logo" height="120" src="./public/favicon.png" width="120"/>
-<h2>今日热榜</h2>
+<p size="20">今日热榜</p>
 <p>一个聚合热门数据的 API 接口</p>
 </div>
 
----
+## 特性
 
 - 极快响应，便于开发
 - 支持 RSS 模式和 JSON 模式
@@ -50,7 +50,7 @@
 | 崩坏：星穹铁道 | 最新动态 | starrail     | 🟢       |
 | 微信读书       | 飙升榜   | weread       | 🟢       |
 | NGA            | 热帖     | ngabbs       | 🟢       |
-| HelloGitHub    | Trending | github       | 🟢       |
+| HelloGitHub    | Trending | hellogithub       | 🟢       |
 
 ## 部署
 
