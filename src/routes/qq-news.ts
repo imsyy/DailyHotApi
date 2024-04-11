@@ -1,0 +1,37 @@
+import type { RouterData } from "../types.js";
+import type { RouterType } from "../router.types.js";
+import { get } from "../utils/getData.js";
+
+export const handleRoute = async (_: undefined, noCache: boolean) => {
+  const { fromCache, data, updateTime } = await getList(noCache);
+  const routeData: RouterData = {
+    name: "qq-news",
+    title: "腾讯新闻",
+    type: "热点榜",
+    link: "https://news.qq.com/",
+    total: data?.length || 0,
+    updateTime,
+    fromCache,
+    data,
+  };
+  return routeData;
+};
+
+const getList = async (noCache: boolean) => {
+  const url = `https://r.inews.qq.com/gw/event/hot_ranking_list?page_size=50`;
+  const result = await get({ url, noCache });const list = result.data.idlist[0].newslist.slice(1);
+  return {
+    fromCache: result.fromCache,
+    updateTime: result.updateTime,
+    data: list.map((v: RouterType["qq-news"]) => ({
+      id: v.id,
+      title: v.title,
+      desc: v.abstract,
+      cover: v.miniProShareImage,
+      author: v.source,
+      hot: v.hotEvent.hotScore,
+      url: `https://new.qq.com/rain/a/${v.id}`,
+      mobileUrl: `https://view.inews.qq.com/k/${v.id}`,
+    })),
+  };
+};
