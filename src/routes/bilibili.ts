@@ -1,6 +1,7 @@
 import type { RouterData, ListContext, Options } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
+import getBiliWbi from "../utils/getBiliWbi.js";
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const type = c.req.query("type") || "0";
@@ -41,11 +42,14 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
 
 const getList = async (options: Options, noCache: boolean) => {
   const { type } = options;
-  const url = `https://api.bilibili.com/x/web-interface/ranking/v2?tid=${type}`;
+  const wbiData = await getBiliWbi();
+  const url = `https://api.bilibili.com/x/web-interface/ranking/v2?tid=${type}&type=all&${wbiData}`;
   const result = await get({
     url,
     headers: {
       Referer: `https://www.bilibili.com/ranking/all`,
+      "User-Agent":
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
     },
     noCache,
   });
