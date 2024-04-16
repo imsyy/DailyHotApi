@@ -32,6 +32,13 @@ export type RouterType = {
     url: string;
     type: number;
   };
+  "51cto": {
+    title: string;
+    url: string;
+    cover: string;
+    abstract: string;
+    source_id: number;
+  };
   bilibili: {
     bvid: string;
     title: string;
@@ -184,5 +191,27 @@ export type RouterType = {
     description: string;
     summary: string;
     clicks_total: number;
+  };
+  v2ex: {
+    title: string;
+    url: string;
+    content: string;
+    id: number;
+    replies: number;
+    member: {
+      username: string;
+    };
+  };
+  earthquake: {
+    NEW_DID: string;
+    LOCATION_C: string;
+    M: string;
+  };
+  weatheralarm: {
+    alertid: string;
+    issuetime: string;
+    title: string;
+    url: string;
+    pic: string;
   };
 };

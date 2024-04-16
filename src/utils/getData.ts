@@ -37,7 +37,7 @@ request.interceptors.response.use(
 
 // GET
 export const get = async (options: Get) => {
-  const { url, headers, noCache, ttl = config.CACHE_TTL, originaInfo = false } = options;
+  const { url, headers, params, noCache, ttl = config.CACHE_TTL, originaInfo = false } = options;
   logger.info("发起 GET 请求", options);
   try {
     // 检查缓存
@@ -51,7 +51,7 @@ export const get = async (options: Get) => {
     }
     // 缓存不存在时请求接口
     logger.info("请求接口", { url });
-    const response = await request.get(url, { headers });
+    const response = await request.get(url, { headers, params });
     const responseData = response?.data || response;
     // 存储新获取的数据到缓存
     const updateTime = new Date().toISOString();

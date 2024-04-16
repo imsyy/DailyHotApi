@@ -5,7 +5,7 @@ import { get } from "../utils/getData.js";
 export const handleRoute = async (_: undefined, noCache: boolean) => {
   const { fromCache, data, updateTime } = await getList(noCache);
   const routeData: RouterData = {
-    name: "ithome",
+    name: "ithome-xijiayi",
     title: "IT之家「喜加一」",
     type: "最新动态",
     description: "最新最全的「喜加一」游戏动态尽在这里！",

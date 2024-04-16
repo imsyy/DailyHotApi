@@ -1,6 +1,6 @@
 // 获取 Bilibili Web 端 WBI 签名鉴权
-import { getCache, setCache } from "./cache.js";
-import { get } from "./getData.js";
+import { getCache, setCache } from "../cache.js";
+import { get } from "../getData.js";
 import md5 from "md5";
 
 type EncodedKeys = {
