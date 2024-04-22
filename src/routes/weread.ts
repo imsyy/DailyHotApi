@@ -1,7 +1,7 @@
 import type { RouterData } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
-import getWereadID from "../utils/getWereadID.js";
+import getWereadID from "../utils/getToken/weread.js";
 
 export const handleRoute = async (_: undefined, noCache: boolean) => {
   const { fromCache, data, updateTime } = await getList(noCache);

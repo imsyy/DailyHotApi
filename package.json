@@ -1,6 +1,6 @@
 {
   "name": "dailyhot_api",
-  "version": "2.0.0",
+  "version": "2.0.0-rc.2",
   "description": "An Api on Today's Hot list",
   "keywords": [
     "API",
@@ -33,6 +33,7 @@
     "dotenv": "^16.4.5",
     "feed": "^4.2.2",
     "hono": "^4.2.2",
+    "md5": "^2.3.0",
     "node-cache": "^5.1.2",
     "winston": "^3.13.0"
   },
