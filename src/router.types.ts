@@ -214,4 +214,21 @@ export type RouterType = {
     url: string;
     pic: string;
   };
+  huxiu: {
+    object_id: number;
+    content: string;
+    url: string;
+    user_info: {
+      username: string;
+    };
+  };
+  ifanr: {
+    buzz_original_url: string;
+    id: number;
+    post_content: string;
+    post_id: number;
+    post_title: string;
+    like_count: number;
+    comment_count: number;
+  };
 };
