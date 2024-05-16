@@ -19,13 +19,13 @@ export const handleRoute = async (_: undefined, noCache: boolean) => {
 };
 
 const getList = async (noCache: boolean) => {
-  const url = `https://news-at.zhihu.com/api/4/news/latest`;
+  const url = `https://daily.zhihu.com/api/4/news/latest`;
   const result = await get({
     url,
     noCache,
     headers: {
-      Referer: "https://news-at.zhihu.com/api/4/news/latest",
-      Host: "news-at.zhihu.com",
+      Referer: "https://daily.zhihu.com/api/4/news/latest",
+      Host: "daily.zhihu.com",
     },
   });
   const list = result.data.stories.filter((el: RouterType["zhihu-daily"]) => el.type === 0);
