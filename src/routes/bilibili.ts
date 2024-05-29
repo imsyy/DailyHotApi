@@ -53,19 +53,50 @@ const getList = async (options: Options, noCache: boolean) => {
     },
     noCache,
   });
-  const list = result.data.data.list;
-  return {
-    fromCache: result.fromCache,
-    updateTime: result.updateTime,
-    data: list.map((v: RouterType["bilibili"]) => ({
-      id: v.bvid,
-      title: v.title,
-      desc: v.desc,
-      cover: v.pic.replace(/http:/, "https:"),
-      author: v.owner.name,
-      hot: v.stat.view,
-      url: v.short_link_v2 || `https://www.bilibili.com/video/${v.bvid}`,
-      mobileUrl: `https://m.bilibili.com/video/${v.bvid}`,
-    })),
-  };
+  // 是否触发风控
+  if (result.data?.data?.list?.length > 0) {
+    const list = result.data.data.list;
+    return {
+      fromCache: result.fromCache,
+      updateTime: result.updateTime,
+      data: list.map((v: RouterType["bilibili"]) => ({
+        id: v.bvid,
+        title: v.title,
+        desc: v.desc || "该视频暂无简介",
+        cover: v.pic.replace(/http:/, "https:"),
+        author: v.owner.name,
+        hot: v.stat.view,
+        url: v.short_link_v2 || `https://www.bilibili.com/video/${v.bvid}`,
+        mobileUrl: `https://m.bilibili.com/video/${v.bvid}`,
+      })),
+    };
+  }
+  // 采用备用接口
+  else {
+    const url = `https://api.bilibili.com/x/web-interface/ranking?jsonp=jsonp?rid=${type}&type=1&callback=__jp0`;
+    const result = await get({
+      url,
+      headers: {
+        Referer: `https://www.bilibili.com/ranking/all`,
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
+      },
+      noCache,
+    });
+    const list = result.data.data.list;
+    return {
+      fromCache: result.fromCache,
+      updateTime: result.updateTime,
+      data: list.map((v: RouterType["bilibili"]) => ({
+        id: v.bvid,
+        title: v.title,
+        desc: v.desc || "该视频暂无简介",
+        cover: v.pic.replace(/http:/, "https:"),
+        author: v.author,
+        hot: v.video_review,
+        url: `https://www.bilibili.com/video/${v.bvid}`,
+        mobileUrl: `https://m.bilibili.com/video/${v.bvid}`,
+      })),
+    };
+  }
 };

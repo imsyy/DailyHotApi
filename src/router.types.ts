@@ -42,12 +42,14 @@ export type RouterType = {
   bilibili: {
     bvid: string;
     title: string;
-    desc: string;
-    pic: string;
-    owner: {
+    desc?: string;
+    pic?: string;
+    author?: string;
+    video_review?: number;
+    owner?: {
       name: string;
     };
-    stat: {
+    stat?: {
       view: number;
     };
     short_link_v2?: string;
