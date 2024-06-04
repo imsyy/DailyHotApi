@@ -1,6 +1,6 @@
 {
-  "name": "dailyhot_api",
-  "version": "2.0.0-rc.2",
+  "name": "dailyhot-api",
+  "version": "2.0.0-rc.3",
   "description": "An Api on Today's Hot list",
   "keywords": [
     "API",
@@ -12,11 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DIYgod/RSSHub.git"
+    "url": "git+https://github.com/imsyy/DailyHotApi.git"
   },
   "license": "MIT",
   "author": "imsyy",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/types.js",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts,.vue --fix",
