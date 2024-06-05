@@ -42,6 +42,8 @@ const getList = async (noCache: boolean) => {
       title: dom.find("h3 a").text().trim(),
       cover: dom.find(".pic-wrap img").attr("src"),
       desc: dom.find(".block p").text().trim(),
+      timestamp: dom.find("span.pubtime").text().trim(),
+      hot: null,
       url,
       mobileUrl: `https://m.douban.com/group/topic/${getNumbers(url)}/`,
     };

@@ -1,6 +1,7 @@
 import type { RouterData, ListContext, Options } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
+import getTime from "../utils/getTime.js";
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const type = c.req.query("type") || "1";
@@ -44,6 +45,7 @@ const getList = async (options: Options, noCache: boolean) => {
         desc: data.content,
         cover: data.cover || v.image_list[0].url,
         author: v.user.nickname,
+        timestamp: getTime(data.created_at),
         hot: v.stat.view_num,
         url: `https://www.miyoushe.com/bh3/article/${data.post_id}`,
         mobileUrl: `https://m.miyoushe.com/bh3/#/article/${data.post_id}`,

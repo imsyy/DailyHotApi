@@ -1,6 +1,7 @@
-import type { Get, Post } from "../types.ts";
+import type { Get, Post, Web } from "../types.ts";
 import { config } from "../config.js";
 import { getCache, setCache, delCache } from "./cache.js";
+import puppeteer from "puppeteer";
 import logger from "./logger.js";
 import axios from "axios";
 
@@ -95,6 +96,43 @@ export const post = async (options: Post) => {
     return { fromCache: false, data, updateTime };
   } catch (error) {
     logger.error("POST 请求出错", error);
+    throw error;
+  }
+};
+
+// puppeteer
+export const web = async (options: Web) => {
+  const { url, noCache, ttl = config.CACHE_TTL, userAgent } = options;
+  logger.info("使用 Puppeteer 发起页面请求", options);
+  try {
+    // 检查缓存
+    if (noCache) {
+      delCache(url);
+    } else {
+      const cachedData = getCache(url);
+      if (cachedData) {
+        logger.info("采用缓存", { url });
+        return { fromCache: true, data: cachedData.data, updateTime: cachedData.updateTime };
+      }
+    }
+    // 缓存不存在时使用 Puppeteer 请求页面
+    logger.info("启动浏览器请求页面", { url });
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    // 其他 Puppeteer 操作
+    if (userAgent) page.setUserAgent(userAgent);
+    await page.goto(url, { waitUntil: "networkidle0" });
+    // 获取页面内容
+    const pageContent = await page.evaluate(() => document.body.innerHTML);
+    await browser.close();
+    // 存储新获取的数据到缓存
+    const updateTime = new Date().toISOString();
+    setCache(url, { data: pageContent, updateTime }, ttl);
+    // 返回数据
+    logger.info("页面内容获取成功");
+    return { fromCache: false, data: pageContent, updateTime };
+  } catch (error) {
+    logger.error("Puppeteer 请求出错", error);
     throw error;
   }
 };

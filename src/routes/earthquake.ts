@@ -1,6 +1,7 @@
 import type { RouterData, ListContext, Options } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
+import getTime from "../utils/getTime.js";
 
 const mappings = {
   O_TIME: "发震时刻(UTC+8)",
@@ -68,6 +69,8 @@ const getList = async (options: Options, noCache: boolean) => {
         id: NEW_DID,
         title: `${LOCATION_C}发生${M}级地震`,
         desc: contentBuilder.join("\n"),
+        timestamp: getTime(v["O_TIME"]),
+        hot: null,
         url: `https://news.ceic.ac.cn/${NEW_DID}.html`,
         mobileUrl: `https://news.ceic.ac.cn/${NEW_DID}.html`,
       };

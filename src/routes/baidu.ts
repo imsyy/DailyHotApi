@@ -55,6 +55,7 @@ const getList = async (options: Options, noCache: boolean) => {
       desc: v.desc,
       cover: v.img,
       author: v.show?.length ? v.show : "",
+      timestamp: null,
       hot: Number(v.hotScore),
       url: `https://www.baidu.com/s?wd=${encodeURIComponent(v.query)}`,
       mobileUrl: v.rawUrl,

@@ -1,6 +1,6 @@
 {
   "name": "dailyhot-api",
-  "version": "2.0.0-rc.3",
+  "version": "2.0.0-rc.4",
   "description": "An Api on Today's Hot list",
   "keywords": [
     "API",
@@ -18,6 +18,16 @@
   "author": "imsyy",
   "main": "dist/index.js",
   "types": "dist/types.js",
+  "declaration": true,
+  "declarationMap": true,
+  "sourceMap": true,
+  "files": [
+    "LICENSE",
+    "README.md",
+    "dist/**/*",
+    "src/types.d.ts",
+    "!dist/logs/**/*"
+  ],
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts,.vue --fix",
@@ -28,24 +38,27 @@
   },
   "type": "module",
   "dependencies": {
-    "@hono/node-server": "^1.9.1",
-    "axios": "^1.6.8",
+    "@hono/node-server": "^1.11.2",
+    "axios": "^1.7.2",
     "cheerio": "1.0.0-rc.12",
+    "dayjs": "^1.11.11",
     "dotenv": "^16.4.5",
     "feed": "^4.2.2",
-    "hono": "^4.2.2",
+    "hono": "^4.4.3",
     "md5": "^2.3.0",
     "node-cache": "^5.1.2",
+    "puppeteer": "^22.10.0",
+    "rss-parser": "^3.13.0",
     "winston": "^3.13.0"
   },
   "devDependencies": {
-    "@types/node": "^20.12.5",
-    "@typescript-eslint/eslint-plugin": "^7.5.0",
-    "@typescript-eslint/parser": "^7.5.0",
+    "@types/node": "^20.14.1",
+    "@typescript-eslint/eslint-plugin": "^7.12.0",
+    "@typescript-eslint/parser": "^7.12.0",
     "eslint": "^8.57.0",
-    "prettier": "^3.2.5",
+    "prettier": "^3.3.0",
     "tsx": "^3.14.0",
-    "typescript": "^5.4.4"
+    "typescript": "^5.4.5"
   },
   "engines": {
     "node": ">=20"

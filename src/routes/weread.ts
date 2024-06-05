@@ -2,6 +2,7 @@ import type { RouterData } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
 import getWereadID from "../utils/getToken/weread.js";
+import getTime from "../utils/getTime.js";
 
 export const handleRoute = async (_: undefined, noCache: boolean) => {
   const { fromCache, data, updateTime } = await getList(noCache);
@@ -40,6 +41,7 @@ const getList = async (noCache: boolean) => {
         author: data.author,
         desc: data.intro,
         cover: data.cover.replace("s_", "t9_"),
+        timestamp: getTime(data.publishTime),
         hot: v.readingCount,
         url: `https://weread.qq.com/web/bookDetail/${getWereadID(data.bookId)}`,
         mobileUrl: `https://weread.qq.com/web/bookDetail/${getWereadID(data.bookId)}`,

@@ -2,6 +2,7 @@ import type { RouterData, ListContext, Options } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
 import getBiliWbi from "../utils/getToken/bilibili.js";
+import getTime from "../utils/getTime.js";
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const type = c.req.query("type") || "0";
@@ -65,6 +66,7 @@ const getList = async (options: Options, noCache: boolean) => {
         desc: v.desc || "该视频暂无简介",
         cover: v.pic.replace(/http:/, "https:"),
         author: v.owner.name,
+        timestamp: getTime(v.pubdate),
         hot: v.stat.view,
         url: v.short_link_v2 || `https://www.bilibili.com/video/${v.bvid}`,
         mobileUrl: `https://m.bilibili.com/video/${v.bvid}`,
@@ -93,6 +95,7 @@ const getList = async (options: Options, noCache: boolean) => {
         desc: v.desc || "该视频暂无简介",
         cover: v.pic.replace(/http:/, "https:"),
         author: v.author,
+        timestamp: null,
         hot: v.video_review,
         url: `https://www.bilibili.com/video/${v.bvid}`,
         mobileUrl: `https://m.bilibili.com/video/${v.bvid}`,

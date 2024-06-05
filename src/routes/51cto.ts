@@ -2,6 +2,7 @@ import type { RouterData } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { getToken, sign } from "../utils/getToken/51cto.js";
 import { get } from "../utils/getData.js";
+import getTime from "../utils/getTime.js";
 
 export const handleRoute = async (_: undefined, noCache: boolean) => {
   const { fromCache, data, updateTime } = await getList(noCache);
@@ -47,6 +48,7 @@ const getList = async (noCache: boolean) => {
       title: v.title,
       cover: v.cover,
       desc: v.abstract,
+      timestamp: getTime(v.pubdate),
       url: v.url,
       mobileUrl: v.url,
     })),

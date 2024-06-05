@@ -1,6 +1,7 @@
 import type { RouterData } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
+import getTime from "../utils/getTime.js";
 
 export const handleRoute = async (_: undefined, noCache: boolean) => {
   const { fromCache, data, updateTime } = await getList(noCache);
@@ -31,6 +32,7 @@ const getList = async (noCache: boolean) => {
         title: data.title,
         desc: data.excerpt,
         cover: v.children[0].thumbnail,
+        timestamp: getTime(data.created),
         hot: parseInt(v.detail_text.replace(/[^\d]/g, "")) * 10000,
         url: `https://www.zhihu.com/question/${data.id}`,
         mobileUrl: `https://www.zhihu.com/question/${data.id}`,

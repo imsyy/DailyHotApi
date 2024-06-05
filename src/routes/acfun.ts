@@ -1,6 +1,7 @@
 import type { RouterData, ListContext, Options } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
+import getTime from "../utils/getTime.js";
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const type = c.req.query("type") || "-1";
@@ -67,6 +68,7 @@ const getList = async (options: Options, noCache: boolean) => {
       desc: v.contentDesc,
       cover: v.coverUrl,
       author: v.userName,
+      timestamp: getTime(v.contributeTime),
       hot: v.likeCount,
       url: `https://www.acfun.cn/v/ac${v.dougaId}`,
       mobileUrl: `https://m.acfun.cn/v/?ac=${v.dougaId}`,

@@ -59,6 +59,25 @@
 | 中央气象台       | 全国气象预警 | weatheralarm   | 🟢       |
 | 中国地震台       | 地震速报     | earthquake     | 🟢       |
 
+## 使用
+
+本项目支持 `Node.js` 调用，可在安装完成后调用 `serveHotApi` 来开启服务器
+
+```bash
+pnpm add dailyhot-api
+```
+
+```js
+import serveHotApi from "dailyhot-api";
+
+/**
+ * 启动服务器
+ * @param {Number} [port] - 端口号
+ * @returns {Promise<void>}
+ */
+serveHotApi(3000);
+```
+
 ## ⚙️ 部署
 
 具体使用说明可参考 [我的博客](https://blog.imsyy.top/posts/2024/0408)，下方仅讲解基础操作：

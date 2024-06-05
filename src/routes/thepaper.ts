@@ -1,6 +1,7 @@
 import type { RouterData } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
+import getTime from "../utils/getTime.js";
 
 export const handleRoute = async (_: undefined, noCache: boolean) => {
   const { fromCache, data, updateTime } = await getList(noCache);
@@ -29,6 +30,7 @@ const getList = async (noCache: boolean) => {
       title: v.name,
       cover: v.pic,
       hot: Number(v.praiseTimes),
+      timestamp: getTime(v.pubTimeLong),
       url: `https://www.thepaper.cn/newsDetail_forward_${v.contId}`,
       mobileUrl: `https://m.thepaper.cn/newsDetail_forward_${v.contId}`,
     })),

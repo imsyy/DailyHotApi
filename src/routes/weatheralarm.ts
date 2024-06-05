@@ -1,6 +1,7 @@
 import type { RouterData, ListContext, Options } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
+import getTime from "../utils/getTime.js";
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const province = c.req.query("province") || "";
@@ -29,6 +30,8 @@ const getList = async (options: Options, noCache: boolean) => {
   const url = `http://www.nmc.cn/rest/findAlarm?pageNo=1&pageSize=20&signaltype=&signallevel=&province=${encodeURIComponent(province)}`;
   const result = await get({ url, noCache });
   const list = result.data.data.page.list;
+  console.log(list);
+
   return {
     fromCache: result.fromCache,
     updateTime: result.updateTime,
@@ -38,6 +41,8 @@ const getList = async (options: Options, noCache: boolean) => {
       title: v.title,
       desc: v.issuetime + " " + v.title,
       cover: v.pic,
+      timestamp: getTime(v.issuetime),
+      hot: null,
       url: `http://nmc.cn${v.url}`,
       mobileUrl: `http://nmc.cn${v.url}`,
     })),

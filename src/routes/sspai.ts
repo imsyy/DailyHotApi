@@ -1,6 +1,7 @@
 import type { RouterData, ListContext, Options } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
+import getTime from "../utils/getTime.js";
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const type = c.req.query("type") || "热门文章";
@@ -38,6 +39,7 @@ const getList = async (options: Options, noCache: boolean) => {
       desc: v.summary,
       cover: v.banner,
       author: v.author.nickname,
+      timestamp: getTime(v.released_time),
       hot: v.like_count,
       url: `https://sspai.com/post/${v.id}`,
       mobileUrl: `https://sspai.com/post/${v.id}`,

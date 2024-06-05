@@ -27,7 +27,7 @@ const getNumericEnvVariable = (key: string, defaultValue: number): number => {
   const value = getEnvVariable(key) ?? String(defaultValue);
   const parsedValue = parseInt(value, 10);
   if (isNaN(parsedValue)) {
-    return defaultValue
+    return defaultValue;
   }
   return parsedValue;
 };

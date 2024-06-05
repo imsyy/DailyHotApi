@@ -1,6 +1,7 @@
 export type RouterType = {
   "36kr": {
     itemId: number;
+    publishTime: number;
     templateMaterial: {
       widgetTitle: string;
       authorName: string;
@@ -16,6 +17,7 @@ export type RouterType = {
     hotEvent: {
       hotScore: number;
     };
+    timestamp: number;
     miniProShareImage: string;
   };
   "netease-news": {
@@ -23,6 +25,7 @@ export type RouterType = {
     imgsrc: string;
     source: string;
     docid: string;
+    ptime: string;
   };
   "zhihu-daily": {
     id: number;
@@ -38,11 +41,21 @@ export type RouterType = {
     cover: string;
     abstract: string;
     source_id: number;
+    pubdate: string;
+  };
+  "52pojie": {
+    title: string;
+    link: string;
+    guid: string;
+    content?: string;
+    pubDate?: string;
+    author?: string;
   };
   bilibili: {
     bvid: string;
     title: string;
     desc?: string;
+    pubdate: string;
     pic?: string;
     author?: string;
     video_review?: number;
@@ -74,12 +87,14 @@ export type RouterType = {
     note: string;
     category: string;
     raw_hot: number;
+    onboard_time: number;
   };
   zhihu: {
     target: {
       id: number;
       title: string;
       excerpt: string;
+      created: number;
     };
     children: [
       {
@@ -92,6 +107,7 @@ export type RouterType = {
     sentence_id: string;
     word: string;
     hot_value: number;
+    event_time: number;
   };
   baidu: {
     index: number;
@@ -109,6 +125,7 @@ export type RouterType = {
       subject: string;
       content: string;
       cover: string;
+      created_at: number;
     };
     stat: {
       view_num: number;
@@ -130,6 +147,7 @@ export type RouterType = {
       intro: string;
       cover: string;
       author: string;
+      publishTime: string;
     };
   };
   toutiao: {
@@ -145,6 +163,7 @@ export type RouterType = {
     name: string;
     pic: string;
     praiseTimes: string;
+    pubTimeLong: number;
   };
   sspai: {
     id: number;
@@ -152,6 +171,7 @@ export type RouterType = {
     summary: string;
     banner: string;
     like_count: number;
+    released_time: number;
     author: {
       nickname: string;
     };
@@ -162,6 +182,7 @@ export type RouterType = {
     sTitle: string;
     iTotalPlay: string;
     iDocID: string;
+    sCreated: string;
   };
   ngabbs: {
     tid: number;
@@ -169,6 +190,7 @@ export type RouterType = {
     author: string;
     tpcurl: string;
     replies: number;
+    postdate: number;
   };
   tieba: {
     topic_id: number;
@@ -177,6 +199,7 @@ export type RouterType = {
     topic_pic: string;
     topic_url: string;
     discuss_num: number;
+    create_time: number;
   };
   acfun: {
     dougaId: string;
@@ -185,6 +208,7 @@ export type RouterType = {
     contentDesc: string;
     likeCount: number;
     coverUrl: string;
+    contributeTime: number;
   };
   hellogithub: {
     item_id: string;
@@ -193,6 +217,7 @@ export type RouterType = {
     description: string;
     summary: string;
     clicks_total: number;
+    updated_at: string;
   };
   v2ex: {
     title: string;
@@ -223,6 +248,7 @@ export type RouterType = {
     user_info: {
       username: string;
     };
+    publish_time: string;
   };
   ifanr: {
     buzz_original_url: string;
@@ -232,5 +258,6 @@ export type RouterType = {
     post_title: string;
     like_count: number;
     comment_count: number;
+    created_at: number;
   };
 };

@@ -50,9 +50,10 @@ const getList = async (noCache: boolean) => {
       title: `【${score}】${dom.find("a").attr("title")}`,
       cover: dom.find("img").attr("src"),
       desc: dom.find("p.pl").text(),
+      timestamp: null,
       hot: getNumbers(dom.find("span.pl").text()),
       url,
-      mobileUrl:`https://m.douban.com/movie/subject/${getNumbers(url)}/`,
+      mobileUrl: `https://m.douban.com/movie/subject/${getNumbers(url)}/`,
     };
   });
   return {

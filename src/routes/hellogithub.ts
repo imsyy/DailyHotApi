@@ -1,6 +1,7 @@
 import type { RouterData, ListContext, Options } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
+import getTime from "../utils/getTime.js";
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const sort = c.req.query("sort") || "hot";
@@ -41,6 +42,7 @@ const getList = async (options: Options, noCache: boolean) => {
       title: v.title,
       desc: v.summary,
       author: v.author,
+      timestamp: getTime(v.updated_at),
       hot: v.clicks_total,
       url: `https://hellogithub.com/repository/${v.item_id}`,
       mobileUrl: `https://hellogithub.com/repository/${v.item_id}`,

@@ -1,6 +1,7 @@
 import type { RouterData } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
+import getTime from "../utils/getTime.js";
 
 export const handleRoute = async (_: undefined, noCache: boolean) => {
   const { fromCache, data, updateTime } = await getList(noCache);
@@ -44,6 +45,8 @@ const getList = async (noCache: boolean) => {
       title: titleProcessing(v.content).title,
       desc: titleProcessing(v.content).intro,
       author: v.user_info.username,
+      timestamp: getTime(v.publish_time),
+      hot: null,
       url: v.url || "https://www.huxiu.com/moment/",
       mobileUrl: v.url || "https://m.huxiu.com/moment/",
     })),

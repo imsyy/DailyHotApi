@@ -40,6 +40,7 @@ const getList = async (options: Options, noCache: boolean) => {
       title: v.title,
       desc: v.content,
       author: v.member.username,
+      timestamp: null,
       hot: v.replies,
       url: v.url,
       mobileUrl: v.url,
