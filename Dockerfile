@@ -1,8 +1,14 @@
 FROM node:20-alpine AS base
 
+# 安装 Puppeteer 所需的依赖库
+RUN apk add --no-cache chromium nss freetype harfbuzz ca-certificates libc6-compat
+
+# 配置 Chromium
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true 
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+
 FROM base AS builder
 
-RUN apk add --no-cache libc6-compat
 RUN npm install -g pnpm
 WORKDIR /app
 
@@ -10,9 +16,9 @@ COPY package*json tsconfig.json pnpm-lock.yaml .env ./
 COPY src ./src
 COPY public ./public
 
-RUN pnpm install && \
-    pnpm build && \
-    pnpm prune --production
+RUN pnpm install
+RUN pnpm build
+RUN pnpm prune --production
 
 FROM base AS runner
 WORKDIR /app

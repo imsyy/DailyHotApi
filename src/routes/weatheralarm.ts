@@ -30,8 +30,6 @@ const getList = async (options: Options, noCache: boolean) => {
   const url = `http://www.nmc.cn/rest/findAlarm?pageNo=1&pageSize=20&signaltype=&signallevel=&province=${encodeURIComponent(province)}`;
   const result = await get({ url, noCache });
   const list = result.data.data.page.list;
-  console.log(list);
-
   return {
     fromCache: result.fromCache,
     updateTime: result.updateTime,

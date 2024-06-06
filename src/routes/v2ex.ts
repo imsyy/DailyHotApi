@@ -31,7 +31,7 @@ const getList = async (options: Options, noCache: boolean) => {
   const { type } = options;
   const url = `https://www.v2ex.com/api/topics/${type}.json`;
   const result = await get({ url, noCache });
-  const list = result.data.data.list;
+  const list = result.data;
   return {
     fromCache: result.fromCache,
     updateTime: result.updateTime,
