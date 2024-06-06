@@ -43,7 +43,7 @@ export type RouterType = {
     source_id: number;
     pubdate: string;
   };
-  "52pojie": {
+  discuz: {
     title: string;
     link: string;
     guid: string;

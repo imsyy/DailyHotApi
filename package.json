@@ -48,6 +48,7 @@
     "md5": "^2.3.0",
     "node-cache": "^5.1.2",
     "puppeteer": "^22.10.0",
+    "puppeteer-cluster": "^0.24.0",
     "rss-parser": "^3.13.0",
     "winston": "^3.13.0"
   },

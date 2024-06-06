@@ -38,6 +38,9 @@ importers:
       puppeteer:
         specifier: ^22.10.0
         version: 22.10.0(typescript@5.4.5)
+      puppeteer-cluster:
+        specifier: ^0.24.0
+        version: 0.24.0(puppeteer@22.10.0(typescript@5.4.5))
       rss-parser:
         specifier: ^3.13.0
         version: 3.13.0
@@ -1081,6 +1084,11 @@ packages:
   punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
+
+  puppeteer-cluster@0.24.0:
+    resolution: {integrity: sha512-zHPoNsrwkFLKFtgJJv2aC13EbMASQsE048uZd7CyikEXcl+sc1Nf6PMFb9kMoZI7/zMYxvuP658o2mw079ZZyQ==}
+    peerDependencies:
+      puppeteer: '>=22.0.0'
 
   puppeteer-core@22.10.0:
     resolution: {integrity: sha512-I54J4Vy4I07UHsgB1QSmuFoF7KNQjJWcvFBPhtY+ezMdBfwgGDr8dzYrJa11aPgP9kxIUHjhktcMmmfJkOAtTw==}
@@ -2409,6 +2417,13 @@ snapshots:
       once: 1.4.0
 
   punycode@2.3.1: {}
+
+  puppeteer-cluster@0.24.0(puppeteer@22.10.0(typescript@5.4.5)):
+    dependencies:
+      debug: 4.3.5
+      puppeteer: 22.10.0(typescript@5.4.5)
+    transitivePeerDependencies:
+      - supports-color
 
   puppeteer-core@22.10.0:
     dependencies:

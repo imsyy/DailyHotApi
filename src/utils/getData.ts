@@ -1,7 +1,7 @@
 import type { Get, Post, Web } from "../types.ts";
 import { config } from "../config.js";
 import { getCache, setCache, delCache } from "./cache.js";
-import puppeteer from "puppeteer";
+import { Cluster } from "puppeteer-cluster";
 import logger from "./logger.js";
 import axios from "axios";
 
@@ -10,6 +10,27 @@ const request = axios.create({
   // 请求超时设置
   timeout: config.REQUEST_TIMEOUT,
   withCredentials: true,
+});
+
+// puppeteer-cluster
+export const createCluster = async () => {
+  return await Cluster.launch({
+    concurrency: Cluster.CONCURRENCY_BROWSER,
+    maxConcurrency: 5,
+  });
+};
+
+// Cluster
+const cluster = await createCluster();
+
+// Cluster configuration
+cluster.task(async ({ page, data: { url, userAgent } }) => {
+  if (userAgent) {
+    await page.setUserAgent(userAgent);
+  }
+  await page.goto(url, { waitUntil: 'networkidle0' });
+  const pageContent = await page.content();
+  return pageContent;
 });
 
 // 请求拦截
@@ -117,14 +138,7 @@ export const web = async (options: Web) => {
     }
     // 缓存不存在时使用 Puppeteer 请求页面
     logger.info("启动浏览器请求页面", { url });
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    // 其他 Puppeteer 操作
-    if (userAgent) page.setUserAgent(userAgent);
-    await page.goto(url, { waitUntil: "networkidle0" });
-    // 获取页面内容
-    const pageContent = await page.evaluate(() => document.body.innerHTML);
-    await browser.close();
+    const pageContent = await cluster.execute({ url, userAgent });
     // 存储新获取的数据到缓存
     const updateTime = new Date().toISOString();
     setCache(url, { data: pageContent, updateTime }, ttl);
