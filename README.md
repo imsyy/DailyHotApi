@@ -2,6 +2,12 @@
 <img alt="logo" height="120" src="./public/favicon.png" width="120"/>
 <h2>今日热榜</h2>
 <p>一个聚合热门数据的 API 接口</p>
+<br />
+<img src="https://img.shields.io/github/last-commit/imsyy/DailyHotApi" alt="last commit"/>
+ <img src="https://img.shields.io/github/languages/code-size/imsyy/DailyHotApi" alt="code size"/>
+ <img src="https://img.shields.io/docker/image-size/imsyy/dailyhot-api" alt="docker-image-size"/>
+<img src="https://github.com/imsyy/DailyHotApi/actions/workflows/docker.yml/badge.svg" alt="Publish Docker image"/>
+<img src="https://github.com/imsyy/DailyHotApi/actions/workflows/npm.yml/badge.svg" alt="Publish npm package"/>
 </div>
 
 ## 🚩 特性
