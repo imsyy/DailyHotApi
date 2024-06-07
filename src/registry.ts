@@ -14,6 +14,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 let allRoutePath: Array<string> = [];
 const routersDirName: string = "routes";
 
+// 排除路由
+const excludeRoutes: Array<string> = ["52pojie", "hostloc"];
+
 // 建立完整目录路径
 const routersDirPath = path.join(__dirname, routersDirName);
 
@@ -47,6 +50,10 @@ if (fs.existsSync(routersDirPath) && fs.statSync(routersDirPath).isDirectory()) 
 // 注册全部路由
 for (let index = 0; index < allRoutePath.length; index++) {
   const router = allRoutePath[index];
+  // 是否处于排除名单
+  if (excludeRoutes.includes(router)) {
+    continue;
+  }
   const listApp = app.basePath(`/${router}`);
   // 返回榜单
   listApp.get("/", async (c) => {
@@ -85,6 +92,16 @@ for (let index = 0; index < allRoutePath.length; index++) {
       ...listData,
     });
   });
+  // 请求方式错误
+  listApp.all("*", (c) =>
+    c.json(
+      {
+        code: 405,
+        message: "Method Not Allowed",
+      },
+      405,
+    ),
+  );
 }
 
 // 获取全部路由
@@ -93,10 +110,20 @@ app.get("/all", (c) =>
     {
       code: 200,
       count: allRoutePath.length,
-      routes: allRoutePath.map((path) => ({
-        name: path,
-        path: `/${path}`,
-      })),
+      routes: allRoutePath.map((path) => {
+        // 是否处于排除名单
+        if (excludeRoutes.includes(path)) {
+          return {
+            name: path,
+            path: null,
+            message: "该接口暂时下线",
+          };
+        }
+        return {
+          name: path,
+          path: `/${path}`,
+        };
+      }),
     },
     200,
   ),

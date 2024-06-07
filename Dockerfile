@@ -1,11 +1,14 @@
 FROM node:20-alpine AS base
 
+ENV NODE_ENV=docker
+
 # 安装 Puppeteer 所需的依赖库
-RUN apk add --no-cache chromium nss freetype harfbuzz ca-certificates libc6-compat
+RUN apk add libc6-compat
+# RUN apk add chromium nss freetype harfbuzz ca-certificates
 
 # 配置 Chromium
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true 
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+# ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true 
+# ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 FROM base AS builder
 

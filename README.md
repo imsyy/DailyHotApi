@@ -52,8 +52,8 @@
 | 稀土掘金         | 热榜         | juejin         | 🟢       |
 | 腾讯新闻         | 热点榜       | qq-news        | 🟢       |
 | 网易新闻         | 热点榜       | netease-news   | 🟢       |
-| 吾爱破解         | 榜单         | 52pojie        | 🟢       |
-| 全球主机交流     | 榜单         | hostloc        | 🟢       |
+| 吾爱破解         | 榜单         | 52pojie        | ❌       |
+| 全球主机交流     | 榜单         | hostloc        | ❌       |
 | 虎嗅             | 24小时       | huxiu          | 🟢       |
 | 爱范儿           | 快讯         | ifanr          | 🟢       |
 | 英雄联盟         | 更新公告     | lol            | 🟢       |
@@ -148,6 +148,12 @@ npm run start
 
 成功启动后程序会在控制台输出可访问的地址
 
+### Vercel 部署
+
+本项目支持通过 `Vercel` 进行一键部署，点击下方按钮或前往 [项目仓库](https://github.com/imsyy/DailyHotApi-Vercel) 进行手动部署
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/imsyys-projects/clone?repository-url=https%3A%2F%2Fgithub.com%2Fimsyy%2FDailyHotApi-Vercel)
+
 ### Railway 部署
 
 本项目支持使用 [Railway](https://railway.app/) 一键部署，请先将本项目 fork 到您的仓库中，即可使用一键部署。
@@ -155,12 +161,6 @@ npm run start
 ### Zeabur 部署
 
 本项目支持使用 [Zeabur](https://zeabur.com/) 一键部署，请先将本项目 fork 到您的仓库中，即可使用一键部署。
-
-### Vercel 部署
-
-> 🚧 Vercel 部署支持正在修复中
-
-若您目前仅能通过 `Vercel` 进行部署，那么请暂时不要使用最新版本
 
 ## ⚠️ 须知
 
