@@ -4,7 +4,7 @@ import { get } from "../utils/getData.js";
 import getTime from "../utils/getTime.js";
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
-  const sort = c.req.query("sort") || "hot";
+  const sort = c.req.query("sort") || "featured";
   const { fromCache, data, updateTime } = await getList({ sort }, noCache);
   const routeData: RouterData = {
     name: "hellogithub",
@@ -15,8 +15,8 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
       sort: {
         name: "排行榜分区",
         type: {
-          hot: "热门",
-          last: "最新",
+          featured: "精选",
+          all: "全部",
         },
       },
     },
