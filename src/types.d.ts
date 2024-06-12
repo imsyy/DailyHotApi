@@ -63,6 +63,3 @@ export type Web = {
 export type Options = {
   [key: string]: string | undefined;
 };
-
-// serveHotApi
-export default function serveHotApi(port?: number): unknown;
