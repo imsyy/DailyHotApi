@@ -1,6 +1,7 @@
 import { config } from "../config.js";
 import { createLogger, format, transports } from "winston";
 import path from "path";
+import chalk from "chalk";
 
 let pathOption: (typeof transports.File)[] = [];
 
@@ -26,6 +27,28 @@ if (config.USE_LOG_FILE) {
   }
 }
 
+// 定义不同日志级别的彩色块
+const levelColors: { [key: string]: string } = {
+  error: chalk.bgRed(" ERROR "),
+  warn: chalk.bgYellow(" WARN "),
+  info: chalk.bgBlue(" INFO "),
+  debug: chalk.bgGreen(" DEBUG "),
+  default: chalk.bgWhite(" LOG "),
+};
+
+// 自定义控制台日志输出格式
+const consoleFormat = format.printf(({ level, message, timestamp, stack }) => {
+  // 获取原始日志级别
+  const originalLevel = Object.keys(levelColors).find((lvl) => level.includes(lvl)) || "default";
+  const colorLevel = levelColors[originalLevel] || levelColors.default;
+
+  let logMessage = `${colorLevel} [${timestamp}] ${message}`;
+  if (stack) {
+    logMessage += `\n${stack}`;
+  }
+  return logMessage;
+});
+
 // logger
 const logger = createLogger({
   // 最低的日志级别
@@ -47,7 +70,7 @@ if (process.env.NODE_ENV !== "production") {
   try {
     logger.add(
       new transports.Console({
-        format: format.combine(format.colorize(), format.simple()),
+        format: format.combine(format.colorize(), consoleFormat),
       }),
     );
   } catch (error) {
