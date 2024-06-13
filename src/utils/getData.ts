@@ -1,7 +1,7 @@
 import type { Get, Post, Web } from "../types.ts";
 import { config } from "../config.js";
 import { getCache, setCache, delCache } from "./cache.js";
-import { Cluster } from "puppeteer-cluster";
+// import { Cluster } from "puppeteer-cluster";
 import logger from "./logger.js";
 import axios from "axios";
 
@@ -13,25 +13,26 @@ const request = axios.create({
 });
 
 // puppeteer-cluster
-export const createCluster = async () => {
-  return await Cluster.launch({
-    concurrency: Cluster.CONCURRENCY_BROWSER,
-    maxConcurrency: 5,
-  });
-};
+// export const createCluster = async () => {
+//   return await Cluster.launch({
+//     concurrency: Cluster.CONCURRENCY_BROWSER,
+//     maxConcurrency: 5,
+//   });
+// };
 
 // Cluster
-const cluster = await createCluster();
+// const cluster = await createCluster();
+const cluster = null;
 
 // Cluster configuration
-cluster.task(async ({ page, data: { url, userAgent } }) => {
-  if (userAgent) {
-    await page.setUserAgent(userAgent);
-  }
-  await page.goto(url, { waitUntil: 'networkidle0' });
-  const pageContent = await page.content();
-  return pageContent;
-});
+// cluster.task(async ({ page, data: { url, userAgent } }) => {
+//   if (userAgent) {
+//     await page.setUserAgent(userAgent);
+//   }
+//   await page.goto(url, { waitUntil: "networkidle0" });
+//   const pageContent = await page.content();
+//   return pageContent;
+// });
 
 // 请求拦截
 request.interceptors.request.use(

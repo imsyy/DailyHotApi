@@ -1,6 +1,6 @@
 {
   "name": "dailyhot-api",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "An Api on Today's Hot list",
   "keywords": [
     "API",
@@ -47,8 +47,6 @@
     "hono": "^4.4.3",
     "md5": "^2.3.0",
     "node-cache": "^5.1.2",
-    "puppeteer": "^22.10.0",
-    "puppeteer-cluster": "^0.24.0",
     "rss-parser": "^3.13.0",
     "winston": "^3.13.0"
   },

@@ -1,7 +1,7 @@
 import type { RouterData, ListContext, Options } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
-import getTime from "../utils/getTime.js";
+import { getTime } from "../utils/getTime.js";
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const type = c.req.query("type") || "-1";
@@ -12,7 +12,7 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
     title: "AcFun",
     type: "排行榜",
     description: "AcFun是一家弹幕视频网站，致力于为每一个人带来欢乐。",
-    parameData: {
+    parame: {
       type: {
         name: "频道",
         type: {

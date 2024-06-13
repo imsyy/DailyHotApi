@@ -2,7 +2,7 @@ import type { RouterData, ListContext, Options } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { web } from "../utils/getData.js";
 import { extractRss, parseRSS } from "../utils/parseRSS.js";
-import getTime from "../utils/getTime.js";
+import { getTime } from "../utils/getTime.js";
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const type = c.req.query("type") || "hot";
@@ -11,7 +11,7 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
     name: "52pojie",
     title: "吾爱破解",
     type: "榜单",
-    parameData: {
+    parame: {
       type: {
         name: "榜单分类",
         type: {

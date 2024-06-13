@@ -1,7 +1,7 @@
 import type { RouterData, ListContext, Options } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
-import getTime from "../utils/getTime.js";
+import { getTime } from "../utils/getTime.js";
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const type = c.req.query("type") || "热门文章";
@@ -10,7 +10,7 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
     name: "sspai",
     title: "少数派",
     type: "热榜",
-    parameData: {
+    parame: {
       type: {
         name: "分类",
         type: ["热门文章", "应用推荐", "生活方式", "效率技巧", "少数派播客"],

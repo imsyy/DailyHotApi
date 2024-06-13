@@ -1,7 +1,7 @@
 import type { RouterData, ListContext, Options } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
-import getTime from "../utils/getTime.js";
+import { getTime } from "../utils/getTime.js";
 
 const mappings = {
   O_TIME: "发震时刻(UTC+8)",
@@ -33,7 +33,7 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
     name: "earthquake",
     title: "中国地震台",
     type: "地震速报",
-    parameData: {
+    parame: {
       type: {
         name: "速报分类",
         type: {

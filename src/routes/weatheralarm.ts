@@ -1,7 +1,7 @@
 import type { RouterData, ListContext, Options } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
-import getTime from "../utils/getTime.js";
+import { getTime } from "../utils/getTime.js";
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const province = c.req.query("province") || "";
@@ -10,7 +10,7 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
     name: "weatheralarm",
     title: "中央气象台",
     type: type || "全国气象预警",
-    parameData: {
+    parame: {
       province: {
         name: "预警区域",
         value: "省份名称（ 例如：广东省 ）",

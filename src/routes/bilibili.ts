@@ -2,7 +2,7 @@ import type { RouterData, ListContext, Options } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
 import getBiliWbi from "../utils/getToken/bilibili.js";
-import getTime from "../utils/getTime.js";
+import { getTime } from "../utils/getTime.js";
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const type = c.req.query("type") || "0";
@@ -12,7 +12,7 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
     title: "哔哩哔哩",
     type: "热门榜",
     description: "你所热爱的，就是你的生活",
-    parameData: {
+    parame: {
       type: {
         name: "排行榜分区",
         type: {

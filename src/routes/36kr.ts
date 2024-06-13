@@ -1,7 +1,7 @@
 import type { RouterData, ListContext, Options } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { post } from "../utils/getData.js";
-import getTime from "../utils/getTime.js";
+import { getTime } from "../utils/getTime.js";
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const type = c.req.query("type") || "hot";
@@ -10,7 +10,7 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
     name: "36kr",
     title: "36氪",
     type: "热榜",
-    parameData: {
+    parame: {
       type: {
         name: "热榜分类",
         type: {
