@@ -6,19 +6,24 @@ let pathOption: (typeof transports.File)[] = [];
 
 // 日志输出目录
 if (config.USE_LOG_FILE) {
-  pathOption = [
-    new transports.File({
-      filename: path.resolve("logs/error.log"),
-      level: "error",
-      maxsize: 1024 * 1024,
-      maxFiles: 1,
-    }),
-    new transports.File({
-      filename: path.resolve("logs/logger.log"),
-      maxsize: 1024 * 1024,
-      maxFiles: 1,
-    }),
-  ];
+  try {
+    pathOption = [
+      new transports.File({
+        filename: path.resolve("logs/error.log"),
+        level: "error",
+        maxsize: 1024 * 1024,
+        maxFiles: 1,
+      }),
+      new transports.File({
+        filename: path.resolve("logs/logger.log"),
+        maxsize: 1024 * 1024,
+        maxFiles: 1,
+      }),
+    ];
+  } catch (error) {
+    console.error("Failed to initialize log files. Logging to a file will be skipped.", error);
+    pathOption = [];
+  }
 }
 
 // logger
@@ -39,11 +44,15 @@ const logger = createLogger({
 
 // 控制台输出
 if (process.env.NODE_ENV !== "production") {
-  logger.add(
-    new transports.Console({
-      format: format.combine(format.colorize(), format.simple()),
-    }),
-  );
+  try {
+    logger.add(
+      new transports.Console({
+        format: format.combine(format.colorize(), format.simple()),
+      }),
+    );
+  } catch (error) {
+    console.error("Failed to add console transport. Console logging will be skipped.", error);
+  }
 }
 
 export default logger;
