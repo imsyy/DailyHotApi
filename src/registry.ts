@@ -32,7 +32,11 @@ const findTsFiles = (dirPath: string, allFiles: string[] = [], basePath: string 
     if (stat.isDirectory()) {
       // 如果是文件夹，递归查找
       findTsFiles(fullPath, allFiles, relativePath);
-    } else if (stat.isFile() && (item.endsWith(".ts") || item.endsWith(".js"))) {
+    } else if (
+      stat.isFile() &&
+      (item.endsWith(".ts") || item.endsWith(".js")) &&
+      !item.endsWith(".d.ts")
+    ) {
       // 符合条件
       allFiles.push(relativePath.replace(/\.(ts|js)$/, ""));
     }
