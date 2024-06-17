@@ -49,6 +49,7 @@
 | 今日头条         | 热榜         | toutiao        | 🟢       |
 | 36 氪            | 热榜         | 36kr           | 🟢       |
 | 51CTO            | 推荐榜       | 51cto          | 🟢       |
+| CSDN             | 排行榜       | csdn           | 🟢       |
 | 稀土掘金         | 热榜         | juejin         | 🟢       |
 | 腾讯新闻         | 热点榜       | qq-news        | 🟢       |
 | 网易新闻         | 热点榜       | netease-news   | 🟢       |

@@ -260,4 +260,13 @@ export type RouterType = {
     comment_count: number;
     created_at: number;
   };
+  csdn: {
+    nickName: string;
+    articleTitle: string;
+    articleDetailUrl: string;
+    picList: [string];
+    hotRankScore: string;
+    period: string;
+    productId: string;
+  };
 };
