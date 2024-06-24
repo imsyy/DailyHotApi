@@ -1,4 +1,5 @@
 import type { RouterData, ListContext, Options } from "../types.js";
+import type { RouterType } from "../router.types.js";
 import { load } from "cheerio";
 import { get } from "../utils/getData.js";
 import { getCurrentDateTime } from "../utils/getTime.js";
@@ -16,7 +17,7 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
       month: "月份",
       day: "日期",
     },
-    link: "https://www.lssjt.com/",
+    link: "https://baike.baidu.com/calendar",
     total: data?.length || 0,
     updateTime,
     fromCache,
@@ -26,26 +27,30 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
 };
 const getList = async (options: Options, noCache: boolean) => {
   const { month, day } = options;
-  const url = `https://www.lssjt.com/${month}/${day}/`;
-  const result = await get({ url, noCache });
-  const $ = load(result.data);
-  const listDom = $("li.circler");
-  const listData = listDom.toArray().map((item, index) => {
-    const dom = $(item);
-    const href = dom.find("a").attr("href");
-    return {
-      id: index,
-      title: dom.find("a.txt").text().trim() || dom.find("a").attr("title"),
-      cover: dom.find("img").attr("data-original"),
-      timestamp: dom.find("div.text span").text().trim() || dom.find("div.t span").text().trim(),
-      hot: null,
-      url: href || undefined,
-      mobileUrl: href || undefined,
-    };
+  const monthStr = month.toString().padStart(2, "0");
+  const dayStr = day.toString().padStart(2, "0");
+  const url = `https://baike.baidu.com/cms/home/eventsOnHistory/${monthStr}.json`;
+  const result = await get({
+    url,
+    noCache,
+    params: {
+      _: new Date().getTime(),
+    },
   });
+  const list = result.data[monthStr][monthStr + dayStr];
   return {
     fromCache: result.fromCache,
     updateTime: result.updateTime,
-    data: listData,
+    data: list.map((v: RouterType["history"], index: number) => ({
+      id: index,
+      title: load(v.title).text().trim(),
+      cover: v.cover ? v.pic_share : null || null,
+      desc: load(v.desc).text().trim(),
+      year: v.year,
+      timestamp: null,
+      hot: null,
+      url: v.link,
+      mobileUrl: v.link,
+    })),
   };
 };

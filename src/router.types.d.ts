@@ -269,4 +269,12 @@ export type RouterType = {
     period: string;
     productId: string;
   };
+  history: {
+    year: string;
+    title: string;
+    link: string;
+    desc: string;
+    cover: string;
+    pic_share: string;
+  };
 };
