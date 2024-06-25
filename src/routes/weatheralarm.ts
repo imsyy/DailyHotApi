@@ -10,7 +10,7 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
     name: "weatheralarm",
     title: "中央气象台",
     type: type || "全国气象预警",
-    parame: {
+    params: {
       province: {
         name: "预警区域",
         value: "省份名称（ 例如：广东省 ）",

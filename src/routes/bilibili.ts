@@ -12,7 +12,7 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
     title: "哔哩哔哩",
     type: "热门榜",
     description: "你所热爱的，就是你的生活",
-    parame: {
+    params: {
       type: {
         name: "排行榜分区",
         type: {

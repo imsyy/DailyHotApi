@@ -11,7 +11,7 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
     title: "HelloGitHub",
     type: "热门仓库",
     description: "分享 GitHub 上有趣、入门级的开源项目",
-    parame: {
+    params: {
       sort: {
         name: "排行榜分区",
         type: {

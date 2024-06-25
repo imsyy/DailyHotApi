@@ -12,7 +12,7 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
     title: "AcFun",
     type: "排行榜",
     description: "AcFun是一家弹幕视频网站，致力于为每一个人带来欢乐。",
-    parame: {
+    params: {
       type: {
         name: "频道",
         type: {

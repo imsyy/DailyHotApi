@@ -6,14 +6,14 @@ import { getCurrentDateTime } from "../utils/getTime.js";
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   // 获取日期
-  const day = c.req.query("day") || getCurrentDateTime().day;
-  const month = c.req.query("month") || getCurrentDateTime().month;
+  const day = c.req.query("day") || getCurrentDateTime(true).day;
+  const month = c.req.query("month") || getCurrentDateTime(true).month;
   const { fromCache, data, updateTime } = await getList({ month, day }, noCache);
   const routeData: RouterData = {
     name: "history",
     title: "历史上的今天",
     type: `${month}-${day}`,
-    parame: {
+    params: {
       month: "月份",
       day: "日期",
     },

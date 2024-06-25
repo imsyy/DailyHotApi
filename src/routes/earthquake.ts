@@ -33,7 +33,7 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
     name: "earthquake",
     title: "中国地震台",
     type: "地震速报",
-    parame: {
+    params: {
       type: {
         name: "速报分类",
         type: {

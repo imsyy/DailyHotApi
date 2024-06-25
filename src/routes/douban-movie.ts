@@ -18,14 +18,14 @@ export const handleRoute = async (_: undefined, noCache: boolean) => {
 };
 
 // 数据处理
-const getNumbers = (text: string | undefined) => {
-  if (!text) return 10000000;
+const getNumbers = (text: string | undefined): number => {
+  if (!text) return 0;
   const regex = /\d+/;
   const match = text.match(regex);
   if (match) {
     return Number(match[0]);
   } else {
-    return 10000000;
+    return 0;
   }
 };
 
@@ -44,7 +44,8 @@ const getList = async (noCache: boolean) => {
   const listData = listDom.toArray().map((item) => {
     const dom = $(item);
     const url = dom.find("a").attr("href") || undefined;
-    const score = dom.find(".rating_nums").text() ?? "0.0";
+    const scoreDom = dom.find(".rating_nums");
+    const score = scoreDom.length > 0 ? scoreDom.text() : "0.0";
     return {
       id: getNumbers(url),
       title: `【${score}】${dom.find("a").attr("title")}`,

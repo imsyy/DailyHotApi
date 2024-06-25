@@ -277,4 +277,34 @@ export type RouterType = {
     cover: string;
     pic_share: string;
   };
+  hupu: {
+    tid: number;
+    title: string;
+    replies: number;
+    username: string;
+    time: string;
+    url: string;
+  };
+  sina: {
+    base: {
+      base: {
+        uniqueId: string;
+        url: string;
+      };
+    };
+    info: {
+      hotValue: string;
+      title: string;
+    };
+  };
+  "sina-news": {
+    id: string;
+    title: string;
+    media: string;
+    url: string;
+    create_date: string;
+    create_time: string;
+    top_num: string;
+    time: string;
+  };
 };

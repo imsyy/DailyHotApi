@@ -22,7 +22,7 @@ export type RouterData = {
   title: string;
   type: string;
   description?: string;
-  parame?: Record<string, string | object>;
+  params?: Record<string, string | object>;
   total: number;
   link?: string;
   updateTime: string;

@@ -1,12 +1,12 @@
 import dayjs from "dayjs";
 
 interface CurrentDateTime {
-  year: number;
-  month: number;
-  day: number;
-  hour: number;
-  minute: number;
-  second: number;
+  year: string;
+  month: string;
+  day: string;
+  hour: string;
+  minute: string;
+  second: string;
 }
 export const getTime = (timeInput: string | number): number | null => {
   try {
@@ -65,15 +65,18 @@ export const getTime = (timeInput: string | number): number | null => {
   }
 };
 
-export const getCurrentDateTime = (): CurrentDateTime => {
+export const getCurrentDateTime = (padZero: boolean = false): CurrentDateTime => {
   const now = dayjs();
 
+  // 补零
+  const pad = (num: number): string => (num < 10 ? `0${num}` : `${num}`);
+
   return {
-    year: now.year(),
-    month: now.month() + 1,
-    day: now.date(),
-    hour: now.hour(),
-    minute: now.minute(),
-    second: now.second(),
+    year: now.year().toString(),
+    month: padZero ? pad(now.month() + 1) : (now.month() + 1).toString(),
+    day: padZero ? pad(now.date()) : now.date().toString(),
+    hour: padZero ? pad(now.hour()) : now.hour().toString(),
+    minute: padZero ? pad(now.minute()) : now.minute().toString(),
+    second: padZero ? pad(now.second()) : now.second().toString(),
   };
 };

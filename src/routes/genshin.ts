@@ -10,7 +10,7 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
     name: "genshin",
     title: "原神",
     type: "最新动态",
-    parame: {
+    params: {
       type: {
         name: "榜单分类",
         type: {
