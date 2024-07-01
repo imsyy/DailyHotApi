@@ -10,7 +10,8 @@ export type ListItem = {
   cover?: string;
   author?: string;
   desc?: string;
-  hot?: number;
+  hot: number | null;
+  timestamp: number | string | null;
   url: string | undefined;
   mobileUrl: string | undefined;
 };
@@ -21,7 +22,7 @@ export type RouterData = {
   title: string;
   type: string;
   description?: string;
-  parameData?: Record<string, string | object>;
+  params?: Record<string, string | object>;
   total: number;
   link?: string;
   updateTime: string;
@@ -50,7 +51,15 @@ export type Post = {
   originaInfo?: boolean;
 };
 
+export type Web = {
+  url: string;
+  timeout?: number;
+  noCache?: boolean;
+  ttl?: number;
+  userAgent?: string;
+};
+
 // 参数类型
 export type Options = {
-  [key: string]: string | undefined;
+  [key: string]: string | number | undefined;
 };

@@ -3,6 +3,8 @@ import { cors } from "hono/cors";
 import { config } from "./config.js";
 import { serveStatic } from "@hono/node-server/serve-static";
 import { compress } from "hono/compress";
+import { prettyJSON } from "hono/pretty-json";
+import { trimTrailingSlash } from "hono/trailing-slash";
 import logger from "./utils/logger.js";
 import registry from "./registry.js";
 import robotstxt from "./robots.txt.js";
@@ -14,6 +16,12 @@ const app = new Hono();
 
 // 压缩响应
 app.use(compress());
+
+// prettyJSON
+app.use(prettyJSON());
+
+// 尾部斜杠重定向
+app.use(trimTrailingSlash());
 
 // CORS
 app.use(

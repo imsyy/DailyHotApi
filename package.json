@@ -1,6 +1,6 @@
 {
-  "name": "dailyhot_api",
-  "version": "2.0.0-rc.2",
+  "name": "dailyhot-api",
+  "version": "2.0.3",
   "description": "An Api on Today's Hot list",
   "keywords": [
     "API",
@@ -12,39 +12,52 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DIYgod/RSSHub.git"
+    "url": "git+https://github.com/imsyy/DailyHotApi.git"
   },
   "license": "MIT",
   "author": "imsyy",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
+  "declaration": true,
+  "declarationMap": true,
+  "sourceMap": true,
+  "files": [
+    "LICENSE",
+    "README.md",
+    "dist/**/*",
+    "!dist/logs/**/*"
+  ],
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts,.vue --fix",
-    "dev": "tsx watch --no-cache src/index.ts",
-    "dev:cache": "tsx watch src/index.ts",
+    "dev": "cross-env NODE_ENV=development tsx watch --no-cache src/index.ts",
+    "dev:cache": "cross-env NODE_ENV=development tsx watch src/index.ts",
     "build": "tsc --project tsconfig.json",
     "start": "tsx src/index.ts"
   },
   "type": "module",
   "dependencies": {
-    "@hono/node-server": "^1.9.1",
-    "axios": "^1.6.8",
+    "@hono/node-server": "^1.11.2",
+    "axios": "^1.7.2",
+    "chalk": "^5.3.0",
     "cheerio": "1.0.0-rc.12",
+    "dayjs": "^1.11.11",
     "dotenv": "^16.4.5",
     "feed": "^4.2.2",
-    "hono": "^4.2.2",
+    "hono": "^4.4.5",
     "md5": "^2.3.0",
     "node-cache": "^5.1.2",
+    "rss-parser": "^3.13.0",
     "winston": "^3.13.0"
   },
   "devDependencies": {
-    "@types/node": "^20.12.5",
-    "@typescript-eslint/eslint-plugin": "^7.5.0",
-    "@typescript-eslint/parser": "^7.5.0",
+    "@types/node": "^20.14.2",
+    "@typescript-eslint/eslint-plugin": "^7.13.0",
+    "@typescript-eslint/parser": "^7.13.0",
+    "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
-    "prettier": "^3.2.5",
+    "prettier": "^3.3.2",
     "tsx": "^3.14.0",
-    "typescript": "^5.4.4"
+    "typescript": "^5.4.5"
   },
   "engines": {
     "node": ">=20"

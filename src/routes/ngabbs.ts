@@ -1,6 +1,7 @@
 import type { RouterData } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { post } from "../utils/getData.js";
+import { getTime } from "../utils/getTime.js";
 
 export const handleRoute = async (_: undefined, noCache: boolean) => {
   const { fromCache, data, updateTime } = await getList(noCache);
@@ -48,6 +49,7 @@ const getList = async (noCache: boolean) => {
       title: v.subject,
       author: v.author,
       hot: v.replies,
+      timestamp: getTime(v.postdate),
       url: `https://bbs.nga.cn${v.tpcurl}`,
       mobileUrl: `https://bbs.nga.cn${v.tpcurl}`,
     })),

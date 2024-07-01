@@ -1,6 +1,7 @@
 import type { RouterData, ListContext, Options } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
+import { getTime } from "../utils/getTime.js";
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const type = c.req.query("type") || "1";
@@ -9,7 +10,7 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
     name: "starrail",
     title: "崩坏：星穹铁道",
     type: "最新动态",
-    parameData: {
+    params: {
       type: {
         name: "榜单分类",
         type: {
@@ -44,6 +45,7 @@ const getList = async (options: Options, noCache: boolean) => {
         desc: data.content,
         cover: data.cover,
         author: v.user.nickname,
+        timestamp: getTime(data.created_at),
         hot: v.stat.view_num,
         url: `https://www.miyoushe.com/sr/article/${data.post_id}`,
         mobileUrl: `https://m.miyoushe.com/sr/#/article/${data.post_id}`,

@@ -1,22 +1,27 @@
 import type { RouterData, ListContext, Options } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
-import { getTime } from "../utils/getTime.js";
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
-  const type = c.req.query("type") || "热门文章";
+  const type = c.req.query("type") || "1";
   const { fromCache, data, updateTime } = await getList({ type }, noCache);
   const routeData: RouterData = {
-    name: "sspai",
-    title: "少数派",
-    type: "热榜",
+    name: "hupu",
+    title: "虎扑",
+    type: "步行街热帖",
     params: {
       type: {
-        name: "分类",
-        type: ["热门文章", "应用推荐", "生活方式", "效率技巧", "少数派播客"],
+        name: "榜单分类",
+        type: {
+          1: "主干道",
+          6: "恋爱区",
+          11: "校园区",
+          12: "历史区",
+          612: "摄影区",
+        },
       },
     },
-    link: "https://sspai.com/",
+    link: "https://bbs.hupu.com/all-gambia",
     total: data?.length || 0,
     updateTime,
     fromCache,
@@ -27,22 +32,20 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
 
 const getList = async (options: Options, noCache: boolean) => {
   const { type } = options;
-  const url = `https://sspai.com/api/v1/article/tag/page/get?limit=40&tag=${type}`;
+  const url = `https://m.hupu.com/api/v2/bbs/topicThreads?topicId=${type}&page=1`;
   const result = await get({ url, noCache });
-  const list = result.data.data;
+  const list = result.data.data.topicThreads;
   return {
     fromCache: result.fromCache,
     updateTime: result.updateTime,
-    data: list.map((v: RouterType["sspai"]) => ({
-      id: v.id,
+    data: list.map((v: RouterType["hupu"]) => ({
+      id: v.tid,
       title: v.title,
-      desc: v.summary,
-      cover: v.banner,
-      author: v.author.nickname,
-      timestamp: getTime(v.released_time),
-      hot: v.like_count,
-      url: `https://sspai.com/post/${v.id}`,
-      mobileUrl: `https://sspai.com/post/${v.id}`,
+      author: v.username,
+      hot: v.replies,
+      timestamp: null,
+      url: `https://bbs.hupu.com/${v.tid}.html`,
+      mobileUrl: v.url,
     })),
   };
 };

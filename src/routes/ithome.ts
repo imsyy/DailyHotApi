@@ -43,6 +43,7 @@ const getList = async (noCache: boolean) => {
       id: href ? Number(replaceLink(href, true)) : 100000,
       title: dom.find(".plc-title").text().trim(),
       cover: dom.find("img").attr("data-original"),
+      timestamp: dom.find("span.post-time").text().trim(),
       hot: Number(dom.find(".review-num").text().replace(/\D/g, "")),
       url: href ? replaceLink(href) : undefined,
       mobileUrl: href || undefined,

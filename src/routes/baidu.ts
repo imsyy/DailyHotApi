@@ -9,7 +9,7 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
     name: "baidu",
     title: "百度",
     type: "热搜榜",
-    parameData: {
+    params: {
       type: {
         name: "热搜类别",
         type: {
@@ -55,6 +55,7 @@ const getList = async (options: Options, noCache: boolean) => {
       desc: v.desc,
       cover: v.img,
       author: v.show?.length ? v.show : "",
+      timestamp: null,
       hot: Number(v.hotScore),
       url: `https://www.baidu.com/s?wd=${encodeURIComponent(v.query)}`,
       mobileUrl: v.rawUrl,

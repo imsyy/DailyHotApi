@@ -2,6 +2,12 @@
 <img alt="logo" height="120" src="./public/favicon.png" width="120"/>
 <h2>今日热榜</h2>
 <p>一个聚合热门数据的 API 接口</p>
+<br />
+<img src="https://img.shields.io/github/last-commit/imsyy/DailyHotApi" alt="last commit"/>
+ <img src="https://img.shields.io/github/languages/code-size/imsyy/DailyHotApi" alt="code size"/>
+ <img src="https://img.shields.io/docker/image-size/imsyy/dailyhot-api" alt="docker-image-size"/>
+<img src="https://github.com/imsyy/DailyHotApi/actions/workflows/docker.yml/badge.svg" alt="Publish Docker image"/>
+<img src="https://github.com/imsyy/DailyHotApi/actions/workflows/npm.yml/badge.svg" alt="Publish npm package"/>
 </div>
 
 ## 🚩 特性
@@ -23,6 +29,9 @@
 
 > 🟢 状态正常 / 🟠 可能失效 / ❌ 无法使用 / ⚠️ 需要科学上网
 
+<details>
+<summary>查看全部接口状态</summary>
+
 | **站点**         | **类别**     | **调用名称**   | **状态** |
 | ---------------- | ------------ | -------------- | -------- |
 | 哔哩哔哩         | 热门榜       | bilibili       | 🟢       |
@@ -43,10 +52,16 @@
 | 今日头条         | 热榜         | toutiao        | 🟢       |
 | 36 氪            | 热榜         | 36kr           | 🟢       |
 | 51CTO            | 推荐榜       | 51cto          | 🟢       |
+| CSDN             | 排行榜       | csdn           | 🟢       |
 | 稀土掘金         | 热榜         | juejin         | 🟢       |
 | 腾讯新闻         | 热点榜       | qq-news        | 🟢       |
+| 新浪网           | 热榜         | sina           | 🟢       |
+| 新浪新闻         | 热点榜       | sina-news      | 🟢       |
 | 网易新闻         | 热点榜       | netease-news   | 🟢       |
+| 吾爱破解         | 榜单         | 52pojie        | ❌       |
+| 全球主机交流     | 榜单         | hostloc        | ❌       |
 | 虎嗅             | 24小时       | huxiu          | 🟢       |
+| 虎扑             | 步行街热帖   | hupu           | 🟢       |
 | 爱范儿           | 快讯         | ifanr          | 🟢       |
 | 英雄联盟         | 更新公告     | lol            | 🟢       |
 | 原神             | 最新消息     | genshin        | 🟢       |
@@ -58,6 +73,28 @@
 | HelloGitHub      | Trending     | hellogithub    | 🟢       |
 | 中央气象台       | 全国气象预警 | weatheralarm   | 🟢       |
 | 中国地震台       | 地震速报     | earthquake     | 🟢       |
+| 历史上的今天     | 月-日        | history        | 🟢       |
+
+</details>
+
+## ⚙️ 使用
+
+本项目支持 `Node.js` 调用，可在安装完成后调用 `serveHotApi` 来开启服务器
+
+```bash
+pnpm add dailyhot-api
+```
+
+```js
+import serveHotApi from "dailyhot-api";
+
+/**
+ * 启动服务器
+ * @param {Number} [port] - 端口号
+ * @returns {Promise<void>}
+ */
+serveHotApi(3000);
+```
 
 ## ⚙️ 部署
 
@@ -121,6 +158,12 @@ npm run start
 
 成功启动后程序会在控制台输出可访问的地址
 
+### Vercel 部署
+
+本项目支持通过 `Vercel` 进行一键部署，点击下方按钮或前往 [项目仓库](https://github.com/imsyy/DailyHotApi-Vercel) 进行手动部署
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/imsyys-projects/clone?repository-url=https%3A%2F%2Fgithub.com%2Fimsyy%2FDailyHotApi-Vercel)
+
 ### Railway 部署
 
 本项目支持使用 [Railway](https://railway.app/) 一键部署，请先将本项目 fork 到您的仓库中，即可使用一键部署。
@@ -128,12 +171,6 @@ npm run start
 ### Zeabur 部署
 
 本项目支持使用 [Zeabur](https://zeabur.com/) 一键部署，请先将本项目 fork 到您的仓库中，即可使用一键部署。
-
-### Vercel 部署
-
-> 🚧 Vercel 部署支持正在修复中
-
-若您目前仅能通过 `Vercel` 进行部署，那么请暂时不要使用最新版本
 
 ## ⚠️ 须知
 

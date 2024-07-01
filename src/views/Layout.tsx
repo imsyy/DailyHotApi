@@ -1,12 +1,7 @@
 import type { FC } from "hono/jsx";
 import { css, Style } from "hono/css";
 
-type LayoutProps = {
-  title: string;
-  children: JSX.Element | JSX.Element[];
-};
-
-const Layout: FC<LayoutProps> = (props) => {
+const Layout: FC = (props) => {
   const globalClass = css`
     :-hono-global {
       * {

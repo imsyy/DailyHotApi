@@ -1,6 +1,7 @@
 import type { RouterData } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
+import { getTime } from "../utils/getTime.js";
 
 export const handleRoute = async (_: undefined, noCache: boolean) => {
   const { fromCache, data, updateTime } = await getList(noCache);
@@ -51,6 +52,7 @@ const getList = async (noCache: boolean) => {
     data: list.map((v: RouterType["douyin"]) => ({
       id: v.sentence_id,
       title: v.word,
+      timestamp: getTime(v.event_time),
       hot: v.hot_value,
       url: `https://www.douyin.com/hot/${encodeURIComponent(v.sentence_id)}`,
       mobileUrl: `https://www.douyin.com/hot/${encodeURIComponent(v.sentence_id)}`,

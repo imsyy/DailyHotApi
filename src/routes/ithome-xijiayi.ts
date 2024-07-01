@@ -1,6 +1,7 @@
 import type { RouterData } from "../types.js";
 import { load } from "cheerio";
 import { get } from "../utils/getData.js";
+import { getTime } from "../utils/getTime.js";
 
 export const handleRoute = async (_: undefined, noCache: boolean) => {
   const { fromCache, data, updateTime } = await getList(noCache);
@@ -35,11 +36,15 @@ const getList = async (noCache: boolean) => {
   const listData = listDom.toArray().map((item) => {
     const dom = $(item);
     const href = dom.find("a").attr("href");
+    const time = dom.find("span.time").text().trim();
+    const match = time.match(/'([^']+)'/);
+    const dateTime = match ? match[1] : null;
     return {
       id: href ? Number(replaceLink(href, true)) : 100000,
       title: dom.find(".newsbody h2").text().trim(),
       desc: dom.find(".newsbody p").text().trim(),
       cover: dom.find("img").attr("data-original"),
+      timestamp: getTime(dateTime),
       hot: Number(dom.find(".comment").text().replace(/\D/g, "")),
       url: href || undefined,
       mobileUrl: href ? replaceLink(href) : undefined,

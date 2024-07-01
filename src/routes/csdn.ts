@@ -6,10 +6,11 @@ import { getTime } from "../utils/getTime.js";
 export const handleRoute = async (_: undefined, noCache: boolean) => {
   const { fromCache, data, updateTime } = await getList(noCache);
   const routeData: RouterData = {
-    name: "netease-news",
-    title: "网易新闻",
-    type: "热点榜",
-    link: "https://m.163.com/hot",
+    name: "csdn",
+    title: "CSDN",
+    type: "排行榜",
+    description: "专业开发者社区",
+    link: "https://www.csdn.net/",
     total: data?.length || 0,
     updateTime,
     fromCache,
@@ -19,21 +20,22 @@ export const handleRoute = async (_: undefined, noCache: boolean) => {
 };
 
 const getList = async (noCache: boolean) => {
-  const url = `https://m.163.com/fe/api/hot/news/flow`;
+  const url = "https://blog.csdn.net/phoenix/web/blog/hot-rank?page=0&pageSize=30";
   const result = await get({ url, noCache });
-  const list = result.data.data.list;
+  const list = result.data.data;
   return {
     fromCache: result.fromCache,
     updateTime: result.updateTime,
-    data: list.map((v: RouterType["netease-news"]) => ({
-      id: v.docid,
-      title: v.title,
-      cover: v.imgsrc,
-      author: v.source,
-      hot: null,
-      timestamp: getTime(v.ptime),
-      url: `https://www.163.com/dy/article/${v.docid}.html`,
-      mobileUrl: `https://m.163.com/dy/article/${v.docid}.html`,
+    data: list.map((v: RouterType["csdn"]) => ({
+      id: v.productId,
+      title: v.articleTitle,
+      cover: v.picList?.[0] || null,
+      desc: null,
+      author: v.nickName,
+      timestamp: getTime(v.period),
+      hot: Number(v.hotRankScore),
+      url: v.articleDetailUrl,
+      mobileUrl: v.articleDetailUrl,
     })),
   };
 };

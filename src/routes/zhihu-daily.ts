@@ -37,6 +37,8 @@ const getList = async (noCache: boolean) => {
       title: v.title,
       cover: v.images[0],
       author: v.hint,
+      hot: null,
+      timestamp: null,
       url: v.url,
       mobileUrl: v.url,
     })),

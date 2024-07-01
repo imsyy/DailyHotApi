@@ -9,7 +9,7 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
     name: "v2ex",
     title: "V2EX",
     type: "主题榜",
-    parameData: {
+    params: {
       type: {
         name: "榜单分类",
         type: {
@@ -31,7 +31,7 @@ const getList = async (options: Options, noCache: boolean) => {
   const { type } = options;
   const url = `https://www.v2ex.com/api/topics/${type}.json`;
   const result = await get({ url, noCache });
-  const list = result.data.data.list;
+  const list = result.data;
   return {
     fromCache: result.fromCache,
     updateTime: result.updateTime,
@@ -40,6 +40,7 @@ const getList = async (options: Options, noCache: boolean) => {
       title: v.title,
       desc: v.content,
       author: v.member.username,
+      timestamp: null,
       hot: v.replies,
       url: v.url,
       mobileUrl: v.url,
