@@ -54,8 +54,8 @@ const getList = async (noCache: boolean) => {
       title: v.word,
       timestamp: getTime(v.event_time),
       hot: v.hot_value,
-      url: `https://www.douyin.com/hot/${encodeURIComponent(v.sentence_id)}`,
-      mobileUrl: `https://www.douyin.com/hot/${encodeURIComponent(v.sentence_id)}`,
+      url: `https://www.douyin.com/hot/${v.sentence_id}`,
+      mobileUrl: `https://www.douyin.com/hot/${v.sentence_id}`,
     })),
   };
 };
