@@ -33,7 +33,7 @@ const getList = async (noCache: boolean) => {
         desc: data.excerpt,
         cover: v.children[0].thumbnail,
         timestamp: getTime(data.created),
-        hot: parseFloat(v.detail_text.split(' ')[0]) * 10000,
+        hot: parseFloat(v.detail_text.split(" ")[0]) * 10000,
         url: `https://www.zhihu.com/question/${data.id}`,
         mobileUrl: `https://www.zhihu.com/question/${data.id}`,
       };

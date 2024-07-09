@@ -126,9 +126,7 @@ export type RouterType = {
       content: string;
       cover: string;
       created_at: number;
-    };
-    stat: {
-      view_num: number;
+      view_status: number;
     };
     user: {
       nickname: string;

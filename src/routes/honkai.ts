@@ -43,10 +43,10 @@ const getList = async (options: Options, noCache: boolean) => {
         id: data.post_id,
         title: data.subject,
         desc: data.content,
-        cover: data.cover || v.image_list[0].url,
-        author: v.user.nickname,
+        cover: data.cover,
+        author: v.user?.nickname || null,
         timestamp: getTime(data.created_at),
-        hot: v.stat.view_num,
+        hot: data.view_status,
         url: `https://www.miyoushe.com/bh3/article/${data.post_id}`,
         mobileUrl: `https://m.miyoushe.com/bh3/#/article/${data.post_id}`,
       };
