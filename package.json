@@ -47,7 +47,8 @@
     "md5": "^2.3.0",
     "node-cache": "^5.1.2",
     "rss-parser": "^3.13.0",
-    "winston": "^3.13.0"
+    "winston": "^3.13.0",
+    "xml2js": "^0.4.23"
   },
   "devDependencies": {
     "@types/node": "^20.14.2",
