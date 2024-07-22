@@ -1,10 +1,9 @@
-import type { RouterData, ListContext, Options } from "../types.js";
+import type { RouterData } from "../types.js";
 import { get } from "../utils/getData.js";
 import { parseStringPromise } from "xml2js";
 
-export const handleRoute = async (c: ListContext, noCache: boolean) => {
-  const type = c.req.query("type") || "frontpage"; // NodeSeek 没有类型区分，可以忽略
-  const { fromCache, data, updateTime } = await getList({}, noCache);
+export const handleRoute = async (_: undefined, noCache: boolean) => {
+  const { fromCache, data, updateTime } = await getList(noCache);
   const routeData: RouterData = {
     name: "nodeseek",
     title: "NodeSeek",
@@ -26,7 +25,7 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
   return routeData;
 };
 
-const getList = async (options: Options, noCache: boolean) => {
+const getList = async (noCache: boolean) => {
   const url = `https://rss.nodeseek.com/`;
   const result = await get({ url, noCache });
 

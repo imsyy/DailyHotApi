@@ -53,6 +53,7 @@
 | 36 氪            | 热榜         | 36kr           | 🟢       |
 | 51CTO            | 推荐榜       | 51cto          | 🟢       |
 | CSDN             | 排行榜       | csdn           | 🟢       |
+| NodeSeek         | 最新动态     | nodeseek       | 🟢       |
 | 稀土掘金         | 热榜         | juejin         | 🟢       |
 | 腾讯新闻         | 热点榜       | qq-news        | 🟢       |
 | 新浪网           | 热榜         | sina           | 🟢       |
