@@ -1,7 +1,8 @@
 version: "3.8"
 
 services:
-  dailyhotApi:
+  DailyhotApi:
+    container_name: dailyhotapi
     build:
       context: .
       target: runner
