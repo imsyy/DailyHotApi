@@ -43,7 +43,7 @@ export const config: Config = {
   PORT: getNumericEnvVariable("PORT", 6688),
   DISALLOW_ROBOT: getBooleanEnvVariable("DISALLOW_ROBOT", true),
   CACHE_TTL: getNumericEnvVariable("CACHE_TTL", 3600),
-  REQUEST_TIMEOUT: getNumericEnvVariable("CACHE_TTL", 6000),
+  REQUEST_TIMEOUT: getNumericEnvVariable("REQUEST_TIMEOUT", 6000),
   ALLOWED_DOMAIN: getEnvVariable("ALLOWED_DOMAIN") || "*",
   USE_LOG_FILE: getBooleanEnvVariable("USE_LOG_FILE", true),
   RSS_MODE: getBooleanEnvVariable("RSS_MODE", false),
