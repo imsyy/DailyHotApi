@@ -1,7 +1,7 @@
 version: "3.8"
 
 services:
-  DailyhotApi:
+  dailyhotApi:
     build:
       context: .
       target: runner
