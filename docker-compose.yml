@@ -6,10 +6,12 @@ services:
       context: .
       target: runner
     ports:
-      - "6688:6688"
+      - "6088:6088"
     volumes:
       - "./logs:/app/logs"
     environment:
-      - PORT=6688
+      - PORT=6088
+      - REQUEST_TIMEOUT=6000
+      - CACHE_TTL=600
     user: "114514"
     restart: always
