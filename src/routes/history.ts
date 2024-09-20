@@ -44,7 +44,7 @@ const getList = async (options: Options, noCache: boolean) => {
     data: list.map((v: RouterType["history"], index: number) => ({
       id: index,
       title: load(v.title).text().trim(),
-      cover: v.cover ? v.pic_share : null || null,
+      cover: v.cover ? v.pic_share : null,
       desc: load(v.desc).text().trim(),
       year: v.year,
       timestamp: null,
