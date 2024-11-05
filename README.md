@@ -53,7 +53,7 @@
 | 36 氪            | 热榜         | 36kr           | 🟢       |
 | 51CTO            | 推荐榜       | 51cto          | 🟢       |
 | CSDN             | 排行榜       | csdn           | 🟢       |
-| NodeSeek         | 最新动态     | nodeseek       | 🟢       |
+| NodeSeek         | 最新动态     | nodeseek       | 🟠       |
 | 稀土掘金         | 热榜         | juejin         | 🟢       |
 | 腾讯新闻         | 热点榜       | qq-news        | 🟢       |
 | 新浪网           | 热榜         | sina           | 🟢       |
@@ -62,6 +62,7 @@
 | 吾爱破解         | 榜单         | 52pojie        | ❌       |
 | 全球主机交流     | 榜单         | hostloc        | ❌       |
 | 虎嗅             | 24小时       | huxiu          | 🟢       |
+| 酷安             | 热榜         | coolapk        | 🟢       |
 | 虎扑             | 步行街热帖   | hupu           | 🟢       |
 | 爱范儿           | 快讯         | ifanr          | 🟢       |
 | 英雄联盟         | 更新公告     | lol            | 🟢       |
@@ -72,8 +73,8 @@
 | NGA              | 热帖         | ngabbs         | 🟢       |
 | V2EX             | 主题榜       | v2ex           | ⚠️       |
 | HelloGitHub      | Trending     | hellogithub    | 🟢       |
-| 中央气象台       | 全国气象预警 | weatheralarm   | 🟢       |
-| 中国地震台       | 地震速报     | earthquake     | 🟢       |
+| 中央气象台       | 全国气象预警 | weatheralarm   | 🟠       |
+| 中国地震台       | 地震速报     | earthquake     | 🟠       |
 | 历史上的今天     | 月-日        | history        | 🟢       |
 
 </details>
