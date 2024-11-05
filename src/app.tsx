@@ -30,7 +30,7 @@ app.use(
     // 可写为数组
     origin: (origin) => {
       // 是否指定域名
-      const isSame = origin.endsWith(config.ALLOWED_HOST);
+      const isSame = config.ALLOWED_HOST && origin.endsWith(config.ALLOWED_HOST);
       return isSame ? origin : config.ALLOWED_DOMAIN;
     },
     allowMethods: ["POST", "GET", "OPTIONS"],
