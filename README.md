@@ -143,6 +143,8 @@ cd DailyHotApi
 npm install
 ```
 
+复制 `/.env.example` 文件并重命名为 `/.env` 并修改配置
+
 #### 开发
 
 ```bash
