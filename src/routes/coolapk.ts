@@ -26,7 +26,6 @@ const getList = async (noCache: boolean) => {
     headers: await genHeaders(),
   });
   const list = result.data.data;
-  console.log(list);
   return {
     fromCache: result.fromCache,
     updateTime: result.updateTime,
