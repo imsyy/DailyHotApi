@@ -11,6 +11,7 @@ node_modules
 .DS_Store
 dist
 *.local
+.env
 
 # Editor directories and files
 .vscode/*

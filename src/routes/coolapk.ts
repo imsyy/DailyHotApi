@@ -1,15 +1,15 @@
 import type { RouterData } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
+import { genHeaders } from "../utils/getToken/coolapk.js";
 
 export const handleRoute = async (_: undefined, noCache: boolean) => {
   const { fromCache, data, updateTime } = await getList(noCache);
   const routeData: RouterData = {
-    name: "zhihu-daily",
-    title: "知乎日报",
-    type: "推荐榜",
-    description: "每天三次，每次七分钟",
-    link: "https://daily.zhihu.com/",
+    name: "coolapk",
+    title: "酷安",
+    type: "热榜",
+    link: "https://www.coolapk.com/",
     total: data?.length || 0,
     updateTime,
     fromCache,
@@ -19,28 +19,26 @@ export const handleRoute = async (_: undefined, noCache: boolean) => {
 };
 
 const getList = async (noCache: boolean) => {
-  const url = `https://daily.zhihu.com/api/4/news/latest`;
+  const url = `https://api.coolapk.com/v6/page/dataList?url=/feed/statList?cacheExpires=300&statType=day&sortField=detailnum&title=今日热门&title=今日热门&subTitle=&page=1`;
   const result = await get({
     url,
     noCache,
-    headers: {
-      Referer: "https://daily.zhihu.com/api/4/news/latest",
-      Host: "daily.zhihu.com",
-    },
+    headers: await genHeaders(),
   });
-  const list = result.data.stories.filter((el: RouterType["zhihu-daily"]) => el.type === 0);
+  const list = result.data.data;
   return {
     fromCache: result.fromCache,
     updateTime: result.updateTime,
-    data: list.map((v: RouterType["zhihu-daily"]) => ({
+    data: list.map((v: RouterType["coolapk"]) => ({
       id: v.id,
-      title: v.title,
-      cover: v.images?.[0] ?? null,
-      author: v.hint,
-      hot: null,
+      title: v.message,
+      cover: v.tpic,
+      author: v.username,
+      desc: v.ttitle,
       timestamp: null,
-      url: v.url,
-      mobileUrl: v.url,
+      hot: null,
+      url: v.shareUrl,
+      mobileUrl: v.shareUrl,
     })),
   };
 };

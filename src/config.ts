@@ -9,6 +9,7 @@ export type Config = {
   CACHE_TTL: number;
   REQUEST_TIMEOUT: number;
   ALLOWED_DOMAIN: string;
+  ALLOWED_HOST: string;
   USE_LOG_FILE: boolean;
   RSS_MODE: boolean;
 };
@@ -45,6 +46,7 @@ export const config: Config = {
   CACHE_TTL: getNumericEnvVariable("CACHE_TTL", 3600),
   REQUEST_TIMEOUT: getNumericEnvVariable("CACHE_TTL", 6000),
   ALLOWED_DOMAIN: getEnvVariable("ALLOWED_DOMAIN") || "*",
+  ALLOWED_HOST: getEnvVariable("ALLOWED_HOST") || "imsyy.top",
   USE_LOG_FILE: getBooleanEnvVariable("USE_LOG_FILE", true),
   RSS_MODE: getBooleanEnvVariable("RSS_MODE", false),
 };

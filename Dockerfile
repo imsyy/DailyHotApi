@@ -15,9 +15,12 @@ FROM base AS builder
 RUN npm install -g pnpm
 WORKDIR /app
 
-COPY package*json tsconfig.json pnpm-lock.yaml .env ./
+COPY package*json tsconfig.json pnpm-lock.yaml .env.example ./
 COPY src ./src
 COPY public ./public
+
+# add .env.example to .env
+RUN [ ! -e ".env" ] && cp .env.example .env || true
 
 RUN pnpm install
 RUN pnpm build

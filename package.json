@@ -1,6 +1,6 @@
 {
   "name": "dailyhot-api",
-  "version": "2.0.4",
+  "version": "2.0.6",
   "description": "An Api on Today's Hot list",
   "keywords": [
     "API",
@@ -32,34 +32,34 @@
     "dev": "cross-env NODE_ENV=development tsx watch --no-cache src/index.ts",
     "dev:cache": "cross-env NODE_ENV=development tsx watch src/index.ts",
     "build": "tsc --project tsconfig.json",
-    "start": "tsx src/index.ts"
+    "start": "cross-env NODE_ENV=development tsx dist/index.js"
   },
   "type": "module",
   "dependencies": {
-    "@hono/node-server": "^1.12.0",
-    "axios": "^1.7.2",
+    "@hono/node-server": "^1.13.5",
+    "axios": "^1.7.7",
     "chalk": "^5.3.0",
     "cheerio": "1.0.0-rc.12",
-    "dayjs": "^1.11.12",
+    "dayjs": "^1.11.13",
     "dotenv": "^16.4.5",
     "feed": "^4.2.2",
-    "hono": "^4.5.1",
+    "hono": "^4.6.9",
     "md5": "^2.3.0",
     "node-cache": "^5.1.2",
     "rss-parser": "^3.13.0",
-    "winston": "^3.13.1",
+    "winston": "^3.16.0",
     "xml2js": "^0.6.2"
   },
   "devDependencies": {
-    "@types/node": "^20.14.11",
+    "@types/node": "^20.17.6",
     "@types/xml2js": "^0.4.14",
-    "@typescript-eslint/eslint-plugin": "^7.16.1",
-    "@typescript-eslint/parser": "^7.16.1",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
     "cross-env": "^7.0.3",
-    "eslint": "^8.57.0",
+    "eslint": "^8.57.1",
     "prettier": "^3.3.3",
     "tsx": "^3.14.0",
-    "typescript": "^5.5.3"
+    "typescript": "^5.6.3"
   },
   "engines": {
     "node": ">=20"

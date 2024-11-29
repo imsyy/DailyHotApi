@@ -31,7 +31,7 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
 
 const getList = async (options: Options, noCache: boolean) => {
   const { type } = options;
-  const url = `https://bbs-api.miyoushe.com/post/wapi/getNewsList?gids=6&page_size=20&type=${type}`;
+  const url = `https://bbs-api-static.miyoushe.com/painter/wapi/getNewsList?client_type=4&gids=6&page_size=20&type=${type}`;
   const result = await get({ url, noCache });
   const list = result.data.data.list;
   return {
@@ -43,7 +43,7 @@ const getList = async (options: Options, noCache: boolean) => {
         id: data.post_id,
         title: data.subject,
         desc: data.content,
-        cover: data.cover,
+        cover: data.cover || data?.images?.[0],
         author: v.user?.nickname || null,
         timestamp: getTime(data.created_at),
         hot: data.view_status,

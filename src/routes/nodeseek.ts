@@ -28,15 +28,12 @@ export const handleRoute = async (_: undefined, noCache: boolean) => {
 const getList = async (noCache: boolean) => {
   const url = `https://rss.nodeseek.com/`;
   const result = await get({ url, noCache });
-
   const rssData = await parseStringPromise(result.data);
-
   const list = rssData.rss.channel[0].item;
-
   return {
     fromCache: result.fromCache,
     updateTime: result.updateTime,
-    data: list.map((v: any) => ({
+    data: list.map((v) => ({
       id: v.guid[0]._,
       title: v.title[0],
       desc: v.description ? v.description[0] : "",
