@@ -45,8 +45,8 @@ const getList = async (noCache: boolean) => {
       cover: dom.find("img").attr("src"),
       desc: dom.find("p.abstract").text()?.trim(),
       author: dom.find("a.nickname").text()?.trim(),
-      hot: null,
-      timestamp: null,
+      hot: undefined,
+      timestamp: undefined,
       url: `https://www.jianshu.com${href}`,
       mobileUrl: `https://www.jianshu.com${href}`,
     };

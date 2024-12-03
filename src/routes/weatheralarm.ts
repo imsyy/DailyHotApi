@@ -27,7 +27,7 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
 
 const getList = async (options: Options, noCache: boolean) => {
   const { province } = options;
-  const url = `http://www.nmc.cn/rest/findAlarm?pageNo=1&pageSize=20&signaltype=&signallevel=&province=${encodeURIComponent(province)}`;
+  const url = `http://www.nmc.cn/rest/findAlarm?pageNo=1&pageSize=20&signaltype=&signallevel=&province=${encodeURIComponent(province || "")}`;
   const result = await get({ url, noCache });
   const list = result.data.data.page.list;
   return {

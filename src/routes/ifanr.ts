@@ -32,8 +32,8 @@ const getList = async (noCache: boolean) => {
       desc: v.post_content,
       timestamp: getTime(v.created_at),
       hot: v.like_count || v.comment_count,
-      url: `https://www.ifanr.com/${v.id}` || v.buzz_original_url,
-      mobileUrl: `https://www.ifanr.com/digest/${v.id}` || v.buzz_original_url,
+      url: v.buzz_original_url || `https://www.ifanr.com/${v.id}`,
+      mobileUrl: v.buzz_original_url || `https://www.ifanr.com/digest/${v.id}`,
     })),
   };
 };

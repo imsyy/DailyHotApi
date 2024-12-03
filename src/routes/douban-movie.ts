@@ -7,7 +7,7 @@ export const handleRoute = async (_: undefined, noCache: boolean) => {
   const routeData: RouterData = {
     name: "douban-movie",
     title: "豆瓣电影",
-    type: "新片排行榜",
+    type: "新片榜",
     link: "https://movie.douban.com/chart",
     total: data?.length || 0,
     updateTime,
@@ -51,9 +51,9 @@ const getList = async (noCache: boolean) => {
       title: `【${score}】${dom.find("a").attr("title")}`,
       cover: dom.find("img").attr("src"),
       desc: dom.find("p.pl").text(),
-      timestamp: null,
+      timestamp: undefined,
       hot: getNumbers(dom.find("span.pl").text()),
-      url,
+      url: url || `https://movie.douban.com/subject/${getNumbers(url)}/`,
       mobileUrl: `https://m.douban.com/movie/subject/${getNumbers(url)}/`,
     };
   });

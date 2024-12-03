@@ -15,7 +15,7 @@ let allRoutePath: Array<string> = [];
 const routersDirName: string = "routes";
 
 // 排除路由
-const excludeRoutes: Array<string> = ["52pojie", "hostloc"];
+const excludeRoutes: Array<string> = [];
 
 // 建立完整目录路径
 const routersDirPath = path.join(__dirname, routersDirName);

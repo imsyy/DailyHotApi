@@ -18,7 +18,7 @@ export type Config = {
 const getEnvVariable = (key: string): string | undefined => {
   const value = process.env[key];
   if (value === undefined) {
-    return null;
+    return undefined;
   }
   return value;
 };

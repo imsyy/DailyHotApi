@@ -310,9 +310,19 @@ export type RouterType = {
     id: number;
     ttitle: string;
     shareUrl: string;
-    username:string;
+    username: string;
     tpic: string;
     message: string;
     replynum: number;
+  };
+  nodeseek: {
+    guid: {
+      _: string;
+    }[];
+    title: string;
+    description: string | string[];
+    "dc:creator": string;
+    pubDate: string[];
+    link: string[];
   };
 };

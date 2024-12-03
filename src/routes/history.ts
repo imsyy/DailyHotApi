@@ -27,8 +27,8 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
 };
 const getList = async (options: Options, noCache: boolean) => {
   const { month, day } = options;
-  const monthStr = month.toString().padStart(2, "0");
-  const dayStr = day.toString().padStart(2, "0");
+  const monthStr = month?.toString().padStart(2, "0");
+  const dayStr = day?.toString().padStart(2, "0");
   const url = `https://baike.baidu.com/cms/home/eventsOnHistory/${monthStr}.json`;
   const result = await get({
     url,
@@ -37,7 +37,7 @@ const getList = async (options: Options, noCache: boolean) => {
       _: new Date().getTime(),
     },
   });
-  const list = result.data[monthStr][monthStr + dayStr];
+  const list = monthStr ? result.data[monthStr][monthStr + dayStr] : [];
   return {
     fromCache: result.fromCache,
     updateTime: result.updateTime,

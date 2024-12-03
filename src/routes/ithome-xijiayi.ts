@@ -44,10 +44,10 @@ const getList = async (noCache: boolean) => {
       title: dom.find(".newsbody h2").text().trim(),
       desc: dom.find(".newsbody p").text().trim(),
       cover: dom.find("img").attr("data-original"),
-      timestamp: getTime(dateTime),
+      timestamp: getTime(dateTime || 0),
       hot: Number(dom.find(".comment").text().replace(/\D/g, "")),
-      url: href || undefined,
-      mobileUrl: href ? replaceLink(href) : undefined,
+      url: href || "",
+      mobileUrl: href ? replaceLink(href) : "",
     };
   });
   return {

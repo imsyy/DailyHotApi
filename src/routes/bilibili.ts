@@ -1,8 +1,24 @@
-import type { RouterData, ListContext, Options } from "../types.js";
+import type { RouterData, ListContext, Options, RouterResType } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
 import getBiliWbi from "../utils/getToken/bilibili.js";
 import { getTime } from "../utils/getTime.js";
+
+const typeMap: Record<string, string> = {
+  "0": "全站",
+  "1": "动画",
+  "3": "音乐",
+  "4": "游戏",
+  "5": "娱乐",
+  "36": "科技",
+  "119": "鬼畜",
+  "129": "舞蹈",
+  "155": "时尚",
+  "160": "生活",
+  "168": "国创相关",
+  "188": "数码",
+  "181": "影视",
+};
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const type = c.req.query("type") || "0";
@@ -10,26 +26,12 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const routeData: RouterData = {
     name: "bilibili",
     title: "哔哩哔哩",
-    type: "热门榜",
+    type: `热榜 · ${typeMap[type]}`,
     description: "你所热爱的，就是你的生活",
     params: {
       type: {
         name: "排行榜分区",
-        type: {
-          0: "全站",
-          1: "动画",
-          3: "音乐",
-          4: "游戏",
-          5: "娱乐",
-          36: "科技",
-          119: "鬼畜",
-          129: "舞蹈",
-          155: "时尚",
-          160: "生活",
-          168: "国创相关",
-          188: "数码",
-          181: "影视",
-        },
+        type: typeMap,
       },
     },
     link: "https://www.bilibili.com/v/popular/rank/all",
@@ -41,7 +43,7 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
   return routeData;
 };
 
-const getList = async (options: Options, noCache: boolean) => {
+const getList = async (options: Options, noCache: boolean): Promise<RouterResType> => {
   const { type } = options;
   const wbiData = await getBiliWbi();
   const url = `https://api.bilibili.com/x/web-interface/ranking/v2?tid=${type}&type=all&${wbiData}`;
@@ -64,10 +66,10 @@ const getList = async (options: Options, noCache: boolean) => {
         id: v.bvid,
         title: v.title,
         desc: v.desc || "该视频暂无简介",
-        cover: v.pic.replace(/http:/, "https:"),
-        author: v.owner.name,
+        cover: v.pic?.replace(/http:/, "https:"),
+        author: v.owner?.name,
         timestamp: getTime(v.pubdate),
-        hot: v.stat.view,
+        hot: v.stat?.view || 0,
         url: v.short_link_v2 || `https://www.bilibili.com/video/${v.bvid}`,
         mobileUrl: `https://m.bilibili.com/video/${v.bvid}`,
       })),
@@ -93,7 +95,7 @@ const getList = async (options: Options, noCache: boolean) => {
         id: v.bvid,
         title: v.title,
         desc: v.desc || "该视频暂无简介",
-        cover: v.pic.replace(/http:/, "https:"),
+        cover: v.pic?.replace(/http:/, "https:"),
         author: v.author,
         timestamp: null,
         hot: v.video_review,

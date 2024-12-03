@@ -1,6 +1,8 @@
 import type { RouterData } from "../types.js";
+import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
 import { parseStringPromise } from "xml2js";
+import { getTime } from "../utils/getTime.js";
 
 export const handleRoute = async (_: undefined, noCache: boolean) => {
   const { fromCache, data, updateTime } = await getList(noCache);
@@ -33,13 +35,13 @@ const getList = async (noCache: boolean) => {
   return {
     fromCache: result.fromCache,
     updateTime: result.updateTime,
-    data: list.map((v) => ({
+    data: list.map((v: RouterType["nodeseek"]) => ({
       id: v.guid[0]._,
       title: v.title[0],
       desc: v.description ? v.description[0] : "",
       author: v["dc:creator"] ? v["dc:creator"][0] : "unknown",
-      timestamp: new Date(v.pubDate[0]).getTime(),
-      hot: null, // NodeSeek RSS 中没有类似于hot的字段
+      timestamp: getTime(v.pubDate[0]),
+      hot: undefined,
       url: v.link[0],
       mobileUrl: v.link[0],
     })),

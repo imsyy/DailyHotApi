@@ -1,4 +1,4 @@
-import type { RouterData } from "../types.js";
+import type { RouterData, RouterResType } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { getToken, sign } from "../utils/getToken/51cto.js";
 import { get } from "../utils/getData.js";
@@ -19,7 +19,7 @@ export const handleRoute = async (_: undefined, noCache: boolean) => {
   return routeData;
 };
 
-const getList = async (noCache: boolean) => {
+const getList = async (noCache: boolean): Promise<RouterResType> => {
   const url = `https://api-media.51cto.com/index/index/recommend`;
   const params = {
     page: 1,
@@ -49,6 +49,7 @@ const getList = async (noCache: boolean) => {
       cover: v.cover,
       desc: v.abstract,
       timestamp: getTime(v.pubdate),
+      hot: undefined,
       url: v.url,
       mobileUrl: v.url,
     })),

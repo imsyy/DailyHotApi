@@ -1,7 +1,7 @@
 import type { Get, Post, Web } from "../types.ts";
 import { config } from "../config.js";
 import { getCache, setCache, delCache } from "./cache.js";
-// import { Cluster } from "puppeteer-cluster";
+import { Cluster } from "puppeteer-cluster";
 import logger from "./logger.js";
 import axios from "axios";
 
@@ -13,26 +13,41 @@ const request = axios.create({
 });
 
 // puppeteer-cluster
-// export const createCluster = async () => {
-//   return await Cluster.launch({
-//     concurrency: Cluster.CONCURRENCY_BROWSER,
-//     maxConcurrency: 5,
-//   });
-// };
+export const createCluster = async () => {
+  return await Cluster.launch({
+    concurrency: Cluster.CONCURRENCY_BROWSER,
+    maxConcurrency: 5,
+    // puppeteer
+    puppeteerOptions: {
+      headless: true,
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    },
+  });
+};
 
 // Cluster
-// const cluster = await createCluster();
-const cluster = null;
+const cluster = await createCluster();
 
 // Cluster configuration
-// cluster.task(async ({ page, data: { url, userAgent } }) => {
-//   if (userAgent) {
-//     await page.setUserAgent(userAgent);
-//   }
-//   await page.goto(url, { waitUntil: "networkidle0" });
-//   const pageContent = await page.content();
-//   return pageContent;
-// });
+cluster.task(async ({ page, data: { url, userAgent } }) => {
+  // 用户代理
+  if (userAgent) await page.setUserAgent(userAgent);
+  // 请求拦截
+  await page.setRequestInterception(true);
+  // 拦截非必要资源
+  page.on("request", (request) => {
+    const type = request.resourceType();
+    if (type === "document" || type === "script") {
+      request.continue();
+    } else {
+      request.abort();
+    }
+  });
+  // 加载页面
+  await page.goto(url, { waitUntil: "networkidle0", timeout: config.REQUEST_TIMEOUT });
+  const pageContent = await page.content();
+  return pageContent;
+});
 
 // 请求拦截
 request.interceptors.request.use(
@@ -127,6 +142,7 @@ export const web = async (options: Web) => {
   const { url, noCache, ttl = config.CACHE_TTL, userAgent } = options;
   logger.info("使用 Puppeteer 发起页面请求", options);
   try {
+    if (!cluster) throw new Error("Cluster is not initialized");
     // 检查缓存
     if (noCache) {
       delCache(url);

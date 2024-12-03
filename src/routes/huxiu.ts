@@ -21,7 +21,7 @@ export const handleRoute = async (_: undefined, noCache: boolean) => {
 // 标题处理
 const titleProcessing = (text: string) => {
   const paragraphs = text.split("<br><br>");
-  const title = paragraphs.shift().replace(/。$/, "");
+  const title = paragraphs.shift()?.replace(/。$/, "");
   const intro = paragraphs.join("<br><br>");
   return { title, intro };
 };
@@ -47,8 +47,8 @@ const getList = async (noCache: boolean) => {
       author: v.user_info.username,
       timestamp: getTime(v.publish_time),
       hot: null,
-      url: v.url || "https://www.huxiu.com/moment/",
-      mobileUrl: v.url || "https://m.huxiu.com/moment/",
+      url: v.url || `https://www.huxiu.com/moment/${v.object_id}.html`,
+      mobileUrl: v.url || `https://m.huxiu.com/moment/${v.object_id}.html`,
     })),
   };
 };

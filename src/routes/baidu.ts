@@ -1,6 +1,15 @@
-import type { RouterData, ListContext, Options } from "../types.js";
+import type { RouterData, ListContext, Options, RouterResType } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
+
+const typeMap: Record<string, string> = {
+  realtime: "热搜",
+  novel: "小说",
+  movie: "电影",
+  teleplay: "电视剧",
+  car: "汽车",
+  game: "游戏",
+};
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const type = c.req.query("type") || "realtime";
@@ -8,18 +17,11 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const routeData: RouterData = {
     name: "baidu",
     title: "百度",
-    type: "热搜榜",
+    type: typeMap[type],
     params: {
       type: {
         name: "热搜类别",
-        type: {
-          realtime: "热搜",
-          novel: "小说",
-          movie: "电影",
-          teleplay: "电视剧",
-          car: "汽车",
-          game: "游戏",
-        },
+        type: typeMap,
       },
     },
     link: "https://top.baidu.com/board",
@@ -31,7 +33,7 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
   return routeData;
 };
 
-const getList = async (options: Options, noCache: boolean) => {
+const getList = async (options: Options, noCache: boolean): Promise<RouterResType> => {
   const { type } = options;
   const url = `https://top.baidu.com/board?tab=${type}`;
   const result = await get({
@@ -55,8 +57,8 @@ const getList = async (options: Options, noCache: boolean) => {
       desc: v.desc,
       cover: v.img,
       author: v.show?.length ? v.show : "",
-      timestamp: null,
-      hot: Number(v.hotScore),
+      timestamp: 0,
+      hot: Number(v.hotScore || 0),
       url: `https://www.baidu.com/s?wd=${encodeURIComponent(v.query)}`,
       mobileUrl: v.rawUrl,
     })),
