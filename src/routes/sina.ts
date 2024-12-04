@@ -50,9 +50,9 @@ const getList = async (options: Options, noCache: boolean) => {
       return {
         id: base.base.uniqueId,
         title: info.title,
-        desc: null,
-        author: null,
-        timestamp: null,
+        desc: undefined,
+        author: undefined,
+        timestamp: undefined,
         hot: parseChineseNumber(info.hotValue),
         url: base.base.url,
         mobileUrl: base.base.url,

@@ -32,7 +32,7 @@
     "dev": "cross-env NODE_ENV=development tsx watch --no-cache src/index.ts",
     "dev:cache": "cross-env NODE_ENV=development tsx watch src/index.ts",
     "build": "tsc --project tsconfig.json",
-    "start": "cross-env NODE_ENV=development tsx dist/index.js"
+    "start": "cross-env NODE_ENV=development tsx dist/src/index.js"
   },
   "type": "module",
   "dependencies": {

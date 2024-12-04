@@ -97,7 +97,7 @@ const getList = async (options: Options, noCache: boolean): Promise<RouterResTyp
         desc: v.desc || "该视频暂无简介",
         cover: v.pic?.replace(/http:/, "https:"),
         author: v.author,
-        timestamp: null,
+        timestamp: undefined,
         hot: v.video_review,
         url: `https://www.bilibili.com/video/${v.bvid}`,
         mobileUrl: `https://m.bilibili.com/video/${v.bvid}`,

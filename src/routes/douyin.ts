@@ -30,7 +30,7 @@ const getDyCookies = async () => {
     return cookieData;
   } catch (error) {
     console.error("获取抖音 Cookie 出错" + error);
-    return null;
+    return undefined;
   }
 };
 

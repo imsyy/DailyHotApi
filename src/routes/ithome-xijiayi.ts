@@ -38,7 +38,7 @@ const getList = async (noCache: boolean) => {
     const href = dom.find("a").attr("href");
     const time = dom.find("span.time").text().trim();
     const match = time.match(/'([^']+)'/);
-    const dateTime = match ? match[1] : null;
+    const dateTime = match ? match[1] : undefined;
     return {
       id: href ? Number(replaceLink(href, true)) : 100000,
       title: dom.find(".newsbody h2").text().trim(),

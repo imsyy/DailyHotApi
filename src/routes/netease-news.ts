@@ -30,7 +30,7 @@ const getList = async (noCache: boolean) => {
       title: v.title,
       cover: v.imgsrc,
       author: v.source,
-      hot: null,
+      hot: undefined,
       timestamp: getTime(v.ptime),
       url: `https://www.163.com/dy/article/${v.docid}.html`,
       mobileUrl: `https://m.163.com/dy/article/${v.docid}.html`,

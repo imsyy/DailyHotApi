@@ -61,7 +61,7 @@ const getWereadID = (bookId: string) => {
     return strSub;
   } catch (error) {
     console.error("处理微信读书 ID 时出现错误：" + error);
-    return null;
+    return undefined;
   }
 };
 

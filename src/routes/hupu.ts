@@ -43,7 +43,7 @@ const getList = async (options: Options, noCache: boolean) => {
       title: v.title,
       author: v.username,
       hot: v.replies,
-      timestamp: null,
+      timestamp: undefined,
       url: `https://bbs.hupu.com/${v.tid}.html`,
       mobileUrl: v.url,
     })),

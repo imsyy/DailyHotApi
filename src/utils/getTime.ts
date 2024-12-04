@@ -112,7 +112,7 @@ export const getTime = (timeInput: string | number): number | undefined => {
           "YYYY-MM-DD",
         ];
 
-        let parsedDate: dayjs.Dayjs | null = null;
+        let parsedDate: dayjs.Dayjs | undefined = undefined;
         for (const pattern of formatPatterns) {
           parsedDate = dayjs(standardizedInput, pattern, true);
           if (parsedDate.isValid()) {

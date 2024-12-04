@@ -40,7 +40,7 @@ const getList = async (options: Options, noCache: boolean) => {
       desc: v.issuetime + " " + v.title,
       cover: v.pic,
       timestamp: getTime(v.issuetime),
-      hot: null,
+      hot: undefined,
       url: `http://nmc.cn${v.url}`,
       mobileUrl: `http://nmc.cn${v.url}`,
     })),

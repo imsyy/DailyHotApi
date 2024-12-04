@@ -29,8 +29,8 @@ const getList = async (noCache: boolean): Promise<RouterResType> => {
     data: list.map((v: RouterType["csdn"]) => ({
       id: v.productId,
       title: v.articleTitle,
-      cover: v.picList?.[0] || null,
-      desc: null,
+      cover: v.picList?.[0] || undefined,
+      desc: undefined,
       author: v.nickName,
       timestamp: getTime(v.period),
       hot: Number(v.hotRankScore),

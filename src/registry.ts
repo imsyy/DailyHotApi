@@ -119,7 +119,7 @@ app.get("/all", (c) =>
         if (excludeRoutes.includes(path)) {
           return {
             name: path,
-            path: null,
+            path: undefined,
             message: "该接口暂时下线",
           };
         }

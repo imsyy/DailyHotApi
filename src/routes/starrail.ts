@@ -44,7 +44,7 @@ const getList = async (options: Options, noCache: boolean) => {
         title: data.subject,
         desc: data.content,
         cover: data.cover || data?.images?.[0],
-        author: v.user?.nickname || null,
+        author: v.user?.nickname || undefined,
         timestamp: getTime(data.created_at),
         hot: data.view_status,
         url: `https://www.miyoushe.com/sr/article/${data.post_id}`,

@@ -35,10 +35,10 @@ const getList = async (noCache: boolean) => {
     data: list.map((v: RouterType["zhihu-daily"]) => ({
       id: v.id,
       title: v.title,
-      cover: v.images?.[0] ?? null,
+      cover: v.images?.[0] ?? undefined,
       author: v.hint,
-      hot: null,
-      timestamp: null,
+      hot: undefined,
+      timestamp: undefined,
       url: v.url,
       mobileUrl: v.url,
     })),

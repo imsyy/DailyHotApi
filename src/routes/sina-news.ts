@@ -127,7 +127,7 @@ const getList = async (options: Options, noCache: boolean) => {
     data: list.map((v: RouterType["sina-news"]) => ({
       id: v.id,
       title: v.title,
-      author: v.media || null,
+      author: v.media || undefined,
       hot: parseFloat(v.top_num.replace(/,/g, "")),
       timestamp: getTime(v.create_date + " " + v.create_time),
       url: v.url,

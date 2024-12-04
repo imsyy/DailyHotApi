@@ -46,7 +46,7 @@ const getList = async (noCache: boolean) => {
       desc: titleProcessing(v.content).intro,
       author: v.user_info.username,
       timestamp: getTime(v.publish_time),
-      hot: null,
+      hot: undefined,
       url: v.url || `https://www.huxiu.com/moment/${v.object_id}.html`,
       mobileUrl: v.url || `https://m.huxiu.com/moment/${v.object_id}.html`,
     })),
