@@ -4,17 +4,15 @@ import { get } from "../utils/getData.js";
 import { getTime } from "../utils/getTime.js";
 
 export const handleRoute = async (_: undefined, noCache: boolean) => {
-  const { fromCache, data, updateTime } = await getList(noCache);
+  const listData = await getList(noCache);
   const routeData: RouterData = {
     name: "ithome",
     title: "IT之家",
     type: "热榜",
     description: "爱科技，爱这里 - 前沿科技新闻网站",
     link: "https://m.ithome.com/rankm/",
-    total: data?.length || 0,
-    updateTime,
-    fromCache,
-    data,
+    total: listData.data?.length || 0,
+    ...listData,
   };
   return routeData;
 };
@@ -51,8 +49,7 @@ const getList = async (noCache: boolean) => {
     };
   });
   return {
-    fromCache: result.fromCache,
-    updateTime: result.updateTime,
+    ...result,
     data: listData,
   };
 };

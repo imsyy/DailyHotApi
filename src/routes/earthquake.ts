@@ -14,16 +14,14 @@ const mappings: Record<string, string> = {
 };
 
 export const handleRoute = async (_: undefined, noCache: boolean) => {
-  const { fromCache, data, updateTime } = await getList(noCache);
+  const listData = await getList(noCache);
   const routeData: RouterData = {
     name: "earthquake",
     title: "中国地震台",
     type: "地震速报",
     link: "https://news.ceic.ac.cn/",
-    total: data?.length || 0,
-    updateTime,
-    fromCache,
-    data,
+    total: listData.data?.length || 0,
+    ...listData,
   };
   return routeData;
 };
@@ -35,8 +33,7 @@ const getList = async (noCache: boolean) => {
   const match = result.data.match(regex);
   const list = match && match[1] ? JSON.parse(match[1]) : [];
   return {
-    fromCache: result.fromCache,
-    updateTime: result.updateTime,
+    ...result,
     data: list.map((v: RouterType["earthquake"]) => {
       const contentBuilder = [];
       const { NEW_DID, LOCATION_C, M } = v;

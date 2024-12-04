@@ -4,17 +4,15 @@ import { get } from "../utils/getData.js";
 import { getTime } from "../utils/getTime.js";
 
 export const handleRoute = async (_: undefined, noCache: boolean) => {
-  const { fromCache, data, updateTime } = await getList(noCache);
+  const listData = await getList(noCache);
   const routeData: RouterData = {
     name: "tieba",
     title: "百度贴吧",
     type: "热议榜",
     description: "全球领先的中文社区",
     link: "https://tieba.baidu.com/hottopic/browse/topicList",
-    total: data?.length || 0,
-    updateTime,
-    fromCache,
-    data,
+    total: listData.data?.length || 0,
+    ...listData,
   };
   return routeData;
 };
@@ -24,8 +22,7 @@ const getList = async (noCache: boolean) => {
   const result = await get({ url, noCache });
   const list = result.data.data.bang_topic.topic_list;
   return {
-    fromCache: result.fromCache,
-    updateTime: result.updateTime,
+    ...result,
     data: list.map((v: RouterType["tieba"]) => ({
       id: v.topic_id,
       title: v.topic_name,

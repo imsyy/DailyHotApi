@@ -12,7 +12,7 @@ const typeMap: Record<string, string> = {
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const type = c.req.query("type") || "hot";
-  const { fromCache, data, updateTime } = await getList({ type }, noCache);
+  const listData = await getList({ type }, noCache);
   const routeData: RouterData = {
     name: "hostloc",
     title: "全球主机交流",
@@ -24,10 +24,8 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
       },
     },
     link: "https://hostloc.com/",
-    total: data?.length || 0,
-    updateTime,
-    fromCache,
-    data,
+    total: listData.data?.length || 0,
+    ...listData,
   };
   return routeData;
 };
@@ -49,8 +47,7 @@ const getList = async (options: Options, noCache: boolean) => {
   };
   const list = await parseData();
   return {
-    fromCache: result.fromCache,
-    updateTime: result.updateTime,
+    ...result,
     data: list.map((v, i) => ({
       id: v.guid || i,
       title: v.title || "",

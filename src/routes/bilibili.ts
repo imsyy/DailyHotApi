@@ -22,7 +22,7 @@ const typeMap: Record<string, string> = {
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const type = c.req.query("type") || "0";
-  const { fromCache, data, updateTime } = await getList({ type }, noCache);
+  const listData = await getList({ type }, noCache);
   const routeData: RouterData = {
     name: "bilibili",
     title: "哔哩哔哩",
@@ -35,10 +35,8 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
       },
     },
     link: "https://www.bilibili.com/v/popular/rank/all",
-    total: data?.length || 0,
-    updateTime,
-    fromCache,
-    data,
+    total: listData.data?.length || 0,
+    ...listData,
   };
   return routeData;
 };
@@ -89,8 +87,7 @@ const getList = async (options: Options, noCache: boolean): Promise<RouterResTyp
     });
     const list = result.data.data.list;
     return {
-      fromCache: result.fromCache,
-      updateTime: result.updateTime,
+      ...result,
       data: list.map((v: RouterType["bilibili"]) => ({
         id: v.bvid,
         title: v.title,

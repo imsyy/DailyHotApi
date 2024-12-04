@@ -3,16 +3,14 @@ import { load } from "cheerio";
 import { get } from "../utils/getData.js";
 
 export const handleRoute = async (_: undefined, noCache: boolean) => {
-  const { fromCache, data, updateTime } = await getList(noCache);
+  const listData = await getList(noCache);
   const routeData: RouterData = {
     name: "douban-movie",
     title: "豆瓣电影",
     type: "新片榜",
     link: "https://movie.douban.com/chart",
-    total: data?.length || 0,
-    updateTime,
-    fromCache,
-    data,
+    total: listData.data?.length || 0,
+    ...listData,
   };
   return routeData;
 };
@@ -58,8 +56,7 @@ const getList = async (noCache: boolean) => {
     };
   });
   return {
-    fromCache: result.fromCache,
-    updateTime: result.updateTime,
+    ...result,
     data: listData,
   };
 };

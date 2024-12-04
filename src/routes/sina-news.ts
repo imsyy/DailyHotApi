@@ -64,7 +64,7 @@ const listType = {
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const type = c.req.query("type") || "1";
-  const { fromCache, data, updateTime } = await getList({ type }, noCache);
+  const listData = await getList({ type }, noCache);
   const routeData: RouterData = {
     name: "sina-news",
     title: "新浪新闻",
@@ -76,10 +76,8 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
       },
     },
     link: "https://sinanews.sina.cn/",
-    total: data?.length || 0,
-    updateTime,
-    fromCache,
-    data,
+    total: listData.data?.length || 0,
+    ...listData,
   };
   return routeData;
 };
@@ -122,8 +120,7 @@ const getList = async (options: Options, noCache: boolean) => {
   const result = await get({ url, noCache });
   const list = parseData(result.data).data;
   return {
-    fromCache: result.fromCache,
-    updateTime: result.updateTime,
+    ...result,
     data: list.map((v: RouterType["sina-news"]) => ({
       id: v.id,
       title: v.title,

@@ -8,7 +8,7 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
   // 获取日期
   const day = c.req.query("day") || getCurrentDateTime(true).day;
   const month = c.req.query("month") || getCurrentDateTime(true).month;
-  const { fromCache, data, updateTime } = await getList({ month, day }, noCache);
+  const listData = await getList({ month, day }, noCache);
   const routeData: RouterData = {
     name: "history",
     title: "历史上的今天",
@@ -18,10 +18,8 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
       day: "日期",
     },
     link: "https://baike.baidu.com/calendar",
-    total: data?.length || 0,
-    updateTime,
-    fromCache,
-    data,
+    total: listData.data?.length || 0,
+    ...listData,
   };
   return routeData;
 };
@@ -39,8 +37,7 @@ const getList = async (options: Options, noCache: boolean) => {
   });
   const list = monthStr ? result.data[monthStr][monthStr + dayStr] : [];
   return {
-    fromCache: result.fromCache,
-    updateTime: result.updateTime,
+    ...result,
     data: list.map((v: RouterType["history"], index: number) => ({
       id: index,
       title: load(v.title).text().trim(),

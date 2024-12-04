@@ -5,16 +5,14 @@ import { get } from "../utils/getData.js";
 import { getTime } from "../utils/getTime.js";
 
 export const handleRoute = async (_: undefined, noCache: boolean) => {
-  const { fromCache, data, updateTime } = await getList(noCache);
+  const listData = await getList(noCache);
   const routeData: RouterData = {
     name: "51cto",
     title: "51CTO",
     type: "推荐榜",
     link: "https://www.51cto.com/",
-    total: data?.length || 0,
-    updateTime,
-    fromCache,
-    data,
+    total: listData.data?.length || 0,
+    ...listData,
   };
   return routeData;
 };
@@ -41,8 +39,7 @@ const getList = async (noCache: boolean): Promise<RouterResType> => {
   });
   const list = result.data.data.data.list;
   return {
-    fromCache: result.fromCache,
-    updateTime: result.updateTime,
+    ...result,
     data: list.map((v: RouterType["51cto"]) => ({
       id: v.source_id,
       title: v.title,

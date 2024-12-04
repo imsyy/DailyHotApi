@@ -13,7 +13,7 @@ const typeMap: Record<string, string> = {
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const type = c.req.query("type") || "realtime";
-  const { fromCache, data, updateTime } = await getList({ type }, noCache);
+  const listData = await getList({ type }, noCache);
   const routeData: RouterData = {
     name: "baidu",
     title: "百度",
@@ -25,10 +25,8 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
       },
     },
     link: "https://top.baidu.com/board",
-    total: data?.length || 0,
-    updateTime,
-    fromCache,
-    data,
+    total: listData.data?.length || 0,
+    ...listData,
   };
   return routeData;
 };
@@ -49,8 +47,7 @@ const getList = async (options: Options, noCache: boolean): Promise<RouterResTyp
   const matchResult = result.data.match(pattern);
   const jsonObject = JSON.parse(matchResult[1]).cards[0].content;
   return {
-    fromCache: result.fromCache,
-    updateTime: result.updateTime,
+    ...result,
     data: jsonObject.map((v: RouterType["baidu"]) => ({
       id: v.index,
       title: v.word,

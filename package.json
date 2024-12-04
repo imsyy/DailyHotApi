@@ -30,9 +30,11 @@
     "format": "prettier --write .",
     "lint": "eslint .",
     "dev": "cross-env NODE_ENV=development tsx watch --no-cache src/index.ts",
+    "dev:web": "cross-env NODE_ENV=development USE_PUPPETEER=true tsx watch --no-cache src/index.ts",
     "dev:cache": "cross-env NODE_ENV=development tsx watch src/index.ts",
     "build": "tsc --project tsconfig.json",
-    "start": "cross-env NODE_ENV=development tsx dist/src/index.js"
+    "start": "cross-env NODE_ENV=development tsx dist/index.js",
+    "start:web": "cross-env NODE_ENV=development USE_PUPPETEER=true tsx dist/index.js"
   },
   "type": "module",
   "dependencies": {
@@ -46,6 +48,7 @@
     "hono": "^4.6.12",
     "md5": "^2.3.0",
     "node-cache": "^5.1.2",
+    "puppeteer": "^23.10.0",
     "puppeteer-cluster": "^0.24.0",
     "rss-parser": "^3.13.0",
     "winston": "^3.17.0",

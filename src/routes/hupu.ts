@@ -4,7 +4,7 @@ import { get } from "../utils/getData.js";
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const type = c.req.query("type") || "1";
-  const { fromCache, data, updateTime } = await getList({ type }, noCache);
+  const listData = await getList({ type }, noCache);
   const routeData: RouterData = {
     name: "hupu",
     title: "虎扑",
@@ -22,10 +22,8 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
       },
     },
     link: "https://bbs.hupu.com/all-gambia",
-    total: data?.length || 0,
-    updateTime,
-    fromCache,
-    data,
+    total: listData.data?.length || 0,
+    ...listData,
   };
   return routeData;
 };
@@ -36,8 +34,7 @@ const getList = async (options: Options, noCache: boolean) => {
   const result = await get({ url, noCache });
   const list = result.data.data.topicThreads;
   return {
-    fromCache: result.fromCache,
-    updateTime: result.updateTime,
+    ...result,
     data: list.map((v: RouterType["hupu"]) => ({
       id: v.tid,
       title: v.title,

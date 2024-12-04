@@ -4,17 +4,15 @@ import { post } from "../utils/getData.js";
 import { getTime } from "../utils/getTime.js";
 
 export const handleRoute = async (_: undefined, noCache: boolean) => {
-  const { fromCache, data, updateTime } = await getList(noCache);
+  const listData = await getList(noCache);
   const routeData: RouterData = {
     name: "ngabbs",
     title: "NGA",
     type: "论坛热帖",
     description: "精英玩家俱乐部",
     link: "https://ngabbs.com/",
-    total: data?.length || 0,
-    updateTime,
-    fromCache,
-    data,
+    total: listData.data?.length || 0,
+    ...listData,
   };
   return routeData;
 };
@@ -42,8 +40,7 @@ const getList = async (noCache: boolean) => {
   });
   const list = result.data.result[0];
   return {
-    fromCache: result.fromCache,
-    updateTime: result.updateTime,
+    ...result,
     data: list.map((v: RouterType["ngabbs"]) => ({
       id: v.tid,
       title: v.subject,

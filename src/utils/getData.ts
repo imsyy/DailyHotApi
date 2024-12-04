@@ -1,4 +1,5 @@
-import type { Get, Post, Web } from "../types.ts";
+import type { Get, Post, Web } from "../types.js";
+import type { Page } from "puppeteer";
 import { config } from "../config.js";
 import { getCache, setCache, delCache } from "./cache.js";
 import { Cluster } from "puppeteer-cluster";
@@ -12,24 +13,50 @@ const request = axios.create({
   withCredentials: true,
 });
 
-// puppeteer-cluster
-export const createCluster = async () => {
-  return await Cluster.launch({
-    concurrency: Cluster.CONCURRENCY_BROWSER,
-    maxConcurrency: 5,
-    // puppeteer
-    puppeteerOptions: {
-      headless: true,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    },
-  });
+// Puppeteer Cluster
+let cluster: Cluster | null = null;
+
+/**
+ * 创建 Puppeteer Cluster
+ * @returns {Promise<Cluster|null>} Puppeteer Cluster
+ */
+export const createCluster = async (): Promise<Cluster | null> => {
+  if (cluster) return cluster;
+  try {
+    cluster = await Cluster.launch({
+      concurrency: Cluster.CONCURRENCY_BROWSER,
+      maxConcurrency: 5,
+      puppeteerOptions: {
+        headless: true,
+        args: [
+          "--no-sandbox",
+          "--disable-gpu",
+          "--disable-setuid-sandbox",
+          "--disable-dev-shm-usage",
+        ],
+      },
+    });
+    logger.info("Puppeteer Cluster 已成功初始化");
+  } catch (error) {
+    logger.warn("启动 Puppeteer Cluster 失败，可能是没有 Chromium 安装", error);
+    cluster = null;
+  }
+  return cluster;
 };
 
-// Cluster
-const cluster = await createCluster();
-
-// Cluster configuration
-cluster.task(async ({ page, data: { url, userAgent } }) => {
+/**
+ * 处理任务
+ * @param page 页面
+ * @param data 数据
+ * @returns
+ */
+const taskHandler = async ({
+  page,
+  data: { url, userAgent },
+}: {
+  page: Page;
+  data: { url: string; userAgent?: string };
+}): Promise<string> => {
   // 用户代理
   if (userAgent) await page.setUserAgent(userAgent);
   // 请求拦截
@@ -45,9 +72,9 @@ cluster.task(async ({ page, data: { url, userAgent } }) => {
   });
   // 加载页面
   await page.goto(url, { waitUntil: "networkidle0", timeout: config.REQUEST_TIMEOUT });
-  const pageContent = await page.content();
-  return pageContent;
-});
+  // 返回页面内容
+  return page.content();
+};
 
 // 请求拦截
 request.interceptors.request.use(
@@ -137,12 +164,25 @@ export const post = async (options: Post) => {
   }
 };
 
-// puppeteer
+// WEB - Puppeteer
 export const web = async (options: Web) => {
   const { url, noCache, ttl = config.CACHE_TTL, userAgent } = options;
   logger.info("使用 Puppeteer 发起页面请求", options);
+  if (config.USE_PUPPETEER === false) {
+    return {
+      fromCache: false,
+      data: [],
+      message: "Puppeteer is not enabled, please set USE_PUPPETEER=true",
+      updateTime: 0,
+    };
+  }
+  // 初始化 Cluster
+  const clusterInstance = await createCluster();
+  if (!clusterInstance) {
+    logger.error("Cluster 初始化失败，无法继续");
+    throw new Error("Cluster 初始化失败");
+  }
   try {
-    if (!cluster) throw new Error("Cluster is not initialized");
     // 检查缓存
     if (noCache) {
       delCache(url);
@@ -155,7 +195,7 @@ export const web = async (options: Web) => {
     }
     // 缓存不存在时使用 Puppeteer 请求页面
     logger.info("启动浏览器请求页面", { url });
-    const pageContent = await cluster.execute({ url, userAgent });
+    const pageContent = await clusterInstance.execute({ url, userAgent }, taskHandler);
     // 存储新获取的数据到缓存
     const updateTime = new Date().toISOString();
     setCache(url, { data: pageContent, updateTime }, ttl);
@@ -165,5 +205,19 @@ export const web = async (options: Web) => {
   } catch (error) {
     logger.error("Puppeteer 请求出错", error);
     throw error;
+  }
+};
+
+/**
+ * 关闭 Cluster
+ */
+export const closeCluster = async () => {
+  if (cluster) {
+    try {
+      await cluster.close();
+      logger.info("Puppeteer Cluster 已成功关闭");
+    } catch (error) {
+      logger.error("关闭 Puppeteer Cluster 时出错", error);
+    }
   }
 };

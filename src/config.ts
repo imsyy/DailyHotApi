@@ -12,6 +12,7 @@ export type Config = {
   ALLOWED_HOST: string;
   USE_LOG_FILE: boolean;
   RSS_MODE: boolean;
+  USE_PUPPETEER: boolean;
 };
 
 // 验证并提取环境变量
@@ -49,4 +50,5 @@ export const config: Config = {
   ALLOWED_HOST: getEnvVariable("ALLOWED_HOST") || "imsyy.top",
   USE_LOG_FILE: getBooleanEnvVariable("USE_LOG_FILE", true),
   RSS_MODE: getBooleanEnvVariable("RSS_MODE", false),
+  USE_PUPPETEER: getBooleanEnvVariable("USE_PUPPETEER", false),
 };

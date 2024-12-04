@@ -27,7 +27,7 @@ const rangeMap: Record<string, string> = {
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const type = c.req.query("type") || "-1";
   const range = c.req.query("range") || "DAY";
-  const { fromCache, data, updateTime } = await getList({ type, range }, noCache);
+  const listData = await getList({ type, range }, noCache);
   const routeData: RouterData = {
     name: "acfun",
     title: "AcFun",
@@ -44,10 +44,8 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
       },
     },
     link: "https://www.acfun.cn/rank/list/",
-    total: data?.length || 0,
-    updateTime,
-    fromCache,
-    data,
+    total: listData.data?.length || 0,
+    ...listData,
   };
   return routeData;
 };
@@ -64,8 +62,7 @@ const getList = async (options: Options, noCache: boolean): Promise<RouterResTyp
   });
   const list = result.data.rankList;
   return {
-    fromCache: result.fromCache,
-    updateTime: result.updateTime,
+    ...result,
     data: list.map((v: RouterType["acfun"]) => ({
       id: v.dougaId,
       title: v.contentTitle,

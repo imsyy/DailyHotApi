@@ -5,7 +5,7 @@ import { parseStringPromise } from "xml2js";
 import { getTime } from "../utils/getTime.js";
 
 export const handleRoute = async (_: undefined, noCache: boolean) => {
-  const { fromCache, data, updateTime } = await getList(noCache);
+  const listData = await getList(noCache);
   const routeData: RouterData = {
     name: "nodeseek",
     title: "NodeSeek",
@@ -19,10 +19,8 @@ export const handleRoute = async (_: undefined, noCache: boolean) => {
       },
     },
     link: "https://www.nodeseek.com/",
-    total: data?.length || 0,
-    updateTime,
-    fromCache,
-    data,
+    total: listData.data?.length || 0,
+    ...listData,
   };
   return routeData;
 };
@@ -33,8 +31,7 @@ const getList = async (noCache: boolean) => {
   const rssData = await parseStringPromise(result.data);
   const list = rssData.rss.channel[0].item;
   return {
-    fromCache: result.fromCache,
-    updateTime: result.updateTime,
+    ...result,
     data: list.map((v: RouterType["nodeseek"]) => ({
       id: v.guid[0]._,
       title: v.title[0],

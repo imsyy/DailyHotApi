@@ -25,8 +25,8 @@ export const parseRSS = async (rssContent: string) => {
     try {
       new URL(url);
       return true;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      console.error(error);
       return false;
     }
   };

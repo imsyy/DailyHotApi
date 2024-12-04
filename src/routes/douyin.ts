@@ -4,17 +4,15 @@ import { get } from "../utils/getData.js";
 import { getTime } from "../utils/getTime.js";
 
 export const handleRoute = async (_: undefined, noCache: boolean) => {
-  const { fromCache, data, updateTime } = await getList(noCache);
+  const listData = await getList(noCache);
   const routeData: RouterData = {
     name: "douyin",
     title: "抖音",
     type: "热榜",
     description: "实时上升热点",
     link: "https://www.douyin.com",
-    total: data?.length || 0,
-    updateTime,
-    fromCache,
-    data,
+    total: listData.data?.length || 0,
+    ...listData,
   };
   return routeData;
 };
@@ -47,8 +45,7 @@ const getList = async (noCache: boolean) => {
   });
   const list = result.data.data.word_list;
   return {
-    fromCache: result.fromCache,
-    updateTime: result.updateTime,
+    ...result,
     data: list.map((v: RouterType["douyin"]) => ({
       id: v.sentence_id,
       title: v.word,

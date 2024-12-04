@@ -18,9 +18,10 @@ export interface ListItem {
 
 // 路由接口数据
 export interface RouterResType {
-  updateTime: string;
+  updateTime: string | number;
   fromCache: boolean;
   data: ListItem[];
+  message?: string;
 }
 
 // 路由数据

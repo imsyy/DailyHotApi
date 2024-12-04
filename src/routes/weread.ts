@@ -5,16 +5,14 @@ import getWereadID from "../utils/getToken/weread.js";
 import { getTime } from "../utils/getTime.js";
 
 export const handleRoute = async (_: undefined, noCache: boolean) => {
-  const { fromCache, data, updateTime } = await getList(noCache);
+  const listData = await getList(noCache);
   const routeData: RouterData = {
     name: "weread",
     title: "微信读书",
     type: "飙升榜",
     link: "https://weread.qq.com/",
-    total: data?.length || 0,
-    updateTime,
-    fromCache,
-    data,
+    total: listData.data?.length || 0,
+    ...listData,
   };
   return routeData;
 };
@@ -31,8 +29,7 @@ const getList = async (noCache: boolean) => {
   });
   const list = result.data.books;
   return {
-    fromCache: result.fromCache,
-    updateTime: result.updateTime,
+    ...result,
     data: list.map((v: RouterType["weread"]) => {
       const data = v.bookInfo;
       return {

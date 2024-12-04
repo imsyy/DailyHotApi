@@ -25,7 +25,7 @@ const typeMap: Record<string, string> = {
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const game = c.req.query("game") || "1";
   const type = c.req.query("type") || "1";
-  const { fromCache, data, updateTime } = await getList({ game, type }, noCache);
+  const listData = await getList({ game, type }, noCache);
   const routeData: RouterData = {
     name: "miyoushe",
     title: `米游社 · ${gameMap[game]}`,
@@ -41,10 +41,8 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
       },
     },
     link: "https://www.miyoushe.com/",
-    total: data?.length || 0,
-    updateTime,
-    fromCache,
-    data,
+    total: listData.data?.length || 0,
+    ...listData,
   };
   return routeData;
 };
@@ -55,8 +53,7 @@ const getList = async (options: Options, noCache: boolean): Promise<RouterResTyp
   const result = await get({ url, noCache });
   const list = result.data.data.list;
   return {
-    fromCache: result.fromCache,
-    updateTime: result.updateTime,
+    ...result,
     data: list.map((v: RouterType["miyoushe"]) => {
       const data = v.post;
       return {

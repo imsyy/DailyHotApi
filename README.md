@@ -66,6 +66,7 @@
 | 虎扑             | 步行街热帖   | hupu           | ![](https://img.shields.io/website.svg?label=hupu&url=https://api-hot.imsyy.top/hupu&cacheSeconds=7200)                     |
 | 爱范儿           | 快讯         | ifanr          | ![](https://img.shields.io/website.svg?label=ifanr&url=https://api-hot.imsyy.top/ifanr&cacheSeconds=7200)                   |
 | 英雄联盟         | 更新公告     | lol            | ![](https://img.shields.io/website.svg?label=lol&url=https://api-hot.imsyy.top/lol&cacheSeconds=7200)                       |
+| 米游社           | 最新消息     | miyoushe       | ![](https://img.shields.io/website.svg?label=miyoushe&url=https://api-hot.imsyy.top/miyoushe&cacheSeconds=7200)                  |
 | 原神             | 最新消息     | genshin        | ![](https://img.shields.io/website.svg?label=genshin&url=https://api-hot.imsyy.top/genshin&cacheSeconds=7200)               |
 | 崩坏3            | 最新动态     | honkai         | ![](https://img.shields.io/website.svg?label=honkai&url=https://api-hot.imsyy.top/honkai&cacheSeconds=7200)                 |
 | 崩坏：星穹铁道   | 最新动态     | starrail       | ![](https://img.shields.io/website.svg?label=starrail&url=https://api-hot.imsyy.top/starrail&cacheSeconds=7200)             |
@@ -82,6 +83,8 @@
 ## ⚙️ 使用
 
 本项目支持 `Node.js` 调用，可在安装完成后调用 `serveHotApi` 来开启服务器
+
+> 该方式无法使用部分需要 Puppeteer 环境的接口
 
 ```bash
 pnpm add dailyhot-api
@@ -100,6 +103,8 @@ serveHotApi(3000);
 
 ## ⚙️ 部署
 
+由于部分接口无法通过接口调用等方式获取数据，故采用 `Puppeteer` 来实现，但由于使用后会造成 **内存占用过大或镜像过大**，可选择性开启，详情请参考下方说明。
+
 具体使用说明可参考 [我的博客](https://blog.imsyy.top/posts/2024/0408)，下方仅讲解基础操作：
 
 ### Docker 部署
@@ -111,8 +116,11 @@ serveHotApi(3000);
 ```bash
 # 构建
 docker build -t dailyhot-api .
+# 构建 Puppeteer 版
+docker build --build-arg USE_PUPPETEER=true -t dailyhot-api .
+
 # 运行
-docker run -p 6688:6688 -d dailyhot-api
+docker run --restart always -p 6688:6688 -d dailyhot-api
 # 或使用 Docker Compose
 docker-compose up -d
 ```
@@ -122,8 +130,11 @@ docker-compose up -d
 ```bash
 # 拉取
 docker pull imsyy/dailyhot-api:latest
+# 拉取 Puppeteer 版
+docker pull imsyy/dailyhot-api:web-latest
+
 # 运行
-docker run -p 6688:6688 -d imsyy/dailyhot-api:latest
+docker run --restart always -p 6688:6688 -d imsyy/dailyhot-api:latest
 ```
 
 ### 手动部署
@@ -148,7 +159,10 @@ npm install
 #### 开发
 
 ```bash
+# 标准运行
 npm run dev
+# 采用 Puppeteer 运行
+npm run dev:web
 ```
 
 成功启动后程序会在控制台输出可访问的地址
@@ -157,7 +171,11 @@ npm run dev
 
 ```bash
 npm run build
+
+# 标准运行
 npm run start
+# 采用 Puppeteer 运行
+npm run start:web
 ```
 
 成功启动后程序会在控制台输出可访问的地址

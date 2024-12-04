@@ -5,7 +5,7 @@ import { getTime } from "../utils/getTime.js";
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const sort = c.req.query("sort") || "featured";
-  const { fromCache, data, updateTime } = await getList({ sort }, noCache);
+  const listData = await getList({ sort }, noCache);
   const routeData: RouterData = {
     name: "hellogithub",
     title: "HelloGitHub",
@@ -21,10 +21,8 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
       },
     },
     link: "https://hellogithub.com/",
-    total: data?.length || 0,
-    updateTime,
-    fromCache,
-    data,
+    total: listData.data?.length || 0,
+    ...listData,
   };
   return routeData;
 };
@@ -35,8 +33,7 @@ const getList = async (options: Options, noCache: boolean) => {
   const result = await get({ url, noCache });
   const list = result.data.data;
   return {
-    fromCache: result.fromCache,
-    updateTime: result.updateTime,
+    ...result,
     data: list.map((v: RouterType["hellogithub"]) => ({
       id: v.item_id,
       title: v.title,

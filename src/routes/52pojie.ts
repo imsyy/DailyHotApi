@@ -5,7 +5,7 @@ import { getTime } from "../utils/getTime.js";
 
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
   const type = c.req.query("type") || "hot";
-  const { fromCache, data, updateTime } = await getList({ type }, noCache);
+  const listData = await getList({ type }, noCache);
   const routeData: RouterData = {
     name: "52pojie",
     title: "吾爱破解",
@@ -22,10 +22,8 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
       },
     },
     link: "https://www.52pojie.cn/",
-    total: data?.length || 0,
-    updateTime,
-    fromCache,
-    data,
+    total: listData?.data?.length || 0,
+    ...listData,
   };
   return routeData;
 };
@@ -47,8 +45,7 @@ const getList = async (options: Options, noCache: boolean): Promise<RouterResTyp
   };
   const list = await parseData();
   return {
-    fromCache: result.fromCache,
-    updateTime: result.updateTime,
+    ...result,
     data: list.map((v, i) => ({
       id: v.guid || i,
       title: v.title || "",

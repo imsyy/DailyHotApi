@@ -1,6 +1,5 @@
 import { serve } from "@hono/node-server";
 import { config } from "./config.js";
-import packageJson from "../package.json";
 import logger from "./utils/logger.js";
 import app from "./app.js";
 
@@ -11,8 +10,8 @@ const serveHotApi: (port?: number) => void = (port: number = config.PORT) => {
       fetch: app.fetch,
       port,
     });
-    logger.info(`📦 Version: ${packageJson.version}`);
     logger.info(`🔥 DailyHot API 成功在端口 ${port} 上运行`);
+    logger.info(`💻 Puppeteer: ${config.USE_PUPPETEER}`);
     logger.info(`🔗 Local: 👉 http://localhost:${port}`);
     return apiServer;
   } catch (error) {

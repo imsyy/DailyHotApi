@@ -4,17 +4,15 @@ import { get } from "../utils/getData.js";
 import { getTime } from "../utils/getTime.js";
 
 export const handleRoute = async (_: undefined, noCache: boolean) => {
-  const { fromCache, data, updateTime } = await getList(noCache);
+  const listData = await getList(noCache);
   const routeData: RouterData = {
     name: "ithome-xijiayi",
     title: "IT之家「喜加一」",
     type: "最新动态",
     description: "最新最全的「喜加一」游戏动态尽在这里！",
     link: "https://www.ithome.com/zt/xijiayi",
-    total: data?.length || 0,
-    updateTime,
-    fromCache,
-    data,
+    total: listData.data?.length || 0,
+    ...listData,
   };
   return routeData;
 };
@@ -51,8 +49,7 @@ const getList = async (noCache: boolean) => {
     };
   });
   return {
-    fromCache: result.fromCache,
-    updateTime: result.updateTime,
+    ...result,
     data: listData,
   };
 };
