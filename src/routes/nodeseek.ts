@@ -1,8 +1,7 @@
 import type { RouterData } from "../types.js";
-import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
-import { parseStringPromise } from "xml2js";
 import { getTime } from "../utils/getTime.js";
+import { parseRSS } from "../utils/parseRSS.js";
 
 export const handleRoute = async (_: undefined, noCache: boolean) => {
   const listData = await getList(noCache);
@@ -28,19 +27,18 @@ export const handleRoute = async (_: undefined, noCache: boolean) => {
 const getList = async (noCache: boolean) => {
   const url = `https://rss.nodeseek.com/`;
   const result = await get({ url, noCache });
-  const rssData = await parseStringPromise(result.data);
-  const list = rssData.rss.channel[0].item;
+  const list = await parseRSS(result.data);
   return {
     ...result,
-    data: list.map((v: RouterType["nodeseek"]) => ({
-      id: v.guid[0]._,
-      title: v.title[0],
-      desc: v.description ? v.description[0] : "",
-      author: v["dc:creator"] ? v["dc:creator"][0] : "unknown",
-      timestamp: getTime(v.pubDate[0]),
+    data: list.map((v, i) => ({
+      id: v.guid || i,
+      title: v.title || "",
+      desc: v.content?.trim() || "",
+      author: v.author,
+      timestamp: getTime(v.pubDate || 0),
       hot: undefined,
-      url: v.link[0],
-      mobileUrl: v.link[0],
+      url: v.link || "",
+      mobileUrl: v.link || "",
     })),
   };
 };

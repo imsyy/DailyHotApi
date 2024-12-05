@@ -59,7 +59,7 @@ app.get("/", (c) => c.html(<Home />));
 app.notFound((c) => c.html(<NotFound />, 404));
 // error
 app.onError((err, c) => {
-  logger.error(`出现致命错误：${err}`);
+  logger.error(`❌ [ERROR] ${err?.message}`);
   return c.html(<Error error={err?.message} />, 500);
 });
 

@@ -43,7 +43,7 @@ jobs:
             imsyy/dailyhot-api
             ghcr.io/${{ github.repository }}
 
-      - name: Build and push regular image (no Puppeteer)
+      - name: Build and push regular image
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -54,18 +54,3 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-
-      - name: Build and push Puppeteer image (with Puppeteer)
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: ./Dockerfile
-          platforms: |
-            linux/amd64
-            linux/arm64
-          push: true
-          tags: imsyy/dailyhot-api:web-latest
-          build-args: |
-            USE_PUPPETEER=true
-          labels: ${{ steps.meta.outputs.labels }}
-

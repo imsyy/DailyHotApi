@@ -315,14 +315,31 @@ export type RouterType = {
     message: string;
     replynum: number;
   };
-  nodeseek: {
-    guid: {
-      _: string;
-    }[];
+  xueqiu: {
+    pic: string;
+    tag: string;
+    id: number;
+    hot: number;
+    content: string;
+  };
+  guokr: {
+    id: number;
     title: string;
-    description: string | string[];
-    "dc:creator": string;
-    pubDate: string[];
-    link: string[];
+    summary: string;
+    author: {
+      nickname: string;
+    };
+    date_modified: string;
+    small_image: string;
+  };
+  kuaishou: {
+    id: string;
+    name: string;
+    hotValue: string;
+    iconUrl: string;
+    poster:string;
+    photoIds: {
+      json: string[];
+    };
   };
 };

@@ -12,15 +12,12 @@ export type Config = {
   ALLOWED_HOST: string;
   USE_LOG_FILE: boolean;
   RSS_MODE: boolean;
-  USE_PUPPETEER: boolean;
 };
 
 // 验证并提取环境变量
 const getEnvVariable = (key: string): string | undefined => {
   const value = process.env[key];
-  if (value === undefined) {
-    return undefined;
-  }
+  if (value === undefined) return undefined;
   return value;
 };
 
@@ -28,9 +25,7 @@ const getEnvVariable = (key: string): string | undefined => {
 const getNumericEnvVariable = (key: string, defaultValue: number): number => {
   const value = getEnvVariable(key) ?? String(defaultValue);
   const parsedValue = parseInt(value, 10);
-  if (isNaN(parsedValue)) {
-    return defaultValue;
-  }
+  if (isNaN(parsedValue)) return defaultValue;
   return parsedValue;
 };
 
@@ -45,10 +40,9 @@ export const config: Config = {
   PORT: getNumericEnvVariable("PORT", 6688),
   DISALLOW_ROBOT: getBooleanEnvVariable("DISALLOW_ROBOT", true),
   CACHE_TTL: getNumericEnvVariable("CACHE_TTL", 3600),
-  REQUEST_TIMEOUT: getNumericEnvVariable("CACHE_TTL", 6000),
+  REQUEST_TIMEOUT: getNumericEnvVariable("REQUEST_TIMEOUT", 6000),
   ALLOWED_DOMAIN: getEnvVariable("ALLOWED_DOMAIN") || "*",
   ALLOWED_HOST: getEnvVariable("ALLOWED_HOST") || "imsyy.top",
   USE_LOG_FILE: getBooleanEnvVariable("USE_LOG_FILE", true),
   RSS_MODE: getBooleanEnvVariable("RSS_MODE", false),
-  USE_PUPPETEER: getBooleanEnvVariable("USE_PUPPETEER", false),
 };

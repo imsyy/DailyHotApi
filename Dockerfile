@@ -2,24 +2,6 @@ FROM node:20-alpine AS base
 
 ENV NODE_ENV=docker
 
-# 安装 Puppeteer 所需的依赖库
-RUN apk add --no-cache \
-    libc6-compat \
-    nss \
-    freetype \
-    harfbuzz \
-    ca-certificates
-
-# 判断是否需要安装 Chromium
-ARG USE_PUPPETEER=false
-RUN if [ "$USE_PUPPETEER" = "true" ]; then \
-    apk add --no-cache chromium; \
-    fi
-
-# 配置 Chromium
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true 
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
-
 # 清理缓存
 RUN rm -rf /var/cache/apk/*
 
@@ -33,12 +15,10 @@ COPY package*json tsconfig.json pnpm-lock.yaml .env.example ./
 COPY src ./src
 COPY public ./public
 
-# add .env.example to .env
+# 复制环境变量
 RUN [ ! -e ".env" ] && cp .env.example .env || true
-RUN if [ "$USE_PUPPETEER" = "true" ]; then \
-    sed -i 's/^USE_PUPPETEER=false/USE_PUPPETEER=true/' .env; \
-    fi
 
+# 安装依赖
 RUN pnpm install
 RUN pnpm build
 RUN pnpm prune --production

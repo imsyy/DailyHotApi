@@ -47,7 +47,7 @@ export const parseRSS = async (rssContent: string) => {
     // 返回解析数据
     return items;
   } catch (error) {
-    logger.error("解析 RSS 内容时出错：", error);
-    return [];
+    logger.error("❌ [ERROR] An error occurred while parsing RSS content");
+    throw error;
   }
 };

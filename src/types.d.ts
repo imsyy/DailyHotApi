@@ -1,4 +1,5 @@
 import type { Context } from "hono";
+import type { ResponseType } from "axios";
 
 // Context
 export type ListContext = Context;
@@ -44,6 +45,7 @@ export interface Get {
   noCache?: boolean;
   ttl?: number;
   originaInfo?: boolean;
+  responseType?: ResponseType;
 }
 
 export interface Post {
@@ -54,14 +56,6 @@ export interface Post {
   noCache?: boolean;
   ttl?: number;
   originaInfo?: boolean;
-}
-
-export interface Web {
-  url: string;
-  timeout?: number;
-  noCache?: boolean;
-  ttl?: number;
-  userAgent?: string;
 }
 
 // 参数类型

@@ -1,6 +1,6 @@
 import type { RouterData, ListContext, Options } from "../types.js";
-import { web } from "../utils/getData.js";
-import { extractRss, parseRSS } from "../utils/parseRSS.js";
+import { get } from "../utils/getData.js";
+import { parseRSS } from "../utils/parseRSS.js";
 import { getTime } from "../utils/getTime.js";
 
 const typeMap: Record<string, string> = {
@@ -33,19 +33,15 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
 const getList = async (options: Options, noCache: boolean) => {
   const { type } = options;
   const url = `https://hostloc.com/forum.php?mod=guide&view=${type}&rss=1`;
-  const result = await web({
+  const result = await get({
     url,
     noCache,
-    userAgent:
-      "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Mobile Safari/537.36",
+    headers: {
+      userAgent:
+        "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Mobile Safari/537.36",
+    },
   });
-  const parseData = async () => {
-    if (typeof result?.data !== "string") return [];
-    const rssContent = extractRss(result.data);
-    if (!rssContent) return [];
-    return await parseRSS(rssContent);
-  };
-  const list = await parseData();
+  const list = await parseRSS(result.data);
   return {
     ...result,
     data: list.map((v, i) => ({

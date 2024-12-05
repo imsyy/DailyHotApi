@@ -30,7 +30,7 @@
 <details>
 <summary>查看全部接口</summary>
 
-> 实例站点运行于海外服务器，部分国内站点可能存在访问异常，请以实际情况为准
+> 示例站点运行于海外服务器，部分国内站点可能存在访问异常，请以实际情况为准
 
 | **站点**         | **类别**     | **调用名称**   | **状态**                                                                                                                    |
 | ---------------- | ------------ | -------------- | --------------------------------------------------------------------------------------------------------------------------- |
@@ -41,6 +41,7 @@
 | 知乎日报         | 推荐榜       | zhihu-daily    | ![](https://img.shields.io/website.svg?label=zhihu-daily&url=https://api-hot.imsyy.top/zhihu-daily&cacheSeconds=7200)       |
 | 百度             | 热搜榜       | baidu          | ![](https://img.shields.io/website.svg?label=baidu&url=https://api-hot.imsyy.top/baidu&cacheSeconds=7200)                   |
 | 抖音             | 热点榜       | douyin         | ![](https://img.shields.io/website.svg?label=douyin&url=https://api-hot.imsyy.top/douyin&cacheSeconds=7200)                 |
+| 快手             | 热点榜       | kuaishou       | ![](https://img.shields.io/website.svg?label=kuaishou&url=https://api-hot.imsyy.top/kuaishou&cacheSeconds=7200)             |
 | 豆瓣电影         | 新片榜       | douban-movie   | ![](https://img.shields.io/website.svg?label=douban-movie&url=https://api-hot.imsyy.top/douban-movie&cacheSeconds=7200)     |
 | 豆瓣讨论小组     | 讨论精选     | douban-group   | ![](https://img.shields.io/website.svg?label=douban-group&url=https://api-hot.imsyy.top/douban-group&cacheSeconds=7200)     |
 | 百度贴吧         | 热议榜       | tieba          | ![](https://img.shields.io/website.svg?label=tieba&url=https://api-hot.imsyy.top/tieba&cacheSeconds=7200)                   |
@@ -48,6 +49,7 @@
 | IT之家           | 热榜         | ithome         | ![](https://img.shields.io/website.svg?label=ithome&url=https://api-hot.imsyy.top/ithome&cacheSeconds=7200)                 |
 | IT之家「喜加一」 | 最新动态     | ithome-xijiayi | ![](https://img.shields.io/website.svg?label=ithome-xijiayi&url=https://api-hot.imsyy.top/ithome-xijiayi&cacheSeconds=7200) |
 | 简书             | 热门推荐     | jianshu        | ![](https://img.shields.io/website.svg?label=jianshu&url=https://api-hot.imsyy.top/jianshu&cacheSeconds=7200)               |
+| 果壳             | 热门文章     | guokr          | ![](https://img.shields.io/website.svg?label=guokr&url=https://api-hot.imsyy.top/guokr&cacheSeconds=7200)                   |
 | 澎湃新闻         | 热榜         | thepaper       | ![](https://img.shields.io/website.svg?label=thepaper&url=https://api-hot.imsyy.top/thepaper&cacheSeconds=7200)             |
 | 今日头条         | 热榜         | toutiao        | ![](https://img.shields.io/website.svg?label=toutiao&url=https://api-hot.imsyy.top/toutiao&cacheSeconds=7200)               |
 | 36 氪            | 热榜         | 36kr           | ![](https://img.shields.io/website.svg?label=36kr&url=https://api-hot.imsyy.top/36kr&cacheSeconds=7200)                     |
@@ -66,7 +68,7 @@
 | 虎扑             | 步行街热帖   | hupu           | ![](https://img.shields.io/website.svg?label=hupu&url=https://api-hot.imsyy.top/hupu&cacheSeconds=7200)                     |
 | 爱范儿           | 快讯         | ifanr          | ![](https://img.shields.io/website.svg?label=ifanr&url=https://api-hot.imsyy.top/ifanr&cacheSeconds=7200)                   |
 | 英雄联盟         | 更新公告     | lol            | ![](https://img.shields.io/website.svg?label=lol&url=https://api-hot.imsyy.top/lol&cacheSeconds=7200)                       |
-| 米游社           | 最新消息     | miyoushe       | ![](https://img.shields.io/website.svg?label=miyoushe&url=https://api-hot.imsyy.top/miyoushe&cacheSeconds=7200)                  |
+| 米游社           | 最新消息     | miyoushe       | ![](https://img.shields.io/website.svg?label=miyoushe&url=https://api-hot.imsyy.top/miyoushe&cacheSeconds=7200)             |
 | 原神             | 最新消息     | genshin        | ![](https://img.shields.io/website.svg?label=genshin&url=https://api-hot.imsyy.top/genshin&cacheSeconds=7200)               |
 | 崩坏3            | 最新动态     | honkai         | ![](https://img.shields.io/website.svg?label=honkai&url=https://api-hot.imsyy.top/honkai&cacheSeconds=7200)                 |
 | 崩坏：星穹铁道   | 最新动态     | starrail       | ![](https://img.shields.io/website.svg?label=starrail&url=https://api-hot.imsyy.top/starrail&cacheSeconds=7200)             |
@@ -103,8 +105,6 @@ serveHotApi(3000);
 
 ## ⚙️ 部署
 
-由于部分接口无法通过接口调用等方式获取数据，故采用 `Puppeteer` 来实现，但由于使用后会造成 **内存占用过大或镜像过大**，可选择性开启，详情请参考下方说明。
-
 具体使用说明可参考 [我的博客](https://blog.imsyy.top/posts/2024/0408)，下方仅讲解基础操作：
 
 ### Docker 部署
@@ -116,8 +116,6 @@ serveHotApi(3000);
 ```bash
 # 构建
 docker build -t dailyhot-api .
-# 构建 Puppeteer 版
-docker build --build-arg USE_PUPPETEER=true -t dailyhot-api .
 
 # 运行
 docker run --restart always -p 6688:6688 -d dailyhot-api
@@ -130,8 +128,6 @@ docker-compose up -d
 ```bash
 # 拉取
 docker pull imsyy/dailyhot-api:latest
-# 拉取 Puppeteer 版
-docker pull imsyy/dailyhot-api:web-latest
 
 # 运行
 docker run --restart always -p 6688:6688 -d imsyy/dailyhot-api:latest
@@ -139,7 +135,7 @@ docker run --restart always -p 6688:6688 -d imsyy/dailyhot-api:latest
 
 ### 手动部署
 
-最直接的方式，您可以按照以下步骤将 DailyHotApi 部署在您的电脑、服务器或者其他任何地方
+最直接的方式，您可以按照以下步骤将 `DailyHotApi` 部署在您的电脑、服务器或者其他任何地方
 
 #### 安装
 
@@ -159,10 +155,7 @@ npm install
 #### 开发
 
 ```bash
-# 标准运行
 npm run dev
-# 采用 Puppeteer 运行
-npm run dev:web
 ```
 
 成功启动后程序会在控制台输出可访问的地址
@@ -171,11 +164,7 @@ npm run dev:web
 
 ```bash
 npm run build
-
-# 标准运行
 npm run start
-# 采用 Puppeteer 运行
-npm run start:web
 ```
 
 成功启动后程序会在控制台输出可访问的地址

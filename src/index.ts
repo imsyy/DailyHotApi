@@ -10,8 +10,7 @@ const serveHotApi: (port?: number) => void = (port: number = config.PORT) => {
       fetch: app.fetch,
       port,
     });
-    logger.info(`🔥 DailyHot API 成功在端口 ${port} 上运行`);
-    logger.info(`💻 Puppeteer: ${config.USE_PUPPETEER}`);
+    logger.info(`🔥 DailyHot API successfully runs on port ${port}`);
     logger.info(`🔗 Local: 👉 http://localhost:${port}`);
     return apiServer;
   } catch (error) {

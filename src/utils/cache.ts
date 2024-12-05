@@ -27,7 +27,7 @@ export const getCache = <T>(key: string): GetCache<T> | undefined => {
 // 将数据写入缓存
 export const setCache = <T>(key: string, value: T, ttl: number = config.CACHE_TTL) => {
   const success = cache.set(key, value, ttl);
-  if (logger) logger.info("数据缓存成功", { url: key });
+  if (logger) logger.info(`💾 [CHCHE] ${key} has been cached`);
   return success;
 };
 

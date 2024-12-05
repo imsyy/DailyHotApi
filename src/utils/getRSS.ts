@@ -35,7 +35,8 @@ const getRSS = (data: RouterData) => {
     const rssData = feed.rss2();
     return rssData;
   } catch (error) {
-    logger.error("RSS 生成失败：", error);
+    logger.error("❌ [ERROR] getRSS failed");
+    throw error;
   }
 };
 
