@@ -21,7 +21,7 @@ const getList = async (noCache: boolean) => {
   const result = await get({
     url,
     noCache,
-    headers: await genHeaders(),
+    headers: genHeaders(),
   });
   const list = result.data.data;
   return {

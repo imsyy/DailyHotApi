@@ -3,28 +3,31 @@ import type { RouterType } from "../router.types.js";
 import { parseChineseNumber } from "../utils/getNum.js";
 import { get } from "../utils/getData.js";
 
+const typeMap: Record<string, string> = {
+  all: "新浪热榜",
+  hotcmnt: "热议榜",
+  minivideo: "视频热榜",
+  ent: "娱乐热榜",
+  ai: "AI热榜",
+  auto: "汽车热榜",
+  mother: "育儿热榜",
+  fashion: "时尚热榜",
+  travel: "旅游热榜",
+  esg: "ESG热榜",
+};
+
 export const handleRoute = async (c: ListContext, noCache: boolean) => {
-  const type = c.req.query("type") || "1";
+  const type = c.req.query("type") || "all";
   const listData = await getList({ type }, noCache);
   const routeData: RouterData = {
     name: "sina",
     title: "新浪网",
-    type: "热榜太多，一个就够",
+    type: typeMap[type],
+    description: "热榜太多，一个就够",
     params: {
       type: {
         name: "榜单分类",
-        type: {
-          all: "新浪热榜",
-          hotcmnt: "热议榜",
-          minivideo: "视频热榜",
-          ent: "娱乐热榜",
-          ai: "AI热榜",
-          auto: "汽车热榜",
-          mother: "育儿热榜",
-          fashion: "时尚热榜",
-          travel: "旅游热榜",
-          esg: "ESG热榜",
-        },
+        type: typeMap,
       },
     },
     link: "https://sinanews.sina.cn/",

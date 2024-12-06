@@ -43,6 +43,7 @@ const getList = async (options: Options, noCache: boolean): Promise<RouterResTyp
         "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Mobile Safari/537.36",
     },
   });
+  
   // 转码
   const utf8Data = iconv.decode(result.data, "gbk");
   const list = await parseRSS(utf8Data);

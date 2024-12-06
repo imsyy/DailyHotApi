@@ -49,9 +49,9 @@ export const get = async (options: Get) => {
   logger.info(`🌐 [GET] ${url}`);
   try {
     // 检查缓存
-    if (noCache) delCache(url);
+    if (noCache) await delCache(url);
     else {
-      const cachedData = getCache(url);
+      const cachedData = await getCache(url);
       if (cachedData) {
         logger.info("💾 [CHCHE] The request is cached");
         return { fromCache: true, data: cachedData.data, updateTime: cachedData.updateTime };
@@ -63,9 +63,9 @@ export const get = async (options: Get) => {
     // 存储新获取的数据到缓存
     const updateTime = new Date().toISOString();
     const data = originaInfo ? response : responseData;
-    setCache(url, { data, updateTime }, ttl);
+    await setCache(url, { data, updateTime }, ttl);
     // 返回数据
-    logger.info(`✅ [${response?.statusText}] request was successful`);
+    logger.info(`✅ [${response?.status}] request was successful`);
     return { fromCache: false, data, updateTime };
   } catch (error) {
     logger.error("❌ [ERROR] request failed");
@@ -79,9 +79,9 @@ export const post = async (options: Post) => {
   logger.info(`🌐 [POST] ${url}`);
   try {
     // 检查缓存
-    if (noCache) delCache(url);
+    if (noCache) await delCache(url);
     else {
-      const cachedData = getCache(url);
+      const cachedData = await getCache(url);
       if (cachedData) {
         logger.info("💾 [CHCHE] The request is cached");
         return { fromCache: true, data: cachedData.data, updateTime: cachedData.updateTime };
@@ -94,10 +94,10 @@ export const post = async (options: Post) => {
     const updateTime = new Date().toISOString();
     const data = originaInfo ? response : responseData;
     if (!noCache) {
-      setCache(url, { data, updateTime }, ttl);
+      await setCache(url, { data, updateTime }, ttl);
     }
     // 返回数据
-    logger.info(`✅ [${response?.statusText}] request was successful`);
+    logger.info(`✅ [${response?.status}] request was successful`);
     return { fromCache: false, data, updateTime };
   } catch (error) {
     logger.error("❌ [ERROR] request failed");

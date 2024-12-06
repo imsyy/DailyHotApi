@@ -48,7 +48,7 @@ const findTsFiles = (dirPath: string, allFiles: string[] = [], basePath: string 
 if (fs.existsSync(routersDirPath) && fs.statSync(routersDirPath).isDirectory()) {
   allRoutePath = findTsFiles(routersDirPath);
 } else {
-  console.error(`目录 ${routersDirPath} 不存在或不是目录`);
+  console.error(`📂 The directory ${routersDirPath} does not exist or is not a directory`);
 }
 
 // 注册全部路由
@@ -82,30 +82,13 @@ for (let index = 0; index < allRoutePath.length; index++) {
         c.header("Content-Type", "application/xml; charset=utf-8");
         return c.body(rss);
       } else {
-        return c.json(
-          {
-            code: 500,
-            message: "RSS 生成失败",
-          },
-          500,
-        );
+        return c.json({ code: 500, message: "RSS generation failed" }, 500);
       }
     }
-    return c.json({
-      code: 200,
-      ...listData,
-    });
+    return c.json({ code: 200, ...listData });
   });
   // 请求方式错误
-  listApp.all("*", (c) =>
-    c.json(
-      {
-        code: 405,
-        message: "Method Not Allowed",
-      },
-      405,
-    ),
-  );
+  listApp.all("*", (c) => c.json({ code: 405, message: "Method Not Allowed" }, 405));
 }
 
 // 获取全部路由
@@ -120,13 +103,10 @@ app.get("/all", (c) =>
           return {
             name: path,
             path: undefined,
-            message: "该接口暂时下线",
+            message: "This interface is temporarily offline",
           };
         }
-        return {
-          name: path,
-          path: `/${path}`,
-        };
+        return { name: path, path: `/${path}` };
       }),
     },
     200,

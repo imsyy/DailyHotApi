@@ -13,18 +13,18 @@ const getRandomDEVICE_ID = () => {
  * 获取APP_TOKEN
  * @returns APP_TOKEN
  */
-const get_app_token = async () => {
+const get_app_token = () => {
   const DEVICE_ID = getRandomDEVICE_ID();
   const now = Math.round(Date.now() / 1000);
   const hex_now = "0x" + now.toString(16);
-  const md5_now = await md5(now.toString());
+  const md5_now = md5(now.toString());
   const s =
     "token://com.coolapk.market/c67ef5943784d09750dcfbb31020f0ab?" +
     md5_now +
     "$" +
     DEVICE_ID +
     "&com.coolapk.market";
-  const md5_s = await md5(Buffer.from(s).toString("base64"));
+  const md5_s = md5(Buffer.from(s).toString("base64"));
   const token = md5_s + DEVICE_ID + hex_now;
   return token;
 };
@@ -33,11 +33,11 @@ const get_app_token = async () => {
  * 获取请求头
  * @returns 请求头
  */
-export const genHeaders = async () => {
+export const genHeaders = () => {
   return {
     "X-Requested-With": "XMLHttpRequest",
     "X-App-Id": "com.coolapk.market",
-    "X-App-Token": await get_app_token(),
+    "X-App-Token": get_app_token(),
     "X-Sdk-Int": "29",
     "X-Sdk-Locale": "zh-CN",
     "X-App-Version": "11.0",

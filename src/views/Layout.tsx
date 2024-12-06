@@ -72,6 +72,7 @@ const Layout: FC = (props) => {
         font-size: 28px;
         font-weight: bold;
         margin-bottom: 12px;
+        text-align: center;
       }
       .title .title-tip {
         font-size: 20px;
@@ -83,6 +84,7 @@ const Layout: FC = (props) => {
         padding: 20px;
         border-radius: 12px;
         border: 1px dashed var(--text-color);
+        user-select: text;
       }
       .control {
         display: flex;

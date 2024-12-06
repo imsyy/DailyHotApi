@@ -45,10 +45,12 @@
     "feed": "^4.2.2",
     "hono": "^4.6.12",
     "iconv-lite": "^0.6.3",
+    "ioredis": "^5.4.1",
     "md5": "^2.3.0",
     "node-cache": "^5.1.2",
     "rss-parser": "^3.13.0",
     "user-agents": "^1.1.379",
+    "uuid": "^11.0.3",
     "winston": "^3.17.0"
   },
   "devDependencies": {

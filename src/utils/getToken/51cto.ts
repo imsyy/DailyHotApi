@@ -3,7 +3,7 @@ import { get } from "../getData.js";
 import md5 from "md5";
 
 export const getToken = async () => {
-  const cachedData = getCache("51cto-token");
+  const cachedData = await getCache("51cto-token");
   if (cachedData && typeof cachedData === "object" && "token" in cachedData) {
     const { token } = cachedData as { token: string };
     return token;
@@ -12,7 +12,7 @@ export const getToken = async () => {
     url: "https://api-media.51cto.com/api/token-get",
   });
   const token = result.data.data.data.token;
-  setCache("51cto-token", { token });
+  await setCache("51cto-token", { token });
   return token;
 };
 
