@@ -4,15 +4,12 @@ import md5 from "md5";
 
 export const getToken = async () => {
   const cachedData = await getCache("51cto-token");
-  if (cachedData && typeof cachedData === "object" && "token" in cachedData) {
-    const { token } = cachedData as { token: string };
-    return token;
-  }
+  if (cachedData?.data) return cachedData.data;
   const result = await get({
     url: "https://api-media.51cto.com/api/token-get",
   });
   const token = result.data.data.data.token;
-  await setCache("51cto-token", { token });
+  await setCache("51cto-token", { data: token, updateTime: new Date().toISOString() });
   return token;
 };
 

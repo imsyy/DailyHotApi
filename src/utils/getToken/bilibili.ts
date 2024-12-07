@@ -68,17 +68,16 @@ const getWbiKeys = async (): Promise<EncodedKeys> => {
 
 const getBiliWbi = async (): Promise<string> => {
   const cachedData = await getCache("bilibili-wbi");
-  console.log(cachedData);
-  if (cachedData && typeof cachedData === "object" && "wbi" in cachedData) {
-    const { wbi } = cachedData as { wbi: string };
-    return wbi;
-  }
+  if (cachedData?.data) return cachedData.data as string;
   const web_keys = await getWbiKeys();
   const params = { foo: "114", bar: "514", baz: 1919810 };
   const img_key = web_keys.img_key;
   const sub_key = web_keys.sub_key;
   const query = encWbi(params, img_key, sub_key);
-  await setCache("bilibili-wbi", { wbi: query });
+  await setCache("bilibili-wbi", {
+    data: query,
+    updateTime: new Date().toISOString(),
+  });
   return query;
 };
 
