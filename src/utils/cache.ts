@@ -1,4 +1,5 @@
 import { config } from "../config.js";
+import { stringify, parse } from "flatted";
 import logger from "./logger.js";
 import NodeCache from "node-cache";
 import Redis from "ioredis";
@@ -25,6 +26,9 @@ const redis = new Redis({
   host: config.REDIS_HOST,
   port: config.REDIS_PORT,
   password: config.REDIS_PASSWORD,
+  maxRetriesPerRequest: 5,
+  // 重试策略：最小延迟 50ms，最大延迟 2s
+  retryStrategy: (times) => Math.min(times * 50, 2000),
   // 仅在第一次建立连接
   lazyConnect: true,
 });
@@ -33,7 +37,24 @@ const redis = new Redis({
 let isRedisAvailable: boolean = false;
 let isRedisTried: boolean = false;
 
-// Redis 连接错误
+// Redis 连接状态
+const ensureRedisConnection = async () => {
+  if (isRedisTried) return;
+  try {
+    if (redis.status !== "ready" && redis.status !== "connecting") await redis.connect();
+    isRedisAvailable = true;
+    isRedisTried = true;
+    logger.info("📦 [Redis] connected successfully.");
+  } catch (error) {
+    isRedisAvailable = false;
+    isRedisTried = true;
+    logger.error(
+      `📦 [Redis] connection failed: ${error instanceof Error ? error.message : "Unknown error"}`,
+    );
+  }
+};
+
+// Redis 事件监听
 redis.on("error", (err) => {
   if (!isRedisTried) {
     isRedisAvailable = false;
@@ -44,23 +65,14 @@ redis.on("error", (err) => {
   }
 });
 
-// Redis 连接状态
-const ensureRedisConnection = async () => {
-  if (!isRedisTried) {
-    try {
-      await redis.connect();
-      isRedisAvailable = true;
-      isRedisTried = true;
-      logger.info("📦 [Redis] connected successfully.");
-    } catch (error) {
-      isRedisAvailable = false;
-      isRedisTried = true;
-      logger.error(
-        `📦 [Redis] connection failed: ${error instanceof Error ? error.message : "Unknown error"}`,
-      );
-    }
-  }
-};
+// NodeCache 事件监听
+cache.on("expired", (key) => {
+  logger.info(`⏳ [NodeCache] Key "${key}" has expired.`);
+});
+
+cache.on("del", (key) => {
+  logger.info(`🗑️ [NodeCache] Key "${key}" has been deleted.`);
+});
 
 /**
  * 从缓存中获取数据
@@ -72,10 +84,7 @@ export const getCache = async (key: string): Promise<CacheData | undefined> => {
   if (isRedisAvailable) {
     try {
       const redisResult = await redis.get(key);
-      if (redisResult) {
-        const data = JSON.parse(redisResult);
-        return data;
-      }
+      if (redisResult) return parse(redisResult);
     } catch (error) {
       logger.error(
         `📦 [Redis] get error: ${error instanceof Error ? error.message : "Unknown error"}`,
@@ -100,7 +109,7 @@ export const setCache = async (
   // 尝试写入 Redis
   if (isRedisAvailable && !Buffer.isBuffer(value?.data)) {
     try {
-      await redis.set(key, JSON.stringify(value), "EX", ttl);
+      await redis.set(key, stringify(value), "EX", ttl);
       if (logger) logger.info(`💾 [REDIS] ${key} has been cached`);
     } catch (error) {
       logger.error(
@@ -120,16 +129,14 @@ export const setCache = async (
  */
 export const delCache = async (key: string): Promise<boolean> => {
   let redisSuccess = true;
-  if (isRedisAvailable) {
-    try {
-      await redis.del(key);
-      if (logger) logger.info(`🗑️ [REDIS] ${key} has been deleted from Redis`);
-    } catch (error) {
-      logger.error(
-        `📦 [Redis] del error: ${error instanceof Error ? error.message : "Unknown error"}`,
-      );
-      redisSuccess = false;
-    }
+  try {
+    await redis.del(key);
+    logger.info(`🗑️ [REDIS] ${key} has been deleted from Redis`);
+  } catch (error) {
+    redisSuccess = false;
+    logger.error(
+      `📦 [Redis] del error: ${error instanceof Error ? error.message : "Unknown error"}`,
+    );
   }
   // 尝试删除 NodeCache
   const nodeCacheSuccess = cache.del(key) > 0;
