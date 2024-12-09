@@ -315,13 +315,6 @@ export type RouterType = {
     message: string;
     replynum: number;
   };
-  xueqiu: {
-    pic: string;
-    tag: string;
-    id: number;
-    hot: number;
-    content: string;
-  };
   guokr: {
     id: number;
     title: string;
@@ -337,9 +330,37 @@ export type RouterType = {
     name: string;
     hotValue: string;
     iconUrl: string;
-    poster:string;
+    poster: string;
     photoIds: {
       json: string[];
     };
+  };
+  smzdm: {
+    content: string;
+    title: string;
+    article_id: string;
+    nickname: string;
+    jump_link: string;
+    pic_url: string;
+    collection_count: string;
+    time_sort: string;
+  };
+  yystv: {
+    id: string;
+    cover: string;
+    title: string;
+    preface: string;
+    author: string;
+    createtime: string;
+  };
+  dgtle: {
+    id: number;
+    content: string;
+    cover: string;
+    from: string;
+    title: string;
+    membernum: number;
+    created_at: number;
+    type: number;
   };
 };

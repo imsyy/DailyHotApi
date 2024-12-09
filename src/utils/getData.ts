@@ -54,7 +54,11 @@ export const get = async (options: Get) => {
       const cachedData = await getCache(url);
       if (cachedData) {
         logger.info("💾 [CHCHE] The request is cached");
-        return { fromCache: true, data: cachedData.data, updateTime: cachedData.updateTime };
+        return {
+          fromCache: true,
+          updateTime: cachedData.updateTime,
+          data: cachedData.data,
+        };
       }
     }
     // 缓存不存在时请求接口
@@ -66,7 +70,7 @@ export const get = async (options: Get) => {
     await setCache(url, { data, updateTime }, ttl);
     // 返回数据
     logger.info(`✅ [${response?.status}] request was successful`);
-    return { fromCache: false, data, updateTime };
+    return { fromCache: false, updateTime, data };
   } catch (error) {
     logger.error("❌ [ERROR] request failed");
     throw error;
@@ -84,7 +88,7 @@ export const post = async (options: Post) => {
       const cachedData = await getCache(url);
       if (cachedData) {
         logger.info("💾 [CHCHE] The request is cached");
-        return { fromCache: true, data: cachedData.data, updateTime: cachedData.updateTime };
+        return { fromCache: true, updateTime: cachedData.updateTime, data: cachedData.data };
       }
     }
     // 缓存不存在时请求接口
@@ -98,7 +102,7 @@ export const post = async (options: Post) => {
     }
     // 返回数据
     logger.info(`✅ [${response?.status}] request was successful`);
-    return { fromCache: false, data, updateTime };
+    return { fromCache: false, updateTime, data };
   } catch (error) {
     logger.error("❌ [ERROR] request failed");
     throw error;
