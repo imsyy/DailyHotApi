@@ -363,4 +363,18 @@ export type RouterType = {
     created_at: number;
     type: number;
   };
+  geekpark: {
+    post: {
+      id: number;
+      nickname: string;
+      title: string;
+      abstract: string;
+      cover_url: string;
+      views: number;
+      published_timestamp: number;
+      authors: {
+        nickname: string;
+      }[];
+    };
+  };
 };
