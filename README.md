@@ -167,6 +167,12 @@ npm run build
 npm run start
 ```
 
+#### pm2 部署
+
+```bash
+sh ./deploy.sh
+```
+
 成功启动后程序会在控制台输出可访问的地址
 
 ### Vercel 部署
