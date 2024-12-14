@@ -30,6 +30,6 @@ npm run build || handle_error "构建失败"
 
 # 使用 pm2 重启或启动项目
 log "正在启动/重启服务..."
-pm2 restart daily-news || pm2 start ecosystem.config.js || handle_error "PM2 启动失败"
+pm2 restart daily-news || pm2 start ecosystem.config.cjs || handle_error "PM2 启动失败"
 
 log "部署完成!"
