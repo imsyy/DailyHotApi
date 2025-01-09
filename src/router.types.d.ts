@@ -377,4 +377,12 @@ export type RouterType = {
       }[];
     };
   };
+  linuxdo: {
+    id: string;
+    title: string;
+    url: string;
+    author: string;
+    desc: string;
+    timestamp: string;
+  };
 };
