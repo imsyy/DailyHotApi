@@ -49,6 +49,7 @@
     "ioredis": "^5.4.1",
     "md5": "^2.3.0",
     "node-cache": "^5.1.2",
+    "node-fetch": "^3.3.2",
     "rss-parser": "^3.13.0",
     "user-agents": "^1.1.379",
     "winston": "^3.17.0"

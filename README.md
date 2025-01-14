@@ -167,9 +167,10 @@ npm run build
 npm run start
 ```
 
-#### pm2 部署
+### pm2 部署
 
 ```bash
+npm i pm2 -g
 sh ./deploy.sh
 ```
 
