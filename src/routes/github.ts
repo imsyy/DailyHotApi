@@ -42,6 +42,7 @@ export const handleRoute = async (c: ListContext) => {
   const type = isTrendingType(typeParam) ? typeParam : "daily";
 
   const listData = await getTrendingRepos(type);
+
   const routeData = {
     name: "github",
     title: "github 趋势",
@@ -54,7 +55,18 @@ export const handleRoute = async (c: ListContext) => {
     },
     link: `https://github.com/trending?since=${type}`,
     total: listData?.data?.length || 0,
-    ...listData,
+    ...{
+      ...listData,
+      data: listData?.data?.map((v, index)=>{
+         return {
+          id:index,
+          title: v.repo,
+          desc: v.description,
+          hot: v.stars,
+          ...v
+         }
+      })
+    }
   };
   return routeData;
 };
