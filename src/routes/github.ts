@@ -49,8 +49,8 @@ export const handleRoute = async (c: ListContext) => {
     type: typeMap[type],
     params: {
       type: {
-        name: typeMap[type],
-        type: type,
+        name: '排行榜分区',
+        type: typeMap,
       },
     },
     link: `https://github.com/trending?since=${type}`,

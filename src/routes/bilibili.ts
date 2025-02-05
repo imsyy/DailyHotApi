@@ -10,13 +10,12 @@ const typeMap: Record<string, string> = {
   "3": "音乐",
   "4": "游戏",
   "5": "娱乐",
-  "36": "科技",
+  "188": "科技",
   "119": "鬼畜",
   "129": "舞蹈",
   "155": "时尚",
   "160": "生活",
   "168": "国创相关",
-  "188": "数码",
   "181": "影视",
 };
 
@@ -44,7 +43,7 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
 const getList = async (options: Options, noCache: boolean): Promise<RouterResType> => {
   const { type } = options;
   const wbiData = await getBiliWbi();
-  const url = `https://api.bilibili.com/x/web-interface/ranking/v2?tid=${type}&type=all&${wbiData}`;
+  const url = `https://api.bilibili.com/x/web-interface/ranking/v2?rid=${type}&type=all&${wbiData}`;
   const result = await get({
     url,
     headers: {
