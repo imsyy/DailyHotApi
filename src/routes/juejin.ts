@@ -2,6 +2,9 @@ import type { RouterData } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
 
+// 类目接口
+// https://api.juejin.cn/tag_api/v1/query_category_briefs
+
 export const handleRoute = async (_: undefined, noCache: boolean) => {
   const listData = await getList(noCache);
   const routeData: RouterData = {
