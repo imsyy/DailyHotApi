@@ -3,7 +3,7 @@ import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
 import getBiliWbi from "../utils/getToken/bilibili.js";
 import { getTime } from "../utils/getTime.js";
-
+import logger from "../utils/logger.js";
 const typeMap: Record<string, string> = {
   "0": "全站",
   "1": "动画",
@@ -52,8 +52,6 @@ const getList = async (options: Options, noCache: boolean): Promise<RouterResTyp
       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
       'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
       'Accept-Encoding': 'gzip, deflate, br',
-      'Cache-Control': 'no-cache',
-      'Connection': 'keep-alive',
       'Sec-Ch-Ua': '"Google Chrome";v="123", "Not:A-Brand";v="8", "Chromium";v="123"',
       'Sec-Ch-Ua-Mobile': '?0',
       'Sec-Ch-Ua-Platform': '"Windows"',
@@ -63,10 +61,12 @@ const getList = async (options: Options, noCache: boolean): Promise<RouterResTyp
       'Sec-Fetch-User': '?1',
       'Upgrade-Insecure-Requests': '1',
     },
-    noCache,
+    noCache: false,
   });
+
   // 是否触发风控
   if (result.data?.data?.list?.length > 0) {
+    logger.info('bilibili 新接口')
     const list = result.data.data.list;
     return {
       fromCache: result.fromCache,
@@ -86,7 +86,8 @@ const getList = async (options: Options, noCache: boolean): Promise<RouterResTyp
   }
   // 采用备用接口
   else {
-    const url = `https://api.bilibili.com/x/web-interface/ranking?jsonp=jsonp?rid=${type}&type=1&callback=__jp0`;
+    logger.info('bilibili 备用接口')
+    const url = `https://api.bilibili.com/x/web-interface/ranking?jsonp=jsonp?rid=${type}&type=all&callback=__jp0`;
     const result = await get({
       url,
       headers: {
