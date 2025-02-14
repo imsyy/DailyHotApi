@@ -410,4 +410,14 @@ export type RouterType = {
     url: string;
     mobileUrl: string;
   };
+  cls: {
+    id: string;
+    title: string;
+    brief: string;
+    image: string;
+    reading_num: number;
+    ctime: string;
+    url: string;
+    source: string;
+  };
 };
