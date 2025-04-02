@@ -95,6 +95,7 @@ export type RouterType = {
       title: string;
       excerpt: string;
       created: number;
+      url: string;
     };
     children: [
       {
