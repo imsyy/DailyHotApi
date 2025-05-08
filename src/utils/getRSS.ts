@@ -30,6 +30,25 @@ const getRSS = (data: RouterData) => {
             name: item.author,
           },
         ],
+        extensions: [
+          {
+            name: "media:content",
+            objects: {
+              _attributes: {
+                "xmlns:media": "http://search.yahoo.com/mrss/",
+                url: item.cover,
+              },
+              "media:thumbnail": {
+                _attributes: {
+                  url: item.cover,
+                },
+              },
+              "media:description": item.desc ? {
+                _cdata: item.desc
+              } : "",
+            }
+          }
+        ]
       });
     });
     const rssData = feed.rss2();
