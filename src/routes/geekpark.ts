@@ -27,7 +27,6 @@ const getList = async (noCache: boolean) => {
       const post = v.post;
       return {
         id: post.id,
-
         title: post.title,
         desc: post.abstract,
         cover: post.cover_url,

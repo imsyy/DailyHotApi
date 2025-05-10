@@ -377,4 +377,21 @@ export type RouterType = {
       }[];
     };
   };
+  newsmth: {
+    firstArticleId: string;
+    subject: string;
+    article: {
+      topicId: string;
+      postTime: number;
+      subject: string;
+      body: string;
+      account: {
+        name: string;
+      };
+    };
+    board: {
+      title: string;
+      name: string;
+    };
+  };
 };
