@@ -3,20 +3,19 @@ import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
 import getBiliWbi from "../utils/getToken/bilibili.js";
 import { getTime } from "../utils/getTime.js";
-
+import logger from "../utils/logger.js";
 const typeMap: Record<string, string> = {
   "0": "全站",
   "1": "动画",
   "3": "音乐",
   "4": "游戏",
   "5": "娱乐",
-  "36": "科技",
+  "188": "科技",
   "119": "鬼畜",
   "129": "舞蹈",
   "155": "时尚",
   "160": "生活",
   "168": "国创相关",
-  "188": "数码",
   "181": "影视",
 };
 
@@ -44,18 +43,30 @@ export const handleRoute = async (c: ListContext, noCache: boolean) => {
 const getList = async (options: Options, noCache: boolean): Promise<RouterResType> => {
   const { type } = options;
   const wbiData = await getBiliWbi();
-  const url = `https://api.bilibili.com/x/web-interface/ranking/v2?tid=${type}&type=all&${wbiData}`;
+  const url = `https://api.bilibili.com/x/web-interface/ranking/v2?rid=${type}&type=all&${wbiData}`;
   const result = await get({
     url,
     headers: {
-      Referer: `https://www.bilibili.com/ranking/all`,
-      "User-Agent":
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
+      'Referer': 'https://www.bilibili.com/ranking/all',
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
+      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+      'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+      'Accept-Encoding': 'gzip, deflate, br',
+      'Sec-Ch-Ua': '"Google Chrome";v="123", "Not:A-Brand";v="8", "Chromium";v="123"',
+      'Sec-Ch-Ua-Mobile': '?0',
+      'Sec-Ch-Ua-Platform': '"Windows"',
+      'Sec-Fetch-Dest': 'document',
+      'Sec-Fetch-Mode': 'navigate',
+      'Sec-Fetch-Site': 'same-origin',
+      'Sec-Fetch-User': '?1',
+      'Upgrade-Insecure-Requests': '1',
     },
-    noCache,
+    noCache: false,
   });
+
   // 是否触发风控
   if (result.data?.data?.list?.length > 0) {
+    logger.info('bilibili 新接口')
     const list = result.data.data.list;
     return {
       fromCache: result.fromCache,
@@ -75,7 +86,8 @@ const getList = async (options: Options, noCache: boolean): Promise<RouterResTyp
   }
   // 采用备用接口
   else {
-    const url = `https://api.bilibili.com/x/web-interface/ranking?jsonp=jsonp?rid=${type}&type=1&callback=__jp0`;
+    logger.info('bilibili 备用接口')
+    const url = `https://api.bilibili.com/x/web-interface/ranking?jsonp=jsonp?rid=${type}&type=all&callback=__jp0`;
     const result = await get({
       url,
       headers: {

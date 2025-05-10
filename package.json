@@ -32,44 +32,51 @@
     "dev": "cross-env NODE_ENV=development tsx watch --no-cache src/index.ts",
     "dev:cache": "cross-env NODE_ENV=development tsx watch src/index.ts",
     "build": "tsc --project tsconfig.json",
-    "start": "cross-env NODE_ENV=development tsx dist/index.js"
+    "start": "cross-env NODE_ENV=development node dist/index.js"
   },
   "type": "module",
   "dependencies": {
-    "@hono/node-server": "^1.13.7",
-    "axios": "^1.7.8",
-    "chalk": "^5.3.0",
+    "@hono/node-server": "^1.14.0",
+    "axios": "^1.8.4",
+    "chalk": "^5.4.1",
     "cheerio": "^1.0.0",
     "dayjs": "^1.11.13",
-    "dotenv": "^16.4.6",
+    "dotenv": "^16.4.7",
     "feed": "^4.2.2",
-    "flatted": "^3.3.2",
-    "hono": "^4.6.12",
+    "flatted": "^3.3.3",
+    "hono": "^4.7.5",
     "iconv-lite": "^0.6.3",
-    "ioredis": "^5.4.1",
+    "ioredis": "^5.6.0",
     "md5": "^2.3.0",
     "node-cache": "^5.1.2",
+    "node-fetch": "^3.3.2",
     "rss-parser": "^3.13.0",
-    "user-agents": "^1.1.379",
+    "user-agents": "^1.1.496",
     "winston": "^3.17.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.16.0",
+    "@eslint/js": "^9.23.0",
+    "@types/cheerio": "^0.22.35",
     "@types/md5": "^2.3.5",
-    "@types/node": "^22.10.1",
+    "@types/node": "^22.13.17",
     "@types/user-agents": "^1.0.4",
     "@types/xml2js": "^0.4.14",
-    "@typescript-eslint/eslint-plugin": "^8.17.0",
-    "@typescript-eslint/parser": "^8.17.0",
+    "@typescript-eslint/eslint-plugin": "^8.29.0",
+    "@typescript-eslint/parser": "^8.29.0",
     "cross-env": "^7.0.3",
-    "eslint": "^9.16.0",
-    "globals": "^15.13.0",
-    "prettier": "^3.4.1",
-    "tsx": "^4.19.2",
-    "typescript": "^5.7.2",
-    "typescript-eslint": "^8.17.0"
+    "eslint": "^9.23.0",
+    "globals": "^15.15.0",
+    "prettier": "^3.5.3",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.29.0"
   },
   "engines": {
     "node": ">=20"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }

@@ -1,15 +1,30 @@
-import type { RouterData } from "../types.js";
+import type { ListContext, RouterData } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
 import getWereadID from "../utils/getToken/weread.js";
 import { getTime } from "../utils/getTime.js";
 
-export const handleRoute = async (_: undefined, noCache: boolean) => {
-  const listData = await getList(noCache);
+const typeMap: Record<string, string> = {
+  rising: "飙升榜",
+  hot_search: "热搜榜",
+  newbook: "新书榜",
+  general_novel_rising: "小说榜",
+  all: "总榜",
+};
+
+export const handleRoute = async (c: ListContext, noCache: boolean) => {
+  const type = c.req.query("type") || "rising";
+  const listData = await getList(noCache, type);
   const routeData: RouterData = {
     name: "weread",
     title: "微信读书",
-    type: "飙升榜",
+    type: `${typeMap[type]}`,
+    params: {
+      type: {
+        name: "排行榜分区",
+        type: typeMap,
+      },
+    },
     link: "https://weread.qq.com/",
     total: listData.data?.length || 0,
     ...listData,
@@ -17,8 +32,8 @@ export const handleRoute = async (_: undefined, noCache: boolean) => {
   return routeData;
 };
 
-const getList = async (noCache: boolean) => {
-  const url = `https://weread.qq.com/web/bookListInCategory/rising?rank=1`;
+const getList = async (noCache: boolean, type='rising') => {
+  const url = `https://weread.qq.com/web/bookListInCategory/${type}?rank=1`;
   const result = await get({
     url,
     noCache,
