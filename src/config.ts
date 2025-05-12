@@ -15,6 +15,7 @@ export type Config = {
   REDIS_HOST: string;
   REDIS_PORT: number;
   REDIS_PASSWORD: string;
+  ZHIHU_COOKIE: string;
 };
 
 // 验证并提取环境变量
@@ -51,4 +52,5 @@ export const config: Config = {
   REDIS_HOST: getEnvVariable("REDIS_HOST") || "127.0.0.1",
   REDIS_PORT: getNumericEnvVariable("REDIS_PORT", 6379),
   REDIS_PASSWORD: getEnvVariable("REDIS_PASSWORD") || "",
+  ZHIHU_COOKIE: getEnvVariable("ZHIHU_COOKIE") || "",
 };

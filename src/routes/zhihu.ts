@@ -2,6 +2,7 @@ import type { RouterData } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
 import { getTime } from "../utils/getTime.js";
+import { config } from "../config.js"
 
 export const handleRoute = async (_: undefined, noCache: boolean) => {
   const listData = await getList(noCache);
@@ -18,7 +19,15 @@ export const handleRoute = async (_: undefined, noCache: boolean) => {
 
 const getList = async (noCache: boolean) => {
   const url = `https://www.zhihu.com/api/v3/feed/topstory/hot-lists/total?limit=50&desktop=true`;
-  const result = await get({ url, noCache });
+  const result = await get({ 
+      url,
+      noCache,
+      ...(config.ZHIHU_COOKIE && {
+        headers: {
+          Cookie: config.ZHIHU_COOKIE
+        }
+      })
+    });
   const list = result.data.data;
   return {
     ...result,
