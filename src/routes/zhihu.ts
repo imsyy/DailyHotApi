@@ -18,7 +18,7 @@ export const handleRoute = async (_: undefined, noCache: boolean) => {
 };
 
 const getList = async (noCache: boolean) => {
-  const url = `https://www.zhihu.com/api/v3/feed/topstory/hot-lists/total?limit=50&desktop=true`;
+  const url = `https://api.zhihu.com/topstory/hot-lists/total?limit=50`;
   const result = await get({ 
       url,
       noCache,
