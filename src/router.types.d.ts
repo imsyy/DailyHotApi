@@ -82,6 +82,9 @@ export type RouterType = {
   };
   weibo: {
     mid: string;
+    itemid: string;
+    desc: string;
+    scheme: string;
     word: string;
     word_scheme: string;
     note: string;
