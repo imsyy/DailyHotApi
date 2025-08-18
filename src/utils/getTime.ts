@@ -90,6 +90,12 @@ export const getTime = (timeInput: string | number): number | undefined => {
             .valueOf();
         }
 
+        // 处理 `N 小时前` 的时间格式
+        if (/小时前/.test(timeInput)) {
+          const hoursAgo = parseInt(timeInput.replace("小时前", ""));
+          return dayjs().subtract(hoursAgo, "hour").valueOf();
+        }
+
         if (/分钟前/.test(timeInput)) {
           const minutesAgo = parseInt(timeInput.replace("分钟前", ""));
           return dayjs().subtract(minutesAgo, "minute").valueOf();
