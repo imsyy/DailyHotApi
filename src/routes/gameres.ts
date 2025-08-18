@@ -2,6 +2,7 @@ import type { RouterData } from "../types.js";
 import { load } from "cheerio";
 import { get } from "../utils/getData.js";
 import { getTime } from "../utils/getTime.js";
+import { RouterType } from "../router.types.js";
 
 export const handleRoute = async (_: undefined, noCache: boolean) => {
   const listData = await getList(noCache);
@@ -44,8 +45,6 @@ const getList = async (noCache: boolean) => {
     const timestamp = getTime(dateTime);
 
     // 热度（列表暂无评论数）
-    // const hotText = dom.find(".comment").text().trim();
-    // const hot = Number(hotText.replace(/\D/g, "")) || 0;
     const hot = undefined;
 
     return {
@@ -57,7 +56,7 @@ const getList = async (noCache: boolean) => {
       url,
       id: url,
       mobileUrl: url,
-    };
+    } as RouterType["gameres"];
   });
 
   return {
