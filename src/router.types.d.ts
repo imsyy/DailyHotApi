@@ -431,4 +431,14 @@ export type RouterType = {
       name: string;
     };
   };
+  gameres: {
+    id: string;
+    title: string;
+    hot: number | undefined;
+    desc: string;
+    cover: string;
+    timestamp: number | undefined;
+    url: string;
+    mobileUrl: string;
+  };
 };
