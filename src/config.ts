@@ -15,6 +15,7 @@ export type Config = {
   REDIS_HOST: string;
   REDIS_PORT: number;
   REDIS_PASSWORD: string;
+  REDIS_DB: number;
   ZHIHU_COOKIE: string;
 };
 
@@ -52,5 +53,6 @@ export const config: Config = {
   REDIS_HOST: getEnvVariable("REDIS_HOST") || "127.0.0.1",
   REDIS_PORT: getNumericEnvVariable("REDIS_PORT", 6379),
   REDIS_PASSWORD: getEnvVariable("REDIS_PASSWORD") || "",
+  REDIS_DB:  getNumericEnvVariable("REDIS_DB", 0),
   ZHIHU_COOKIE: getEnvVariable("ZHIHU_COOKIE") || "",
 };

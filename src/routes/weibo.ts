@@ -44,7 +44,7 @@ const getList = async (noCache: boolean) => {
         desc: key,
         // author: v.flag_desc,
         timestamp: getTime(v.onboard_time),
-        // hot: v.num,
+        hot: v.desc_extr,
         url: `https://s.weibo.com/weibo?q=${encodeURIComponent(key)}&t=31&band_rank=1&Refer=top`,
         mobileUrl: v?.scheme,
       };
