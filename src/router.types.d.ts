@@ -92,6 +92,7 @@ export type RouterType = {
     // num: number;
     desc_extr: number;
     onboard_time: number;
+    pic: string;
   };
   zhihu: {
     target: {
