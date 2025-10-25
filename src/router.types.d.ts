@@ -89,8 +89,10 @@ export type RouterType = {
     word_scheme: string;
     note: string;
     flag_desc: string;
-    num: number;
+    // num: number;
+    desc_extr: number;
     onboard_time: number;
+    pic: string;
   };
   zhihu: {
     target: {

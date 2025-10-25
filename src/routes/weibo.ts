@@ -2,6 +2,7 @@ import type { RouterData } from "../types.js";
 import type { RouterType } from "../router.types.js";
 import { get } from "../utils/getData.js";
 import { getTime } from "../utils/getTime.js";
+import { config } from "../config";
 
 export const handleRoute = async (_: undefined, noCache: boolean) => {
   const listData = await getList(noCache);
@@ -36,18 +37,25 @@ const getList = async (noCache: boolean) => {
   const list = result.data.data.cards?.[0]?.card_group;
   return {
     ...result,
-    data: list.map((v: RouterType["weibo"]) => {
-      const key = v.word_scheme ? v.word_scheme : `#${v.desc}`;
-      return {
-        id: v.itemid,
-        title: v.desc,
-        desc: key,
-        // author: v.flag_desc,
-        timestamp: getTime(v.onboard_time),
-        // hot: v.num,
-        url: `https://s.weibo.com/weibo?q=${encodeURIComponent(key)}&t=31&band_rank=1&Refer=top`,
-        mobileUrl: v?.scheme,
-      };
-    }),
+    data: list
+      .filter(
+        (v: RouterType["weibo"]) =>
+          !(
+            v?.pic === "https://simg.s.weibo.com/20210408_search_point_orange.png" &&
+            config.FILTER_WEIBO_ADVERTISEMENT
+          ),
+      )
+      .map((v: RouterType["weibo"]) => {
+        const key = v.word_scheme ?? `#${v.desc}`;
+        return {
+          id: v.itemid,
+          title: v.desc,
+          desc: key,
+          timestamp: getTime(v.onboard_time),
+          hot: v.desc_extr,
+          url: `https://s.weibo.com/weibo?q=${encodeURIComponent(key)}&t=31&band_rank=1&Refer=top`,
+          mobileUrl: v?.scheme,
+        };
+      }),
   };
 };

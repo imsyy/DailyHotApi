@@ -26,6 +26,7 @@ const redis = new Redis({
   host: config.REDIS_HOST,
   port: config.REDIS_PORT,
   password: config.REDIS_PASSWORD,
+  db: config.REDIS_DB,
   maxRetriesPerRequest: 5,
   // 重试策略：最小延迟 50ms，最大延迟 2s
   retryStrategy: (times) => Math.min(times * 50, 2000),
