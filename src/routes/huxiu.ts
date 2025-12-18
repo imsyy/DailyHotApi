@@ -29,9 +29,7 @@ const getList = async (noCache: boolean) => {
   const list: RouterType["huxiu"][] = res.data?.data?.moment_list?.datalist || [];
   return {
     fromCache: false,
-    updateTime: res.data?.data?.moment_list?.last_id
-      ? getTime(res.data.data.moment_list.last_id)
-      : undefined,
+    updateTime: new Date().toISOString(),
     data: list.map((v: RouterType["huxiu"]) => {
       const content = (v.content || "").replace(/<br\s*\/?>/gi, "\n");
       const [titleLine, ...rest] = content
