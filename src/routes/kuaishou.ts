@@ -4,6 +4,8 @@ import { get } from "../utils/getData.js";
 import { parseChineseNumber } from "../utils/getNum.js";
 import UserAgent from "user-agents";
 
+const APOLLO_STATE_PREFIX = "window.__APOLLO_STATE__=";
+
 export const handleRoute = async (_: undefined, noCache: boolean) => {
   const listData = await getList(noCache);
   const routeData: RouterData = {
@@ -33,11 +35,11 @@ const getList = async (noCache: boolean) => {
   const listData: ListItem[] = [];
   // 获取主要内容
   const html = result.data || "";
-  const start = html.indexOf("window.__APOLLO_STATE__=");
+  const start = html.indexOf(APOLLO_STATE_PREFIX);
   if (start === -1) {
     throw new Error("快手页面结构变更，未找到 APOLLO_STATE");
   }
-  const scriptSlice = html.slice(start + "window.__APOLLO_STATE__=".length);
+  const scriptSlice = html.slice(start + APOLLO_STATE_PREFIX.length);
   const sentinelA = scriptSlice.indexOf(";(function(");
   const sentinelB = scriptSlice.indexOf("</script>");
   const cutIndex =
@@ -66,7 +68,7 @@ const getList = async (noCache: boolean) => {
       ?.items ||
     [];
   // 获取全部热榜
-  allItems?.forEach((item: { id: string }) => {
+  allItems.forEach((item: { id: string }) => {
     // 基础数据
     const hotItem: RouterType["kuaishou"] = jsonObject[item.id];
     if (!hotItem) return;
