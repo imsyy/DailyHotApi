@@ -124,6 +124,12 @@ export type RouterType = {
     show: string;
     rawUrl: string;
     query: string;
+    title?: string;
+    imgInfo?: {
+      src?: string;
+    };
+    url?: string;
+    hotTag?: string;
   };
   miyoushe: {
     post: {
