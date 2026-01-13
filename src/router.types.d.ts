@@ -254,6 +254,9 @@ export type RouterType = {
       username: string;
     };
     publish_time: string;
+    count_info?: {
+      agree_num?: number;
+    };
   };
   ifanr: {
     buzz_original_url: string;
