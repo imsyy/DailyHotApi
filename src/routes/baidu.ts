@@ -39,25 +39,47 @@ const getList = async (options: Options, noCache: boolean): Promise<RouterResTyp
     noCache,
     headers: {
       "User-Agent":
-        "Mozilla/5.0 (iPhone; CPU iPhone OS 14_2_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/1.0 Mobile/12F69 Safari/605.1.15",
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
     },
   });
   // 正则查找
   const pattern = /<!--s-data:(.*?)-->/s;
   const matchResult = result.data.match(pattern);
-  const jsonObject = JSON.parse(matchResult[1]).cards[0].content;
+  if (!matchResult) {
+    return {
+      ...result,
+      data: [],
+    };
+  }
+  let jsonObject: RouterType["baidu"][] = [];
+  try {
+    const sData = JSON.parse(matchResult[1]);
+    const cardContent = sData.data?.cards?.[0]?.content ?? sData.cards?.[0]?.content;
+    if (Array.isArray(cardContent)) {
+      if (cardContent.length > 0 && Array.isArray(cardContent[0]?.content)) {
+        jsonObject = cardContent[0].content;
+      } else {
+        jsonObject = cardContent;
+      }
+    }
+  } catch {
+    jsonObject = [];
+  }
   return {
     ...result,
-    data: jsonObject.map((v: RouterType["baidu"]) => ({
-      id: v.index,
-      title: v.word,
-      desc: v.desc,
-      cover: v.img,
-      author: v.show?.length ? v.show : "",
-      timestamp: 0,
-      hot: Number(v.hotScore || 0),
-      url: `https://www.baidu.com/s?wd=${encodeURIComponent(v.query)}`,
-      mobileUrl: v.rawUrl,
-    })),
+    data: jsonObject.map((v: RouterType["baidu"], index: number) => {
+      const title = v.word ?? v.title ?? "";
+      return {
+        id: v.index ?? index + 1,
+        title,
+        desc: v.desc ?? "",
+        cover: v.img ?? v.imgInfo?.src ?? "",
+        author: v.show?.length ? v.show : "",
+        timestamp: 0,
+        hot: parseInt((v.hotScore ?? v.hotTag ?? "0").toString(), 10) || 0,
+        url: `https://www.baidu.com/s?wd=${encodeURIComponent(v.query ?? title)}`,
+        mobileUrl: v.rawUrl ?? v.url ?? "",
+      };
+    }),
   };
 };
