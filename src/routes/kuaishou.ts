@@ -53,10 +53,20 @@ const getList = async (noCache: boolean) => {
     noCache,
   });
 
-  const items = result.data?.data?.visionHotRank?.items || [];
+  const items = result.data?.data?.visionHotRank?.items;
+  if (!items) {
+    throw new Error("快手接口返回数据格式异常，未找到 visionHotRank.items");
+  }
   const listData: ListItem[] = items.map((item: KuaishouHotItem, index: number) => {
     const photoId = item.photoIds?.[0];
-    const poster = item.poster ? decodeURIComponent(item.poster) : undefined;
+    let poster: string | undefined;
+    if (item.poster) {
+      try {
+        poster = decodeURIComponent(item.poster);
+      } catch {
+        poster = item.poster;
+      }
+    }
     const videoUrl = photoId
       ? `https://www.kuaishou.com/short-video/${photoId}`
       : `https://www.kuaishou.com/search/video?searchKey=${encodeURIComponent(item.name)}`;
